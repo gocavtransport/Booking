@@ -12,6 +12,18 @@
         .card:hover { border-color: #d4af37; transform: translateY(-3px); }
         .btn-primary { background: linear-gradient(90deg, #b8860b, #d4af37); color: #000; font-weight: 600; }
         .btn-primary:hover { opacity: 0.9; }
+        .btn-corporate { 
+            background: linear-gradient(90deg, #1e40af, #3b82f6); 
+            color: #fff; 
+            font-weight: 700; 
+            animation: blink 1.2s infinite;
+        }
+        .btn-corporate:hover { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+        @keyframes blink {
+            0% { box-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6; }
+            50% { box-shadow: 0 0 20px #3b82f6, 0 0 30px #60a5fa; }
+            100% { box-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6; }
+        }
         input, select, textarea { background: #1a1a1a; border: 1px solid #333; color: #fff; }
         input:focus, select:focus, textarea:focus { border-color: #d4af37; outline: none; }
         input:disabled, select:disabled, textarea:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -26,6 +38,10 @@
         .btn-email:hover { background: #2563eb; }
         .btn-sheet { background: #0d9488; color: #fff; }
         .btn-sheet:hover { background: #0f766e; }
+        .corporate-form { border-color: #3b82f6; background: #0f172a; }
+        .hidden-form { display: none; }
+        .vehicle-suggest { background: #1e293b; border-radius: 8px; padding: 10px 14px; margin-top: 6px; font-size: 0.9rem; }
+        .quote-note { color: #fbbf24; font-weight: 500; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -57,7 +73,7 @@
         <div class="card rounded-xl p-5">
             <img src="https://i.imgur.com/xbQhOQU.jpeg" alt="Hyundai Accent" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Hyundai Accent</h3>
-            <p class="text-gray-400 mb-3">Black • Sedan</p>
+            <p class="text-gray-400 mb-3">Black • Sedan — Up to 3 Passengers</p>
             <p class="flex justify-between"><span>One-Way:</span><span class="font-bold">₱1,500</span></p>
             <p class="flex justify-between text-yellow-400"><span>Round Trip:</span><span class="font-bold">₱2,500</span></p>
             <p class="text-xs text-green-400 mt-2">✅ Fuel Included</p>
@@ -66,7 +82,7 @@
         <div class="card rounded-xl p-5">
             <img src="https://i.imgur.com/8lpLbVA.jpeg" alt="Toyota Avanza" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Toyota Avanza</h3>
-            <p class="text-gray-400 mb-3">Black • MPV / 7-Seater</p>
+            <p class="text-gray-400 mb-3">Black • MPV — Up to 5 Passengers</p>
             <p class="flex justify-between"><span>One-Way:</span><span class="font-bold">₱1,800</span></p>
             <p class="flex justify-between text-yellow-400"><span>Round Trip:</span><span class="font-bold">₱3,500</span></p>
             <p class="text-xs text-green-400 mt-2">✅ Fuel Included</p>
@@ -75,7 +91,7 @@
         <div class="card rounded-xl p-5">
             <img src="https://i.imgur.com/XR0EhsT.jpeg" alt="Montero Sport Gen 2" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Montero Sport Gen 2</h3>
-            <p class="text-gray-400 mb-3">Metallic Brown • SUV</p>
+            <p class="text-gray-400 mb-3">Brown • SUV — Up to 5 Passengers</p>
             <p class="flex justify-between"><span>One-Way:</span><span class="font-bold">₱2,100</span></p>
             <p class="flex justify-between text-yellow-400"><span>Round Trip:</span><span class="font-bold">₱4,000</span></p>
             <p class="text-xs text-green-400 mt-2">✅ Fuel Included</p>
@@ -123,8 +139,98 @@
     </div>
 </section>
 
+<!-- 🔹 CORPORATE CLIENT BUTTON & FORM -->
+<section class="mb-8 text-center">
+    <button id="corporateToggle" class="btn-corporate w-full py-4 rounded-xl text-xl">
+        🏢 CORPORATE CLIENT — TAP HERE
+    </button>
+</section>
+
+<section id="corporateSection" class="mb-12 hidden-form">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-400">🏢 Corporate Booking Request</h2>
+    <p class="quote-note text-center mb-6">📩 Rate will be quoted via email after details are submitted</p>
+
+    <form id="corporateForm" class="card corporate-form rounded-xl p-6 space-y-5">
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-1 font-medium">Company Name *</label>
+                <input type="text" id="corp_company" required class="w-full px-4 py-3 rounded-lg" placeholder="Company / Organization Name">
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Company Address *</label>
+                <input type="text" id="corp_company_address" required class="w-full px-4 py-3 rounded-lg" placeholder="Full Office Address">
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-1 font-medium">Contact Person *</label>
+                <input type="text" id="corp_contact_person" required class="w-full px-4 py-3 rounded-lg" placeholder="Name of authorized person">
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Contact Number *</label>
+                <input type="tel" id="corp_phone" required class="w-full px-4 py-3 rounded-lg" placeholder="09XX-XXX-XXXX">
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-1 font-medium">Pickup Date *</label>
+                <input type="date" id="corp_date" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Pickup Time *</label>
+                <input type="time" id="corp_time" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Number of Passengers *</label>
+            <input type="number" id="corp_passengers" min="1" required class="w-full px-4 py-3 rounded-lg" placeholder="Enter number of passengers">
+            <div id="vehicleSuggest" class="vehicle-suggest hidden-form">
+                <span class="text-gray-300">Assigned Vehicle: </span>
+                <span id="vehicleResult" class="font-bold text-blue-400"></span>
+            </div>
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Pickup Location No. 1 *</label>
+            <input type="text" id="corp_pickup1" required class="w-full px-4 py-3 rounded-lg" placeholder="First pickup location">
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Pickup Location No. 2</label>
+            <input type="text" id="corp_pickup2" class="w-full px-4 py-3 rounded-lg" placeholder="Second pickup location (if any)">
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Destination / Drop-off *</label>
+            <input type="text" id="corp_destination" required class="w-full px-4 py-3 rounded-lg" placeholder="Main destination or drop-off point">
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Additional Instructions / Purpose</label>
+            <textarea id="corp_notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Meeting, event, airport transfer, special requirements..."></textarea>
+        </div>
+        <p class="quote-note text-center text-sm">✅ Rate & quotation will be sent to you via email after review</p>
+        <button type="submit" id="corpSubmitBtn" class="btn-corporate w-full py-3 rounded-lg text-lg">
+            ✅ Submit Request for Quotation
+        </button>
+    </form>
+
+    <div id="corpSuccessMsg" class="hidden mt-6 p-6 border border-blue-500 rounded-lg bg-blue-950/30 text-center">
+        <h3 class="text-2xl font-bold text-blue-400 mb-2">🏢 Request Received — Quotation in Progress!</h3>
+        <p class="text-sm text-gray-300 mb-4">We will review your details and send the rate quotation via email shortly</p>
+        
+        <div class="inline-flex items-center gap-3 bg-black/40 px-5 py-3 rounded-lg mb-5">
+            <span class="text-gray-300 font-medium">Reference #:</span>
+            <span id="corpRefNo" class="text-blue-400 font-bold text-lg"></span>
+            <button id="copyCorpRefBtn" class="btn-copy px-3 py-1 rounded text-sm font-medium">📋 Copy</button>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-3 mt-4">
+            <a id="corpEmailLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Send Email</a>
+            <a id="corpWaLink" href="#" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg">💬 WhatsApp</a>
+            <a id="corpSheetLink" href="https://docs.google.com/spreadsheets" target="_blank" class="inline-block btn-sheet px-5 py-2 rounded-lg">📊 View Requests</a>
+        </div>
+    </div>
+</section>
+
 <section class="mb-12">
-    <h2 class="text-2xl font-bold mb-6 text-center">Make a Booking</h2>
+    <h2 class="text-2xl font-bold mb-6 text-center">👤 Individual / Regular Booking</h2>
     <p class="text-gray-400 text-center mb-6">📅 Submit → Recorded in Google Sheets → Email sent → Confirm → Calendar Added</p>
 
     <form id="bookingForm" class="card rounded-xl p-6 space-y-5">
@@ -191,7 +297,6 @@
 </footer>
 
 <script>
-// ⚠️ PASTE YOUR NEW APPSCRIPT URL HERE — BETWEEN THE QUOTES
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTwEzZuSk0-SNFktyFhGbBaoR5I9x1sCjV2B8_V_73kemeHecYxpRB0gC7_tyjMhU7dA/exec";
 const OWNER_WHATSAPP = "639760465134";
 
@@ -201,6 +306,171 @@ function addHours(timeStr, hours) {
     return `${String(nh).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
 }
 
+// 🔹 PASSENGER COUNT → VEHICLE ASSIGNMENT
+function getVehicleSuggestion(passengers) {
+    if (!passengers || passengers < 1) return { hide: true };
+    if (passengers >= 1 && passengers <= 3) {
+        return { hide: false, vehicle: 'Hyundai Accent (Sedan) — Up to 3 pax' };
+    }
+    if (passengers >= 4 && passengers <= 5) {
+        return { hide: false, vehicle: 'Toyota Avanza OR Montero Sport Gen 2 — Up to 5 pax' };
+    }
+    if (passengers > 5) {
+        return { hide: false, vehicle: 'Multiple Vehicles / Custom Arrangement — Please inquire' };
+    }
+    return { hide: true };
+}
+
+document.getElementById('corp_passengers').addEventListener('input', function() {
+    const pax = parseInt(this.value) || 0;
+    const result = getVehicleSuggestion(pax);
+    const container = document.getElementById('vehicleSuggest');
+    const display = document.getElementById('vehicleResult');
+    
+    if (result.hide || !this.value) {
+        container.classList.add('hidden-form');
+    } else {
+        container.classList.remove('hidden-form');
+        display.textContent = result.vehicle;
+    }
+});
+
+// 🔹 CORPORATE TOGGLE
+document.getElementById('corporateToggle').addEventListener('click', function() {
+    const section = document.getElementById('corporateSection');
+    section.classList.toggle('hidden-form');
+    this.textContent = section.classList.contains('hidden-form') 
+        ? '🏢 CORPORATE CLIENT — TAP HERE' 
+        : '🔼 CLOSE CORPORATE FORM';
+    this.classList.toggle('btn-primary');
+    this.classList.toggle('btn-corporate');
+});
+
+// 🔹 CORPORATE FORM SUBMISSION
+document.getElementById('corporateForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('corpSubmitBtn');
+    const form = document.getElementById('corporateForm');
+    
+    btn.disabled = true;
+    btn.textContent = '⏳ Recording...';
+    Array.from(form.elements).forEach(el => el.disabled = true);
+
+    const company = document.getElementById('corp_company').value.trim();
+    const companyAddr = document.getElementById('corp_company_address').value.trim();
+    const contactPerson = document.getElementById('corp_contact_person').value.trim();
+    const phone = document.getElementById('corp_phone').value.trim();
+    const date = document.getElementById('corp_date').value;
+    const time = document.getElementById('corp_time').value;
+    const passengers = parseInt(document.getElementById('corp_passengers').value);
+    const vehicleAssigned = getVehicleSuggestion(passengers).vehicle || 'To be confirmed';
+    const pickup1 = document.getElementById('corp_pickup1').value.trim();
+    const pickup2 = document.getElementById('corp_pickup2').value.trim() || 'N/A';
+    const destination = document.getElementById('corp_destination').value.trim();
+    const notes = document.getElementById('corp_notes').value.trim() || 'None';
+
+    const refNo = `GC-CORP${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*900+100)}`;
+
+    const mailSubject = encodeURIComponent(`CORPORATE QUOTE REQUEST ${refNo} — ${company}`);
+    const mailBodyText = `🏢 CORPORATE QUOTE REQUEST — REF: ${refNo}
+═════════════════════════
+🏢 Company: ${company}
+📍 Company Address: ${companyAddr}
+👤 Contact Person: ${contactPerson}
+📞 Contact: ${phone}
+👥 Passengers: ${passengers}
+🚗 Suggested Vehicle: ${vehicleAssigned}
+📅 Date: ${date} @ ${time}
+📍 Pickup 1: ${pickup1}
+📍 Pickup 2: ${pickup2}
+🎯 Destination: ${destination}
+📝 Notes: ${notes}
+💰 Rate Status: PENDING — To be quoted via email
+
+GoCav Transport Services
+Ref: ${refNo}`;
+    const mailBody = encodeURIComponent(mailBodyText);
+    const mailtoUrl = `mailto:gocav.transport@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+
+    const waMsg = encodeURIComponent(`🔔 NEW CORPORATE QUOTE REQUEST!
+
+Reference: ${refNo}
+Company: ${company}
+Contact Person: ${contactPerson}
+Phone: ${phone}
+Passengers: ${passengers}
+Suggested Vehicle: ${vehicleAssigned}
+Date: ${date} @ ${time}
+Pickup 1: ${pickup1}
+Pickup 2: ${pickup2}
+Destination: ${destination}
+Status: PENDING — Send quotation via email
+
+---
+GoCav Transport Services`);
+    const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${waMsg}`;
+
+    // Send to Google Sheets
+    try {
+        const formData = new URLSearchParams();
+        formData.append('type', 'CORPORATE');
+        formData.append('refNo', refNo);
+        formData.append('dateSubmitted', new Date().toLocaleString('en-PH'));
+        formData.append('companyName', company);
+        formData.append('companyAddress', companyAddr);
+        formData.append('contactPerson', contactPerson);
+        formData.append('phone', phone);
+        formData.append('passengers', passengers);
+        formData.append('vehicleAssigned', vehicleAssigned);
+        formData.append('pickupDate', date);
+        formData.append('pickupTime', time);
+        formData.append('pickup1', pickup1);
+        formData.append('pickup2', pickup2);
+        formData.append('destination', destination);
+        formData.append('notes', notes);
+        formData.append('status', 'PENDING — QUOTE VIA EMAIL');
+
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: formData
+        });
+        console.log('✅ Corporate sent to Google Sheets');
+    } catch(e) { 
+        console.log('⚠️ Corporate sheet error:', e.message); 
+    }
+
+    form.classList.add('opacity-50');
+    document.getElementById('corpSuccessMsg').classList.remove('hidden');
+    document.getElementById('corpRefNo').textContent = refNo;
+    document.getElementById('corpEmailLink').href = mailtoUrl;
+    document.getElementById('corpWaLink').href = waUrl;
+    btn.textContent = '✅ Request Submitted';
+
+    const copyBtn = document.getElementById('copyCorpRefBtn');
+    copyBtn.onclick = async () => {
+        try {
+            await navigator.clipboard.writeText(refNo);
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
+        } catch(err) {
+            const textArea = document.createElement('textarea');
+            textArea.value = refNo;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
+        }
+    };
+
+    setTimeout(() => { window.open(mailtoUrl, '_self'); }, 600);
+});
+
+// 🔹 REGULAR BOOKING FORM
 document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
@@ -228,9 +498,9 @@ document.getElementById('bookingForm').addEventListener('submit', async function
 
     let durHrs = 2;
     let fuelNote = '✅ Fuel Included • Toll & Parking Paid by Client';
-    if(svcCode.includes('Round')) {
+    if (svcCode.includes('Round')) {
         durHrs = 6;
-    } else if(svcCode.includes('Tour')) {
+    } else if (svcCode.includes('Tour')) {
         durHrs = 10;
         fuelNote = '⚠️ Fuel, Toll & Parking — Additional Charge to Client';
     }
@@ -284,9 +554,9 @@ Notes: ${notes}
 GoCav Transport Services`);
     const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${waMsg}`;
 
-    // ✅ SEND TO GOOGLE SHEETS
     try {
         const formData = new URLSearchParams();
+        formData.append('type', 'INDIVIDUAL');
         formData.append('refNo', refNo);
         formData.append('dateSubmitted', new Date().toLocaleString('en-PH'));
         formData.append('fullname', fullname);
@@ -309,10 +579,8 @@ GoCav Transport Services`);
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: formData
         });
-        console.log('✅ Sent to Google Sheets');
     } catch(e) { 
         console.log('⚠️ Sheet error:', e.message); 
-        alert('Booking submitted! If not seen in sheet, refresh and check again.');
     }
 
     form.classList.add('opacity-50');
