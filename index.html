@@ -48,7 +48,7 @@
 <section class="mb-10">
     <h2 class="text-2xl font-bold mb-6 text-center">Our Services & Rates</h2>
     <p class="text-gray-400 text-center mb-8">✅ Professional driver included — No Self-Drive<br>
-    ⚠️ Toll, fuel & parking — paid by client<br>
+    ⚠️ Fuel, toll & parking — paid additionally by client<br>
     ✅ Airport rates valid for <strong>Cavite ↔ NAIA</strong> only</p>
 
     <h3 class="text-xl font-semibold mb-4">✈️ Airport Transfers</h3>
@@ -76,19 +76,21 @@
         </div>
     </div>
 
-    <h3 class="text-xl font-semibold mb-4">🗺️ Whole-Day Tours</h3>
+    <h3 class="text-xl font-semibold mb-4">🗺️ Day Tours</h3>
     <div class="grid md:grid-cols-2 gap-6">
         <div class="card rounded-xl p-6 text-center">
-            <h3 class="text-xl font-semibold">🏡 Cavite & Tagaytay Tour</h3>
-            <p class="text-gray-400 mt-2">10–12 hours</p>
-            <p class="text-3xl font-bold mt-3">₱4,000</p>
-            <p class="text-sm text-yellow-400 mt-1">+ Fuel, Toll & Parking — client pays</p>
+            <img src="https://i.imgur.com/J51EpPr.jpeg" alt="Tagaytay Day Tour" class="w-full h-48 object-cover rounded-lg mb-4">
+            <h3 class="text-xl font-semibold">🌄 Tagaytay Day Tour</h3>
+            <p class="text-gray-400 mt-2">8–10 hours</p>
+            <p class="text-3xl font-bold mt-3">Starting at ₱5,000</p>
+            <p class="text-sm text-yellow-400 mt-1">+ Fuel, Toll & Parking — additional charge to client</p>
         </div>
         <div class="card rounded-xl p-6 text-center">
-            <h3 class="text-xl font-semibold">🏙️ NCR / Metro Manila Tour</h3>
-            <p class="text-gray-400 mt-2">10–12 hours</p>
-            <p class="text-3xl font-bold mt-3">₱5,000</p>
-            <p class="text-sm text-yellow-400 mt-1">+ Fuel, Toll & Parking — client pays</p>
+            <img src="https://i.imgur.com/SMHZTMN.jpeg" alt="Manila Day Tour" class="w-full h-48 object-cover rounded-lg mb-4">
+            <h3 class="text-xl font-semibold">🏙️ Manila Day Tour</h3>
+            <p class="text-gray-400 mt-2">8–10 hours</p>
+            <p class="text-3xl font-bold mt-3">Starting at ₱5,000</p>
+            <p class="text-sm text-yellow-400 mt-1">+ Fuel, Toll & Parking — additional charge to client</p>
         </div>
     </div>
 </section>
@@ -132,8 +134,8 @@
                 <option value="Avanza_Round|Toyota Avanza Round Trip|3500">Toyota Avanza — Round Trip ₱3,500</option>
                 <option value="Montero_OneWay|Montero Sport One-Way|2100">Montero Sport Gen 2 — One-Way ₱2,100</option>
                 <option value="Montero_Round|Montero Sport Round Trip|4000">Montero Sport Gen 2 — Round Trip ₱4,000</option>
-                <option value="Tour_Cavite|Cavite & Tagaytay Tour|4000">Cavite & Tagaytay Tour — ₱4,000</option>
-                <option value="Tour_NCR|NCR / Metro Manila Tour|5000">NCR / Metro Manila Tour — ₱5,000</option>
+                <option value="Tour_Tagaytay|Tagaytay Day Tour — 8–10 Hours|5000">🌄 Tagaytay Day Tour — ₱5,000 (8–10 hrs)</option>
+                <option value="Tour_Manila|Manila Day Tour — 8–10 Hours|5000">🏙️ Manila Day Tour — ₱5,000 (8–10 hrs)</option>
             </select>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
@@ -141,7 +143,7 @@
             <div><label class="block mb-1 font-medium">Pickup Time *</label><input type="time" id="pickup_time" required class="w-full px-4 py-3 rounded-lg"></div>
         </div>
         <div><label class="block mb-1 font-medium">Pickup Location *</label><input type="text" id="pickup_location" required class="w-full px-4 py-3 rounded-lg" placeholder="Full address"></div>
-        <div><label class="block mb-1 font-medium">Destination</label><input type="text" id="dropoff" class="w-full px-4 py-3 rounded-lg" placeholder="NAIA, Tagaytay, etc."></div>
+        <div><label class="block mb-1 font-medium">Destination / Tour Area</label><input type="text" id="dropoff" class="w-full px-4 py-3 rounded-lg" placeholder="Tagaytay, Manila, etc."></div>
         <div><label class="block mb-1 font-medium">Payment Method *</label>
             <select id="payment_method" required class="w-full px-4 py-3 rounded-lg">
                 <option value="">— Select —</option>
@@ -152,7 +154,7 @@
                 <option value="BDO">BDO — 004820221372</option>
             </select>
         </div>
-        <div><label class="block mb-1 font-medium">Notes / Flight Details</label><textarea id="notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Reference #, flight #, etc."></textarea></div>
+        <div><label class="block mb-1 font-medium">Notes / Special Requests</label><textarea id="notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Additional info, stops, etc."></textarea></div>
         <button type="submit" id="submitBtn" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Submit Booking</button>
     </form>
 
@@ -218,14 +220,16 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     const refNo = `GC${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*9000+1000)}`;
 
     let durHrs = 2;
-    if(svcCode.includes('Round') || svcCode.includes('Tour')) {
-        durHrs = svcCode.includes('Tour') ? 12 : 6;
+    if(svcCode.includes('Round')) {
+        durHrs = 6;
+    } else if(svcCode.includes('Tour')) {
+        durHrs = 10; // Tours: 8–10 hours → use 10 for calendar
     }
 
     const fDate = date.replace(/-/g,'');
     const tStart = time.replace(/:/g,'') + '00';
     const tEnd = addHours(time, durHrs).replace(/:/g,'') + '00';
-    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+fullname+' | '+svcName)}&details=${encodeURIComponent('Ref: '+refNo+'\nClient: '+fullname+'\nContact: '+phone+'\nService: '+svcName+'\nRate: ₱'+rate+'\nPayment: '+payMethod+'\nStatus: PENDING\n\nNotes: '+notes)}&location=${encodeURIComponent(pickup+' → '+dropoff)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
+    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+fullname+' | '+svcName)}&details=${encodeURIComponent('Ref: '+refNo+'\nClient: '+fullname+'\nContact: '+phone+'\nService: '+svcName+'\nRate: ₱'+rate+'\n⚠️ Fuel, Toll & Parking — additional charge to client\nPayment: '+payMethod+'\nStatus: PENDING\n\nNotes: '+notes)}&location=${encodeURIComponent(pickup+' → '+dropoff)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
 
     const mailSubject = encodeURIComponent(`BOOKING ${refNo} — ${fullname} | ${svcName}`);
     const mailBodyText = `NEW BOOKING — REF: ${refNo}
@@ -234,6 +238,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
 📞 Contact: ${phone}
 🚗 Service: ${svcName}
 💰 Rate: ₱${rate}
+⚠️ Fuel, Toll & Parking — additional charge to client
 📅 Pickup: ${date} @ ${time}
 📍 From: ${pickup}
 🎯 To: ${dropoff}
@@ -257,6 +262,7 @@ Client: ${fullname}
 Contact: ${phone}
 Service: ${svcName}
 Rate: ₱${rate}
+⚠️ Fuel, Toll & Parking — additional charge to client
 Pickup: ${date} @ ${time}
 From: ${pickup}
 To: ${dropoff}
@@ -279,9 +285,10 @@ GoCav Transport Services`);
         formData.append('service', svcName);
         formData.append('vehicle', svcName.includes('Accent') ? 'Hyundai Accent' : 
                          svcName.includes('Avanza') ? 'Toyota Avanza' : 
-                         svcName.includes('Montero') ? 'Montero Sport Gen 2' : 'Tour');
+                         svcName.includes('Montero') ? 'Montero Sport Gen 2' : 
+                         svcName.includes('Tagaytay') ? 'Tagaytay Tour' : 'Manila Tour');
         formData.append('rate', '₱' + rate);
-        formData.append('rateValue', rate); // for balance calc
+        formData.append('rateValue', rate);
         formData.append('pickupDate', date);
         formData.append('pickup', pickup);
         formData.append('dropoff', dropoff);
