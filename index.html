@@ -103,13 +103,15 @@
         <p class="text-gray-400 text-center mb-5">Bookings confirmed once payment is received — thank you!</p>
         
         <div class="grid md:grid-cols-2 gap-6">
-            <!-- E-Wallets -->
+            <!-- Cash & E-Wallets -->
             <div class="text-center">
-                <h3 class="font-semibold text-lg mb-3">📱 E-Wallet</h3>
+                <h3 class="font-semibold text-lg mb-3">💵 Cash / E-Wallet</h3>
+                <span class="payment-badge bg-yellow-500 text-black font-bold">CASH</span>
                 <span class="payment-badge bg-green-600 text-white">GCash</span>
                 <span class="payment-badge bg-blue-600 text-white">Maya</span>
                 <p class="mt-3 text-lg font-medium">0976-046-5134</p>
                 <p class="text-sm text-gray-400">Account Name: Tuhamie A. Dimanang</p>
+                <p class="text-xs text-gray-500 mt-2">Cash paid directly to driver upon service</p>
             </div>
             
             <!-- Bank Transfer -->
@@ -130,14 +132,14 @@
             </div>
         </div>
         
-        <p class="text-xs text-gray-500 text-center mt-5">⚠️ After sending payment, please send screenshot/proof of payment via Viber (0976-046-5134) or email to confirm your booking.</p>
+        <p class="text-xs text-gray-500 text-center mt-5">⚠️ For GCash/Maya/Bank: Send proof of payment via Viber (0976-046-5134) or email to confirm booking.<br>For Cash: Payment due upon pickup/service.</p>
     </div>
 </section>
 
 <!-- BOOKING FORM -->
 <section class="mb-12">
     <h2 class="text-2xl font-bold mb-6 text-center">Make a Booking</h2>
-    <p class="text-gray-400 text-center mb-6">📅 Creates pre-filled Google Calendar event — we confirm once payment is verified</p>
+    <p class="text-gray-400 text-center mb-6">📅 Booking sent to email + added to Google Calendar automatically</p>
 
     <form id="bookingForm" class="card rounded-xl p-6 space-y-5">
         <div class="grid md:grid-cols-2 gap-4">
@@ -202,6 +204,7 @@
             <label class="block mb-1 font-medium">Preferred Payment Method *</label>
             <select name="payment_method" id="payment_method" required class="w-full px-4 py-3 rounded-lg">
                 <option value="">— Select Payment Method —</option>
+                <option value="Cash — Paid directly to driver upon service">💵 Cash — Paid directly to driver upon service</option>
                 <option value="GCash — 0976-046-5134 (Tuhamie A. Dimanang)">GCash — 0976-046-5134</option>
                 <option value="Maya — 0976-046-5134 (Tuhamie A. Dimanang)">Maya — 0976-046-5134</option>
                 <option value="BPI — 0489720078 (Tuhamie A. Dimanang)">BPI — 0489720078</option>
@@ -214,19 +217,19 @@
             <textarea name="notes" id="notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Flight number, payment reference, places to visit..."></textarea>
         </div>
 
-        <p class="text-sm text-gray-400">⚠️ Toll, fuel & parking fees — client responsibility. Rates subject to confirmation. Booking confirmed once payment is verified. Send proof of payment to Viber: 0976-046-5134</p>
+        <p class="text-sm text-gray-400">⚠️ Toll, fuel & parking fees — client responsibility. Rates subject to confirmation. For GCash/Maya/Bank: Send proof of payment to Viber: 0976-046-5134. For Cash: Pay upon pickup.</p>
 
         <button type="submit" id="submitBtn" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Submit Booking Request</button>
     </form>
 
     <div id="successMsg" class="hidden mt-6 p-5 border border-green-500 rounded-lg bg-green-950/30 text-center">
         <h3 class="text-xl font-bold text-green-400">🎉 Booking Request Sent!</h3>
-        <p class="mt-2 mb-4">Calendar event opened — click <strong>"Save"</strong> to add.<br>
-        📩 Email sent. Please send proof of payment to confirm:<br>
-        <strong>Viber: 0976-046-5134</strong> or <strong>Email: gocav.transport@gmail.com</strong></p>
+        <p class="mt-2 mb-4">📅 Google Calendar event opened — click <strong>"Save"</strong> to add.<br>
+        📩 Email sent to GoCav Transport with your booking details.<br>
+        ✅ We will confirm shortly. Thank you!</p>
         <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg mb-3">📅 View / Re-Open Calendar Event</a>
         <br>
-        <a href="viber://chat?number=+639760465134" class="inline-block bg-purple-700 px-5 py-2 rounded-lg mr-3 mt-2">💬 Send Proof via Viber</a>
+        <a href="viber://chat?number=+639760465134" class="inline-block bg-purple-700 px-5 py-2 rounded-lg mr-3 mt-2">💬 Message via Viber</a>
         <a href="tel:0976-046-5134" class="inline-block bg-gray-700 px-5 py-2 rounded-lg mt-2">📞 Call: 0976-046-5134</a>
     </div>
 </section>
@@ -234,7 +237,7 @@
 <!-- DIRECT CONTACT -->
 <section class="text-center border-t border-gray-800 pt-8">
     <h3 class="text-xl font-semibold mb-3">Direct Contact</h3>
-    <p class="text-gray-400 mb-4">Prefer to book directly?</p>
+    <p class="text-gray-400 mb-4">Questions or need help booking?</p>
     <a href="viber://chat?number=+639760465134" class="inline-block bg-purple-700 px-5 py-3 rounded-lg mr-3 mb-3">💬 Viber Us</a>
     <a href="mailto:gocav.transport@gmail.com" class="inline-block bg-gray-700 px-5 py-3 rounded-lg mr-3">✉️ Email Us</a>
     <a href="tel:0976-046-5134" class="inline-block btn-primary px-5 py-3 rounded-lg">📞 Call Now</a>
@@ -252,7 +255,7 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const btn = document.getElementById('submitBtn');
-    btn.textContent = '⏳ Opening Calendar...';
+    btn.textContent = '⏳ Sending...';
 
     // Get form values
     const fullname = document.getElementById('fullname').value.trim();
@@ -281,24 +284,46 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     // Build Calendar URL
     const eventTitle = encodeURIComponent(`GoCav: ${fullname} | ${vehicle}`);
     const eventDesc = encodeURIComponent(
-`📞 Contact: ${phone}
+`══════════════════════════════════
+📋 NEW BOOKING REQUEST — GoCav Transport
+══════════════════════════════════
+
+👤 Client Name: ${fullname}
+📞 Contact: ${phone}
 🚗 Vehicle: ${vehicle}
 💼 Service: ${serviceType}
-💳 Payment: ${paymentMethod}
-📍 Pickup: ${pickup}
+💳 Payment Method: ${paymentMethod}
+
+📅 Date: ${date}
+🕐 Pickup Time: ${time}
+📍 Pickup Location: ${pickup}
 🎯 Destination: ${dropoff}
-📝 Notes: ${notes}
-⚠️ Toll, Fuel & Parking — client responsibility
+
+📝 Special Notes:
+${notes}
+
+══════════════════════════════════
+⚠️ IMPORTANT REMINDERS:
+• Professional driver included — No Self-Drive
+• Toll, Fuel & Parking fees — Client's responsibility
+• Airport rates apply to Cavite ↔ NAIA only
+• Rates subject to confirmation
 
 💳 PAYMENT DETAILS:
+• 💵 Cash — Paid directly to driver upon service
 • GCash / Maya: 0976-046-5134 — Tuhamie A. Dimanang
 • BPI: 0489720078 — Tuhamie A. Dimanang
 • BDO: 0048 2022 1372 — Tuhamie A. Dimanang
 
-✅ Send proof of payment to Viber: 0976-046-5134
----
+✅ For GCash/Maya/Bank: Send proof of payment to Viber: 0976-046-5134
+✅ For Cash: Payment due upon pickup/service
+
+══════════════════════════════════
 GoCav Transport
-gocav.transport@gmail.com`
+📍 Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite
+📞 0976-046-5134 / 0995-435-5514 | ✉️ gocav.transport@gmail.com
+Non-VAT Reg. 940-158-988-0000
+══════════════════════════════════`
     );
     const location = encodeURIComponent(`${pickup} → ${dropoff}`);
     const startISO = `${formattedDate}T${startTime}`;
@@ -306,42 +331,65 @@ gocav.transport@gmail.com`
 
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&details=${eventDesc}&location=${location}&dates=${startISO}/${endISO}&ctz=Asia/Manila`;
 
-    // Open Calendar & show success
+    // Email body sent to gocav.transport@gmail.com
+    const mailBody = encodeURIComponent(
+`══════════════════════════════════
+📋 NEW BOOKING REQUEST — GoCav Transport
+══════════════════════════════════
+
+👤 Client Name: ${fullname}
+📞 Contact Number: ${phone}
+🚗 Preferred Vehicle: ${vehicle}
+💼 Service Type: ${serviceType}
+💳 Payment Method: ${paymentMethod}
+
+📅 Pickup Date: ${date}
+🕐 Pickup Time: ${time}
+📍 Pickup Location: ${pickup}
+🎯 Drop-off / Destination: ${dropoff}
+
+📝 Special Notes / Requirements:
+${notes}
+
+══════════════════════════════════
+⚠️ SERVICE REMINDERS:
+• All rates include professional driver — NO SELF-DRIVE
+• Toll fees, parking fees & fuel — Client responsibility
+• Airport rates valid for Cavite ↔ NAIA only
+• Rates subject to final confirmation
+
+💳 ACCEPTED PAYMENT DETAILS:
+• 💵 Cash — Paid directly to driver upon service
+• GCash / Maya: 0976-046-5134 — Account Name: Tuhamie A. Dimanang
+• BPI Savings: 0489720078 — Account Name: Tuhamie A. Dimanang
+• BDO Savings: 0048 2022 1372 — Account Name: Tuhamie A. Dimanang
+
+✅ ACTION REQUIRED:
+• If GCash/Maya/Bank: Verify payment proof sent via Viber/Email
+• If Cash: Confirm booking — payment due upon pickup
+• Confirm availability & reply to client
+
+📅 Open in Google Calendar:
+${gcalUrl}
+
+══════════════════════════════════
+GoCav Transport
+📍 Le Rica Homes, Begonia Street B19 L68, Barangay San Francisco, General Trias, Cavite
+📞 0976-046-5134 / 0995-435-5514 | ✉️ gocav.transport@gmail.com
+Non-VAT Reg. 940-158-988-0000
+══════════════════════════════════`
+    );
+
+    // Open Google Calendar
     window.open(gcalUrl, '_blank');
     
+    // Send email to GoCav with full booking details
+    window.location.href = `mailto:gocav.transport@gmail.com?subject=NEW BOOKING — ${fullname} | ${serviceType}&body=${mailBody}`;
+    
+    // Show success message
     document.getElementById('bookingForm').classList.add('opacity-50');
     document.getElementById('successMsg').classList.remove('hidden');
     document.getElementById('gcalLink').href = gcalUrl;
-    
-    // Email copy
-    const mailBody = encodeURIComponent(
-`NEW BOOKING REQUEST — GoCav Transport
-
-👤 Client: ${fullname}
-📞 Phone: ${phone}
-🚗 Vehicle: ${vehicle}
-💼 Service: ${serviceType}
-💳 Payment: ${paymentMethod}
-📅 Date: ${date}
-🕐 Time: ${time}
-📍 Pickup: ${pickup}
-🎯 Destination: ${dropoff}
-📝 Notes: ${notes}
-
-⚠️ Toll, Fuel & Parking — client responsibility
-
-💳 PAYMENT DETAILS:
-• GCash / Maya: 0976-046-5134 — Tuhamie A. Dimanang
-• BPI: 0489720078 — Tuhamie A. Dimanang
-• BDO: 0048 2022 1372 — Tuhamie A. Dimanang
-
-✅ Confirm once payment verified
-Send proof to Viber: 0976-046-5134
-
-Open in Calendar:
-${gcalUrl}`
-    );
-    window.location.href = `mailto:gocav.transport@gmail.com?subject=New Booking — ${fullname}&body=${mailBody}`;
 });
 
 function addHours(timeStr, hours) {
