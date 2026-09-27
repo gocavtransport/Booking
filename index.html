@@ -19,8 +19,6 @@
         .bank-box { background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 14px; margin-top: 8px; }
         .btn-whatsapp { background: #25D366; color: #000; font-weight: 600; }
         .btn-whatsapp:hover { background: #20bd5a; }
-        .status-pending { background: #f59e0b; color: #000; }
-        .status-paid { background: #10b981; color: #fff; }
         .btn-copy { background: #4b5563; color: #fff; }
         .btn-copy:hover { background: #6b7280; }
         .btn-copy.copied { background: #10b981; }
@@ -166,7 +164,6 @@
         <h3 class="text-2xl font-bold text-green-400 mb-2">🎉 Booking Recorded!</h3>
         <p class="text-sm text-gray-300 mb-4">Added to Google Sheets → Email sent → Calendar ready</p>
         
-        <!-- Reference # with Copy Button -->
         <div class="inline-flex items-center gap-3 bg-black/40 px-5 py-3 rounded-lg mb-5">
             <span class="text-gray-300 font-medium">Reference #:</span>
             <span id="refNo" class="text-yellow-400 font-bold text-lg"></span>
@@ -189,9 +186,9 @@
 </footer>
 
 <script>
-// ✅ YOUR GOOGLE APPSCRIPT DEPLOYMENT URL
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGsiR0lzS5BMIxopuSMqkAuCglQxetMDHFT1vnZzY/dev";
-const OWNER_WHATSAPP = "639760465134"; // Your WhatsApp number
+// ⚠️ PASTE YOUR NEW APPSCRIPT URL HERE AFTER STEP 2
+const GOOGLE_SCRIPT_URL = "PASTE_YOUR_NEW_URL_HERE";
+const OWNER_WHATSAPP = "639760465134";
 
 function addHours(timeStr, hours) {
     const [h, m] = timeStr.split(':').map(Number);
@@ -204,18 +201,15 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     const btn = document.getElementById('submitBtn');
     const form = document.getElementById('bookingForm');
     
-    // Disable form
     btn.disabled = true;
     btn.textContent = '⏳ Recording...';
     Array.from(form.elements).forEach(el => el.disabled = true);
 
-    // Parse service data
     const svcParts = document.getElementById('service_type').value.split('|');
     const svcCode = svcParts[0];
     const svcName = svcParts[1];
     const rate = svcParts[2];
 
-    // Form values
     const fullname = document.getElementById('fullname').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const date = document.getElementById('pickup_date').value;
@@ -225,22 +219,18 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     const payMethod = document.getElementById('payment_method').value;
     const notes = document.getElementById('notes').value.trim() || 'None';
 
-    // Generate Reference No.
     const refNo = `GC${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*9000+1000)}`;
 
-    // Duration
     let durHrs = 2;
     if(svcCode.includes('Round') || svcCode.includes('Tour')) {
         durHrs = svcCode.includes('Tour') ? 12 : 6;
     }
 
-    // Google Calendar link
     const fDate = date.replace(/-/g,'');
     const tStart = time.replace(/:/g,'') + '00';
     const tEnd = addHours(time, durHrs).replace(/:/g,'') + '00';
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+fullname+' | '+svcName)}&details=${encodeURIComponent('Ref: '+refNo+'\nClient: '+fullname+'\nContact: '+phone+'\nService: '+svcName+'\nRate: ₱'+rate+'\nPayment: '+payMethod+'\nStatus: PENDING\n\nNotes: '+notes)}&location=${encodeURIComponent(pickup+' → '+dropoff)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
 
-    // Email body
     const mailSubject = encodeURIComponent(`BOOKING ${refNo} — ${fullname} | ${svcName}`);
     const mailBodyText = `NEW BOOKING — REF: ${refNo}
 ══════════════════════
@@ -264,7 +254,6 @@ Ref: ${refNo}`;
     const mailBody = encodeURIComponent(mailBodyText);
     const mailtoUrl = `mailto:gocav.transport@gmail.com?subject=${mailSubject}&body=${mailBody}`;
 
-    // WhatsApp pre-filled message
     const waMsg = encodeURIComponent(`🔔 NEW BOOKING RECEIVED!
 
 Reference: ${refNo}
@@ -284,29 +273,36 @@ Notes: ${notes}
 GoCav Transport Services`);
     const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${waMsg}`;
 
-    // 1. Send to Google Sheets
+    // ✅ SEND TO GOOGLE SHEETS — FIXED VERSION
     try {
+        const formData = new URLSearchParams();
+        formData.append('refNo', refNo);
+        formData.append('dateSubmitted', new Date().toLocaleString('en-PH'));
+        formData.append('fullname', fullname);
+        formData.append('phone', phone);
+        formData.append('service', svcName);
+        formData.append('vehicle', svcName.includes('Accent') ? 'Hyundai Accent' : 
+                         svcName.includes('Avanza') ? 'Toyota Avanza' : 
+                         svcName.includes('Montero') ? 'Montero Sport Gen 2' : 'Tour');
+        formData.append('rate', '₱'+rate);
+        formData.append('pickupDate', date);
+        formData.append('pickup', pickup);
+        formData.append('dropoff', dropoff);
+        formData.append('payMethod', payMethod);
+        formData.append('status', 'PENDING');
+        formData.append('notes', notes);
+
         await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                refNo, 
-                dateSubmitted: new Date().toLocaleString('en-PH'),
-                fullname, phone, service: svcName, 
-                vehicle: svcName.includes('Accent') ? 'Hyundai Accent' : 
-                         svcName.includes('Avanza') ? 'Toyota Avanza' : 
-                         svcName.includes('Montero') ? 'Montero Sport Gen 2' : 'Tour',
-                rate: '₱'+rate, pickupDate: date, pickup, dropoff, payMethod, 
-                status: 'PENDING', notes
-            })
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: formData
         });
         console.log('✅ Sent to Google Sheets');
     } catch(e) { 
-        console.log('⚠️ Sheet note:', e.message); 
+        console.log('⚠️ Sheet error:', e.message); 
+        alert('If booking does not appear in sheet, please refresh and try again.');
     }
 
-    // 2. Show success screen
     form.classList.add('opacity-50');
     document.getElementById('successMsg').classList.remove('hidden');
     document.getElementById('refNo').textContent = refNo;
@@ -315,19 +311,14 @@ GoCav Transport Services`);
     document.getElementById('waLink').href = waUrl;
     btn.textContent = '✅ Submitted';
 
-    // Copy Reference # button logic
     const copyBtn = document.getElementById('copyRefBtn');
     copyBtn.onclick = async () => {
         try {
             await navigator.clipboard.writeText(refNo);
             copyBtn.textContent = '✅ Copied!';
             copyBtn.classList.add('copied');
-            setTimeout(() => {
-                copyBtn.textContent = '📋 Copy';
-                copyBtn.classList.remove('copied');
-            }, 2500);
+            setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
         } catch(err) {
-            // Fallback for older browsers
             const textArea = document.createElement('textarea');
             textArea.value = refNo;
             document.body.appendChild(textArea);
@@ -336,17 +327,11 @@ GoCav Transport Services`);
             document.body.removeChild(textArea);
             copyBtn.textContent = '✅ Copied!';
             copyBtn.classList.add('copied');
-            setTimeout(() => {
-                copyBtn.textContent = '📋 Copy';
-                copyBtn.classList.remove('copied');
-            }, 2500);
+            setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
         }
     };
 
-    // Auto-open email after delay
-    setTimeout(() => {
-        window.open(mailtoUrl, '_self');
-    }, 600);
+    setTimeout(() => { window.open(mailtoUrl, '_self'); }, 600);
 });
 </script>
 </body>
