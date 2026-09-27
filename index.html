@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoCav Transport — Airport & Tour Services</title>
+    <title>GoCav Transport Services — Airport & Tour Booking</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,6 +17,8 @@
         input:focus, select:focus, textarea:focus { border-color: #d4af37; outline: none; }
         .payment-badge { display: inline-block; padding: 6px 14px; border-radius: 8px; font-weight: 600; margin: 4px; }
         .bank-box { background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 14px; margin-top: 8px; }
+        .rate-row { display: flex; justify-content: space-between; padding: 4px 0; }
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, #444, transparent); margin: 12px 0; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -24,15 +26,16 @@
 <!-- HEADER -->
 <header class="py-6 px-4 border-b border-gray-800">
     <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-        <img src="https://i.imgur.com/YoRCP6W.jpeg" alt="GoCav Logo" class="h-24 mb-4 rounded-lg">
-        <h1 class="text-2xl md:text-3xl font-bold">GoCav Transport</h1>
-        <p class="text-gray-400 mt-1">Reliable Airport & Tour Services — Cavite & Beyond</p>
+        <img src="https://i.imgur.com/YoRCP6W.jpeg" alt="GoCav Transport Services Logo" class="h-28 mb-4 rounded-lg">
+        <h1 class="text-2xl md:text-3xl font-bold">GoCav Transport Services</h1>
         
         <div class="mt-4 text-sm text-gray-300 space-y-1">
-            <p>📍 Le Rica Homes, Begonia Street B19 L68, Barangay San Francisco, General Trias, Cavite, Philippines</p>
-            <p>📞 0976-046-5134 / 0995-435-5514 (Viber Available)</p>
-            <p>✉️ gocav.transport@gmail.com</p>
-            <p class="text-gray-500">Non-VAT Reg. 940-158-988-0000</p>
+            <p>Le Rica Homes</p>
+            <p>Begonia Street B19 L68</p>
+            <p>Barangay San Francisco, General Trias, Cavite, Philippines</p>
+            <p class="mt-2">Contact No.: 0976-046-5134 / 0995-435-5514 (Viber Available)</p>
+            <p>Email Address: gocav.transport@gmail.com</p>
+            <p class="text-gray-500 mt-1">Non-VAT Reg. 940-158-988-0000</p>
         </div>
     </div>
 </header>
@@ -43,8 +46,8 @@
 <section class="mb-10">
     <h2 class="text-2xl font-bold mb-6 text-center">Our Services & Rates</h2>
     <p class="text-gray-400 text-center mb-8">✅ All rates include professional driver — <strong>No Self-Drive</strong><br>
-    ⚠️ Toll, fuel & parking fees are client responsibility<br>
-    ✅ Airport rates apply for <strong>Cavite ↔ NAIA</strong> only — different rates for other locations</p>
+    ⚠️ Toll, fuel & parking fees are <strong>paid by client</strong><br>
+    ✅ Airport rates apply for <strong>Cavite ↔ NAIA</strong> only — different rates apply for other locations</p>
 
     <h3 class="text-xl font-semibold mb-4">✈️ Airport Transfers (Cavite ↔ NAIA)</h3>
     <div class="grid md:grid-cols-3 gap-6 mb-8">
@@ -52,27 +55,48 @@
         <div class="card rounded-xl p-5">
             <img src="https://i.imgur.com/xbQhOQU.jpeg" alt="Hyundai Accent" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Hyundai Accent</h3>
-            <p class="text-gray-400">Black • Sedan</p>
-            <p class="text-2xl font-bold mt-3">₱1,500</p>
-            <p class="text-sm text-gray-400">One-Way / Round Trip</p>
+            <p class="text-gray-400 mb-3">Black • Sedan</p>
+            <div class="rate-row">
+                <span>One-Way:</span>
+                <span class="font-bold">₱1,500</span>
+            </div>
+            <div class="rate-row text-yellow-400">
+                <span>Round Trip:</span>
+                <span class="font-bold">₱2,500</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">+ Toll & Parking — client pays</p>
         </div>
 
         <!-- Toyota Avanza -->
         <div class="card rounded-xl p-5">
             <img src="https://i.imgur.com/8lpLbVA.jpeg" alt="Toyota Avanza" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Toyota Avanza</h3>
-            <p class="text-gray-400">Black • MPV / 7-Seater</p>
-            <p class="text-2xl font-bold mt-3">₱1,800</p>
-            <p class="text-sm text-gray-400">One-Way / Round Trip</p>
+            <p class="text-gray-400 mb-3">Black • MPV / 7-Seater</p>
+            <div class="rate-row">
+                <span>One-Way:</span>
+                <span class="font-bold">₱1,800</span>
+            </div>
+            <div class="rate-row text-yellow-400">
+                <span>Round Trip:</span>
+                <span class="font-bold">₱3,500</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">+ Toll & Parking — client pays</p>
         </div>
 
         <!-- Mitsubishi Montero -->
         <div class="card rounded-xl p-5">
             <img src="https://i.imgur.com/XR0EhsT.jpeg" alt="Mitsubishi Montero Sport Gen 2" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Montero Sport Gen 2</h3>
-            <p class="text-gray-400">Metallic Brown • SUV</p>
-            <p class="text-2xl font-bold mt-3">₱2,000</p>
-            <p class="text-sm text-gray-400">One-Way / Round Trip</p>
+            <p class="text-gray-400 mb-3">Metallic Brown • SUV</p>
+            <div class="rate-row">
+                <span>One-Way:</span>
+                <span class="font-bold">₱2,100</span>
+            </div>
+            <div class="rate-row text-yellow-400">
+                <span>Round Trip:</span>
+                <span class="font-bold">₱4,000</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">+ Toll & Parking — client pays</p>
         </div>
     </div>
 
@@ -83,7 +107,7 @@
             <h3 class="text-xl font-semibold">🏡 Cavite & Tagaytay Tour</h3>
             <p class="text-gray-400 mt-2">10–12 hours whole-day service</p>
             <p class="text-3xl font-bold mt-3">₱4,000</p>
-            <p class="text-sm text-gray-400 mt-1">+ Fuel, Toll & Parking — client pays</p>
+            <p class="text-sm text-yellow-400 mt-1">+ Fuel, Toll & Parking — client pays</p>
         </div>
 
         <!-- NCR Tour -->
@@ -91,7 +115,7 @@
             <h3 class="text-xl font-semibold">🏙️ NCR / Metro Manila Tour</h3>
             <p class="text-gray-400 mt-2">10–12 hours whole-day service</p>
             <p class="text-3xl font-bold mt-3">₱5,000</p>
-            <p class="text-sm text-gray-400 mt-1">+ Fuel, Toll & Parking — client pays</p>
+            <p class="text-sm text-yellow-400 mt-1">+ Fuel, Toll & Parking — client pays</p>
         </div>
     </div>
 </section>
@@ -100,7 +124,7 @@
 <section class="mb-10">
     <div class="card rounded-xl p-6">
         <h2 class="text-xl font-bold mb-4 text-center">💳 Payment Methods</h2>
-        <p class="text-gray-400 text-center mb-5">Bookings confirmed once payment is received — thank you!</p>
+        <p class="text-gray-400 text-center mb-5">Bookings confirmed once payment is verified — thank you!</p>
         
         <div class="grid md:grid-cols-2 gap-6">
             <!-- Cash & E-Wallets -->
@@ -132,14 +156,14 @@
             </div>
         </div>
         
-        <p class="text-xs text-gray-500 text-center mt-5">⚠️ For GCash/Maya/Bank: Send proof of payment via Viber (0976-046-5134) or email to confirm booking.<br>For Cash: Payment due upon pickup/service.</p>
+        <p class="text-xs text-gray-500 text-center mt-5">⚠️ For GCash/Maya/Bank: Send proof of payment via Viber (0976-046-5134) or email to confirm.<br>After payment verification, we will issue Service Invoice / Acknowledgement Receipt via email.</p>
     </div>
 </section>
 
 <!-- BOOKING FORM -->
 <section class="mb-12">
     <h2 class="text-2xl font-bold mb-6 text-center">Make a Booking</h2>
-    <p class="text-gray-400 text-center mb-6">📅 Booking sent to email + added to Google Calendar automatically</p>
+    <p class="text-gray-400 text-center mb-6">📅 Submit → Email sent to us → Confirm → Manual Calendar Entry → Invoice Issued</p>
 
     <form id="bookingForm" class="card rounded-xl p-6 space-y-5">
         <div class="grid md:grid-cols-2 gap-4">
@@ -157,23 +181,15 @@
             <label class="block mb-1 font-medium">Service Type *</label>
             <select name="service_type" id="service_type" required class="w-full px-4 py-3 rounded-lg">
                 <option value="">— Select Service —</option>
-                <option value="NAIA_OneWay_CAV">Cavite → NAIA One-Way</option>
-                <option value="NAIA_OneWay_RETURN">NAIA → Cavite One-Way</option>
-                <option value="NAIA_RoundTrip">Cavite ↔ NAIA Round Trip</option>
+                <option value="ACCENT_ONEWAY">Hyundai Accent — One-Way ₱1,500</option>
+                <option value="ACCENT_ROUND">Hyundai Accent — Round Trip ₱2,500</option>
+                <option value="AVANZA_ONEWAY">Toyota Avanza — One-Way ₱1,800</option>
+                <option value="AVANZA_ROUND">Toyota Avanza — Round Trip ₱3,500</option>
+                <option value="MONTERO_ONEWAY">Montero Sport Gen 2 — One-Way ₱2,100</option>
+                <option value="MONTERO_ROUND">Montero Sport Gen 2 — Round Trip ₱4,000</option>
                 <option value="CAVITE_TAGAYTAY_TOUR">Cavite & Tagaytay Tour — ₱4,000</option>
                 <option value="NCR_TOUR">NCR / Metro Manila Tour — ₱5,000</option>
                 <option value="OTHER">Other / Custom Route (Request Quote)</option>
-            </select>
-        </div>
-
-        <div>
-            <label class="block mb-1 font-medium">Preferred Vehicle *</label>
-            <select name="vehicle" id="vehicle" required class="w-full px-4 py-3 rounded-lg">
-                <option value="">— Select Vehicle —</option>
-                <option value="Hyundai Accent — ₱1,500">Hyundai Accent — ₱1,500</option>
-                <option value="Toyota Avanza — ₱1,800">Toyota Avanza — ₱1,800</option>
-                <option value="Mitsubishi Montero — ₱2,000">Mitsubishi Montero Sport Gen 2 — ₱2,000</option>
-                <option value="No Preference">No Preference (Assign Available)</option>
             </select>
         </div>
 
@@ -217,20 +233,29 @@
             <textarea name="notes" id="notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Flight number, payment reference, places to visit..."></textarea>
         </div>
 
-        <p class="text-sm text-gray-400">⚠️ Toll, fuel & parking fees — client responsibility. Rates subject to confirmation. For GCash/Maya/Bank: Send proof of payment to Viber: 0976-046-5134. For Cash: Pay upon pickup.</p>
+        <p class="text-sm text-gray-400">⚠️ Toll, fuel & parking fees — client responsibility. Rates subject to confirmation. After payment verification, Service Invoice / Acknowledgement Receipt will be emailed to you.</p>
 
         <button type="submit" id="submitBtn" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Submit Booking Request</button>
     </form>
 
     <div id="successMsg" class="hidden mt-6 p-5 border border-green-500 rounded-lg bg-green-950/30 text-center">
         <h3 class="text-xl font-bold text-green-400">🎉 Booking Request Sent!</h3>
-        <p class="mt-2 mb-4">📅 Google Calendar event opened — click <strong>"Save"</strong> to add.<br>
-        📩 Email sent to GoCav Transport with your booking details.<br>
-        ✅ We will confirm shortly. Thank you!</p>
-        <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg mb-3">📅 View / Re-Open Calendar Event</a>
+        <p class="mt-2 mb-4">📩 Email sent to GoCav Transport Services — we will review & confirm shortly.<br>
+        📋 <strong>For GoCav Staff:</strong> Steps below to process this booking</p>
+        
+        <div class="bg-black/40 rounded-lg p-4 text-left text-sm mb-4">
+            <p class="font-bold text-yellow-400 mb-2">📋 PROCESSING STEPS:</p>
+            <p>1. Review booking details in email</p>
+            <p>2. Confirm availability & reply to client</p>
+            <p>3. If GCash/Maya/Bank: Verify proof of payment sent</p>
+            <p>4. ✅ Issue <strong>Service Invoice / Acknowledgement Receipt</strong> → email to client from gocav.transport@gmail.com</p>
+            <p>5. 📅 Manually add to Google Calendar → <a href="https://calendar.google.com" target="_blank" class="text-yellow-400 underline">Open Calendar</a></p>
+        </div>
+        
+        <a href="https://calendar.google.com" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg mb-3">📅 Open Google Calendar</a>
         <br>
         <a href="viber://chat?number=+639760465134" class="inline-block bg-purple-700 px-5 py-2 rounded-lg mr-3 mt-2">💬 Message via Viber</a>
-        <a href="tel:0976-046-5134" class="inline-block bg-gray-700 px-5 py-2 rounded-lg mt-2">📞 Call: 0976-046-5134</a>
+        <a href="mailto:gocav.transport@gmail.com" class="inline-block bg-gray-700 px-5 py-2 rounded-lg mt-2">✉️ Email Client</a>
     </div>
 </section>
 
@@ -246,8 +271,9 @@
 </main>
 
 <footer class="border-t border-gray-800 py-6 text-center text-sm text-gray-500 mt-10">
-    <p>© 2026 GoCav Transport. All Rights Reserved.</p>
+    <p>© 2026 GoCav Transport Services. All Rights Reserved.</p>
     <p class="mt-1">Le Rica Homes, Begonia Street B19 L68, Brgy. San Francisco, General Trias, Cavite</p>
+    <p class="mt-1">Non-VAT Reg. 940-158-988-0000</p>
 </footer>
 
 <script>
@@ -261,7 +287,6 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     const fullname = document.getElementById('fullname').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const serviceType = document.getElementById('service_type').value.replace(/_/g, ' ');
-    const vehicle = document.getElementById('vehicle').value;
     const date = document.getElementById('pickup_date').value;
     const time = document.getElementById('pickup_time').value;
     const pickup = document.getElementById('pickup_location').value.trim();
@@ -269,134 +294,80 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     const paymentMethod = document.getElementById('payment_method').value;
     const notes = document.getElementById('notes').value.trim() || 'None';
 
-    // Format dates for Google Calendar
-    const formattedDate = date.replace(/-/g, '');
-    const startTime = time.replace(/:/g, '') + '00';
-    
-    // Duration: 2hrs airport, 12hrs tours
-    let endTime;
-    const tourServices = ['CAVITE TAGAYTAY TOUR', 'NCR TOUR'];
-    const isTour = tourServices.some(tour => serviceType.toUpperCase().includes(tour));
-    
-    endTime = isTour ? addHours(time, 12) : addHours(time, 2);
-    const endTimeFormatted = endTime.replace(/:/g, '') + '00';
+    // Determine rate based on service
+    let rate = 'See service type';
+    if (serviceType.includes('ACCENT ONEWAY')) rate = '₱1,500';
+    else if (serviceType.includes('ACCENT ROUND')) rate = '₱2,500';
+    else if (serviceType.includes('AVANZA ONEWAY')) rate = '₱1,800';
+    else if (serviceType.includes('AVANZA ROUND')) rate = '₱3,500';
+    else if (serviceType.includes('MONTERO ONEWAY')) rate = '₱2,100';
+    else if (serviceType.includes('MONTERO ROUND')) rate = '₱4,000';
+    else if (serviceType.includes('CAVITE TAGAYTAY')) rate = '₱4,000';
+    else if (serviceType.includes('NCR TOUR')) rate = '₱5,000';
 
-    // Build Calendar URL
-    const eventTitle = encodeURIComponent(`GoCav: ${fullname} | ${vehicle}`);
-    const eventDesc = encodeURIComponent(
-`══════════════════════════════════
-📋 NEW BOOKING REQUEST — GoCav Transport
-══════════════════════════════════
+    // Email body sent to gocav.transport@gmail.com
+    const mailSubject = encodeURIComponent(`NEW BOOKING — ${fullname} | ${serviceType}`);
+    const mailBody = encodeURIComponent(
+`══════════════════════════════════════════════════════════
+📋 NEW BOOKING REQUEST — GoCav Transport Services
+══════════════════════════════════════════════════════════
 
-👤 Client Name: ${fullname}
-📞 Contact: ${phone}
-🚗 Vehicle: ${vehicle}
-💼 Service: ${serviceType}
-💳 Payment Method: ${paymentMethod}
+👤 CLIENT INFORMATION
+══════════════════════════════════════════════════════════
+Name: ${fullname}
+Contact No.: ${phone}
 
-📅 Date: ${date}
-🕐 Pickup Time: ${time}
-📍 Pickup Location: ${pickup}
-🎯 Destination: ${dropoff}
+🚗 SERVICE DETAILS
+══════════════════════════════════════════════════════════
+Service: ${serviceType}
+Rate: ${rate}
+Date: ${date}
+Time: ${time}
+Pickup: ${pickup}
+Destination: ${dropoff}
+Payment Method: ${paymentMethod}
 
-📝 Special Notes:
+📝 SPECIAL NOTES
+══════════════════════════════════════════════════════════
 ${notes}
 
-══════════════════════════════════
-⚠️ IMPORTANT REMINDERS:
-• Professional driver included — No Self-Drive
-• Toll, Fuel & Parking fees — Client's responsibility
-• Airport rates apply to Cavite ↔ NAIA only
-• Rates subject to confirmation
+⚠️ IMPORTANT REMINDERS
+══════════════════════════════════════════════════════════
+• Professional driver included — NO SELF-DRIVE
+• Toll, Fuel & Parking Fees — Paid by Client
+• Airport rates valid for Cavite ↔ NAIA only
+• Rates subject to final confirmation
 
-💳 PAYMENT DETAILS:
+💳 PAYMENT DETAILS
+══════════════════════════════════════════════════════════
 • 💵 Cash — Paid directly to driver upon service
 • GCash / Maya: 0976-046-5134 — Tuhamie A. Dimanang
 • BPI: 0489720078 — Tuhamie A. Dimanang
 • BDO: 0048 2022 1372 — Tuhamie A. Dimanang
 
-✅ For GCash/Maya/Bank: Send proof of payment to Viber: 0976-046-5134
-✅ For Cash: Payment due upon pickup/service
+📋 PROCESSING INSTRUCTIONS
+══════════════════════════════════════════════════════════
+1. CONFIRM: Check availability → reply to client
+2. VERIFY: If GCash/Maya/Bank → confirm payment proof received
+3. ISSUE: Send SERVICE INVOICE / ACKNOWLEDGEMENT RECEIPT 
+   via email from: gocav.transport@gmail.com
+4. SCHEDULE: Manually add to Google Calendar → calendar.google.com
 
-══════════════════════════════════
-GoCav Transport
-📍 Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite
+══════════════════════════════════════════════════════════
+GoCav Transport Services
+📍 Le Rica Homes, Begonia Street B19 L68, Brgy. San Francisco, General Trias, Cavite
 📞 0976-046-5134 / 0995-435-5514 | ✉️ gocav.transport@gmail.com
 Non-VAT Reg. 940-158-988-0000
-══════════════════════════════════`
-    );
-    const location = encodeURIComponent(`${pickup} → ${dropoff}`);
-    const startISO = `${formattedDate}T${startTime}`;
-    const endISO = `${formattedDate}T${endTimeFormatted}`;
-
-    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&details=${eventDesc}&location=${location}&dates=${startISO}/${endISO}&ctz=Asia/Manila`;
-
-    // Email body sent to gocav.transport@gmail.com
-    const mailBody = encodeURIComponent(
-`══════════════════════════════════
-📋 NEW BOOKING REQUEST — GoCav Transport
-══════════════════════════════════
-
-👤 Client Name: ${fullname}
-📞 Contact Number: ${phone}
-🚗 Preferred Vehicle: ${vehicle}
-💼 Service Type: ${serviceType}
-💳 Payment Method: ${paymentMethod}
-
-📅 Pickup Date: ${date}
-🕐 Pickup Time: ${time}
-📍 Pickup Location: ${pickup}
-🎯 Drop-off / Destination: ${dropoff}
-
-📝 Special Notes / Requirements:
-${notes}
-
-══════════════════════════════════
-⚠️ SERVICE REMINDERS:
-• All rates include professional driver — NO SELF-DRIVE
-• Toll fees, parking fees & fuel — Client responsibility
-• Airport rates valid for Cavite ↔ NAIA only
-• Rates subject to final confirmation
-
-💳 ACCEPTED PAYMENT DETAILS:
-• 💵 Cash — Paid directly to driver upon service
-• GCash / Maya: 0976-046-5134 — Account Name: Tuhamie A. Dimanang
-• BPI Savings: 0489720078 — Account Name: Tuhamie A. Dimanang
-• BDO Savings: 0048 2022 1372 — Account Name: Tuhamie A. Dimanang
-
-✅ ACTION REQUIRED:
-• If GCash/Maya/Bank: Verify payment proof sent via Viber/Email
-• If Cash: Confirm booking — payment due upon pickup
-• Confirm availability & reply to client
-
-📅 Open in Google Calendar:
-${gcalUrl}
-
-══════════════════════════════════
-GoCav Transport
-📍 Le Rica Homes, Begonia Street B19 L68, Barangay San Francisco, General Trias, Cavite
-📞 0976-046-5134 / 0995-435-5514 | ✉️ gocav.transport@gmail.com
-Non-VAT Reg. 940-158-988-0000
-══════════════════════════════════`
+══════════════════════════════════════════════════════════`
     );
 
-    // Open Google Calendar
-    window.open(gcalUrl, '_blank');
-    
-    // Send email to GoCav with full booking details
-    window.location.href = `mailto:gocav.transport@gmail.com?subject=NEW BOOKING — ${fullname} | ${serviceType}&body=${mailBody}`;
+    // Send email
+    window.location.href = `mailto:gocav.transport@gmail.com?subject=${mailSubject}&body=${mailBody}`;
     
     // Show success message
     document.getElementById('bookingForm').classList.add('opacity-50');
     document.getElementById('successMsg').classList.remove('hidden');
-    document.getElementById('gcalLink').href = gcalUrl;
 });
-
-function addHours(timeStr, hours) {
-    const [h, m] = timeStr.split(':').map(Number);
-    const newH = (h + hours) % 24;
-    return `${String(newH).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-}
 </script>
 
 </body>
