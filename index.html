@@ -14,12 +14,20 @@
         .btn-primary:hover { opacity: 0.9; }
         input, select, textarea { background: #1a1a1a; border: 1px solid #333; color: #fff; }
         input:focus, select:focus, textarea:focus { border-color: #d4af37; outline: none; }
+        input:disabled, select:disabled, textarea:disabled { opacity: 0.5; cursor: not-allowed; }
         .payment-badge { display: inline-block; padding: 6px 14px; border-radius: 8px; font-weight: 600; margin: 4px; }
         .bank-box { background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 14px; margin-top: 8px; }
         .btn-whatsapp { background: #25D366; color: #000; font-weight: 600; }
         .btn-whatsapp:hover { background: #20bd5a; }
         .status-pending { background: #f59e0b; color: #000; }
         .status-paid { background: #10b981; color: #fff; }
+        .btn-copy { background: #4b5563; color: #fff; }
+        .btn-copy:hover { background: #6b7280; }
+        .btn-copy.copied { background: #10b981; }
+        .btn-email { background: #3b82f6; color: #fff; }
+        .btn-email:hover { background: #2563eb; }
+        .btn-sheet { background: #0d9488; color: #fff; }
+        .btn-sheet:hover { background: #0f766e; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -33,7 +41,7 @@
             <p>Le Rica Homes, Begonia Street B19 L68, Brgy. San Francisco, General Trias, Cavite</p>
             <p>📞 0976-046-5134 / 0995-435-5514 • Viber • WhatsApp</p>
             <p>✉️ gocav.transport@gmail.com</p>
-            <p> Non-VAT Reg. 940-158-988-0000</p>
+            <p>Non-VAT Reg. 940-158-988-0000</p>
         </div>
     </div>
 </header>
@@ -154,14 +162,23 @@
         <button type="submit" id="submitBtn" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Submit Booking</button>
     </form>
 
-    <div id="successMsg" class="hidden mt-6 p-5 border border-green-500 rounded-lg bg-green-950/30 text-center">
-        <h3 class="text-xl font-bold text-green-400">🎉 Booking Recorded!</h3>
-        <p class="mt-2 mb-2"><strong>Reference #:</strong> <span id="refNo" class="text-yellow-400 font-bold"></span></p>
+    <div id="successMsg" class="hidden mt-6 p-6 border border-green-500 rounded-lg bg-green-950/30 text-center">
+        <h3 class="text-2xl font-bold text-green-400 mb-2">🎉 Booking Recorded!</h3>
         <p class="text-sm text-gray-300 mb-4">Added to Google Sheets → Email sent → Calendar ready</p>
-        <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg mb-3">📅 Open Calendar Event</a>
-        <br>
-        <a href="https://wa.me/639760465134" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg mr-3 mt-2">💬 WhatsApp</a>
-        <a href="https://docs.google.com/spreadsheets" target="_blank" class="inline-block bg-blue-600 px-5 py-2 rounded-lg mt-2">📊 Open Income Sheet</a>
+        
+        <!-- Reference # with Copy Button -->
+        <div class="inline-flex items-center gap-3 bg-black/40 px-5 py-3 rounded-lg mb-5">
+            <span class="text-gray-300 font-medium">Reference #:</span>
+            <span id="refNo" class="text-yellow-400 font-bold text-lg"></span>
+            <button id="copyRefBtn" class="btn-copy px-3 py-1 rounded text-sm font-medium">📋 Copy</button>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-3 mt-4">
+            <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg">📅 Calendar Event</a>
+            <a id="emailLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Send Email</a>
+            <a id="waLink" href="#" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg">💬 WhatsApp</a>
+            <a href="https://docs.google.com/spreadsheets" target="_blank" class="inline-block btn-sheet px-5 py-2 rounded-lg">📊 View Sheet</a>
+        </div>
     </div>
 </section>
 
@@ -172,8 +189,9 @@
 </footer>
 
 <script>
-// ⚠️ AFTER Step 3 below — PASTE YOUR GOOGLE APPSCRIPT DEPLOYMENT URL HERE
+// ✅ YOUR GOOGLE APPSCRIPT DEPLOYMENT URL
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGsiR0lzS5BMIxopuSMqkAuCglQxetMDHFT1vnZzY/dev";
+const OWNER_WHATSAPP = "639760465134"; // Your WhatsApp number
 
 function addHours(timeStr, hours) {
     const [h, m] = timeStr.split(':').map(Number);
@@ -184,7 +202,12 @@ function addHours(timeStr, hours) {
 document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
+    const form = document.getElementById('bookingForm');
+    
+    // Disable form
+    btn.disabled = true;
     btn.textContent = '⏳ Recording...';
+    Array.from(form.elements).forEach(el => el.disabled = true);
 
     // Parse service data
     const svcParts = document.getElementById('service_type').value.split('|');
@@ -207,33 +230,19 @@ document.getElementById('bookingForm').addEventListener('submit', async function
 
     // Duration
     let durHrs = 2;
-    if(svcCode.includes('Round') || svcCode.includes('Tour')) durHrs = svcCode.includes('Tour') ? 12 : 6;
+    if(svcCode.includes('Round') || svcCode.includes('Tour')) {
+        durHrs = svcCode.includes('Tour') ? 12 : 6;
+    }
 
     // Google Calendar link
     const fDate = date.replace(/-/g,'');
     const tStart = time.replace(/:/g,'') + '00';
     const tEnd = addHours(time, durHrs).replace(/:/g,'') + '00';
-    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+fullname+' | '+svcName)}&details=${encodeURIComponent('Ref: '+refNo+'\\nClient: '+fullname+'\\nContact: '+phone+'\\nService: '+svcName+'\\nRate: ₱'+rate+'\\nPayment: '+payMethod+'\\nStatus: PENDING\\n\\nNotes: '+notes)}&location=${encodeURIComponent(pickup+' → '+dropoff)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
+    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+fullname+' | '+svcName)}&details=${encodeURIComponent('Ref: '+refNo+'\nClient: '+fullname+'\nContact: '+phone+'\nService: '+svcName+'\nRate: ₱'+rate+'\nPayment: '+payMethod+'\nStatus: PENDING\n\nNotes: '+notes)}&location=${encodeURIComponent(pickup+' → '+dropoff)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
 
-    // 1. Send to Google Sheets
-    try {
-        if(GOOGLE_SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbwGsiR0lzS5BMIxopuSMqkAuCglQxetMDHFT1vnZzY/dev) {
-            await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    refNo, dateSubmitted: new Date().toLocaleString('en-PH'),
-                    fullname, phone, service: svcName, vehicle: svcName.includes('Accent') ? 'Hyundai Accent' : svcName.includes('Avanza') ? 'Toyota Avanza' : svcName.includes('Montero') ? 'Montero Sport Gen 2' : 'Tour',
-                    rate: '₱'+rate, pickupDate: date, pickup, dropoff, payMethod, status: 'PENDING', notes
-                })
-            });
-        }
-    } catch(e) { console.log('Sheet note: will record manually if needed'); }
-
-    // 2. Email to you
-    const mailBody = encodeURIComponent(
-`NEW BOOKING — REF: ${refNo}
+    // Email body
+    const mailSubject = encodeURIComponent(`BOOKING ${refNo} — ${fullname} | ${svcName}`);
+    const mailBodyText = `NEW BOOKING — REF: ${refNo}
 ══════════════════════
 👤 Client: ${fullname}
 📞 Contact: ${phone}
@@ -251,16 +260,93 @@ document.getElementById('bookingForm').addEventListener('submit', async function
 📊 Sheet: See Google Sheets
 
 GoCav Transport Services
-Ref: ${refNo}`
-    );
-    window.location.href = `mailto:gocav.transport@gmail.com?subject=${encodeURIComponent(`BOOKING ${refNo} — ${fullname} | ${svcName}`)}&body=${mailBody}`;
+Ref: ${refNo}`;
+    const mailBody = encodeURIComponent(mailBodyText);
+    const mailtoUrl = `mailto:gocav.transport@gmail.com?subject=${mailSubject}&body=${mailBody}`;
 
-    // 3. Show success
-    document.getElementById('bookingForm').classList.add('opacity-50');
+    // WhatsApp pre-filled message
+    const waMsg = encodeURIComponent(`🔔 NEW BOOKING RECEIVED!
+
+Reference: ${refNo}
+Client: ${fullname}
+Contact: ${phone}
+Service: ${svcName}
+Rate: ₱${rate}
+Pickup: ${date} @ ${time}
+From: ${pickup}
+To: ${dropoff}
+Payment: ${payMethod}
+Status: PENDING
+
+Notes: ${notes}
+
+---
+GoCav Transport Services`);
+    const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${waMsg}`;
+
+    // 1. Send to Google Sheets
+    try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                refNo, 
+                dateSubmitted: new Date().toLocaleString('en-PH'),
+                fullname, phone, service: svcName, 
+                vehicle: svcName.includes('Accent') ? 'Hyundai Accent' : 
+                         svcName.includes('Avanza') ? 'Toyota Avanza' : 
+                         svcName.includes('Montero') ? 'Montero Sport Gen 2' : 'Tour',
+                rate: '₱'+rate, pickupDate: date, pickup, dropoff, payMethod, 
+                status: 'PENDING', notes
+            })
+        });
+        console.log('✅ Sent to Google Sheets');
+    } catch(e) { 
+        console.log('⚠️ Sheet note:', e.message); 
+    }
+
+    // 2. Show success screen
+    form.classList.add('opacity-50');
     document.getElementById('successMsg').classList.remove('hidden');
     document.getElementById('refNo').textContent = refNo;
     document.getElementById('gcalLink').href = gcalUrl;
+    document.getElementById('emailLink').href = mailtoUrl;
+    document.getElementById('waLink').href = waUrl;
     btn.textContent = '✅ Submitted';
+
+    // Copy Reference # button logic
+    const copyBtn = document.getElementById('copyRefBtn');
+    copyBtn.onclick = async () => {
+        try {
+            await navigator.clipboard.writeText(refNo);
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => {
+                copyBtn.textContent = '📋 Copy';
+                copyBtn.classList.remove('copied');
+            }, 2500);
+        } catch(err) {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = refNo;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => {
+                copyBtn.textContent = '📋 Copy';
+                copyBtn.classList.remove('copied');
+            }, 2500);
+        }
+    };
+
+    // Auto-open email after delay
+    setTimeout(() => {
+        window.open(mailtoUrl, '_self');
+    }, 600);
 });
 </script>
 </body>
