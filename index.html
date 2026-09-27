@@ -30,7 +30,6 @@
 </head>
 <body class="min-h-screen">
 
-<!-- HEADER -->
 <header class="py-6 px-4 border-b border-gray-800">
     <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
         <img src="https://i.imgur.com/YoRCP6W.jpeg" alt="GoCav Logo" class="h-28 mb-4 rounded-lg">
@@ -46,7 +45,6 @@
 
 <main class="max-w-6xl mx-auto px-4 py-10">
 
-<!-- SERVICES & RATES -->
 <section class="mb-10">
     <h2 class="text-2xl font-bold mb-6 text-center">Our Services & Rates</h2>
     <p class="text-gray-400 text-center mb-8">✅ Professional driver included — No Self-Drive<br>
@@ -95,7 +93,6 @@
     </div>
 </section>
 
-<!-- PAYMENT METHODS -->
 <section class="mb-10">
     <div class="card rounded-xl p-6">
         <h2 class="text-xl font-bold mb-4 text-center">💳 Payment Methods</h2>
@@ -117,7 +114,6 @@
     </div>
 </section>
 
-<!-- BOOKING FORM -->
 <section class="mb-12">
     <h2 class="text-2xl font-bold mb-6 text-center">Make a Booking</h2>
     <p class="text-gray-400 text-center mb-6">📅 Submit → Recorded in Google Sheets → Email sent → Confirm → Calendar Added</p>
@@ -174,7 +170,7 @@
             <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg">📅 Calendar Event</a>
             <a id="emailLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Send Email</a>
             <a id="waLink" href="#" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg">💬 WhatsApp</a>
-            <a href="https://docs.google.com/spreadsheets" target="_blank" class="inline-block btn-sheet px-5 py-2 rounded-lg">📊 View Sheet</a>
+            <a id="sheetLink" href="https://docs.google.com/spreadsheets" target="_blank" class="inline-block btn-sheet px-5 py-2 rounded-lg">📊 View All Bookings</a>
         </div>
     </div>
 </section>
@@ -186,8 +182,8 @@
 </footer>
 
 <script>
-// ⚠️ PASTE YOUR NEW APPSCRIPT URL HERE AFTER STEP 2
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9ASg5kZynnR_Trtvywo2yC4p8cA-34Jtl4sccEw1mEtNlYieYh_vPpS5OGfhAaRT_NQ/exec";
+// ⚠️ PASTE YOUR NEW APPSCRIPT URL HERE — BETWEEN THE QUOTES
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTwEzZuSk0-SNFktyFhGbBaoR5I9x1sCjV2B8_V_73kemeHecYxpRB0gC7_tyjMhU7dA/exec";
 const OWNER_WHATSAPP = "639760465134";
 
 function addHours(timeStr, hours) {
@@ -273,7 +269,7 @@ Notes: ${notes}
 GoCav Transport Services`);
     const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${waMsg}`;
 
-    // ✅ SEND TO GOOGLE SHEETS — FIXED VERSION
+    // ✅ SEND TO GOOGLE SHEETS
     try {
         const formData = new URLSearchParams();
         formData.append('refNo', refNo);
@@ -284,12 +280,12 @@ GoCav Transport Services`);
         formData.append('vehicle', svcName.includes('Accent') ? 'Hyundai Accent' : 
                          svcName.includes('Avanza') ? 'Toyota Avanza' : 
                          svcName.includes('Montero') ? 'Montero Sport Gen 2' : 'Tour');
-        formData.append('rate', '₱'+rate);
+        formData.append('rate', '₱' + rate);
+        formData.append('rateValue', rate); // for balance calc
         formData.append('pickupDate', date);
         formData.append('pickup', pickup);
         formData.append('dropoff', dropoff);
         formData.append('payMethod', payMethod);
-        formData.append('status', 'PENDING');
         formData.append('notes', notes);
 
         await fetch(GOOGLE_SCRIPT_URL, {
@@ -300,7 +296,7 @@ GoCav Transport Services`);
         console.log('✅ Sent to Google Sheets');
     } catch(e) { 
         console.log('⚠️ Sheet error:', e.message); 
-        alert('If booking does not appear in sheet, please refresh and try again.');
+        alert('Booking submitted! If not seen in sheet, refresh and check again.');
     }
 
     form.classList.add('opacity-50');
