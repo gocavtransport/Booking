@@ -20,6 +20,8 @@
         .rate-row { display: flex; justify-content: space-between; padding: 4px 0; }
         .btn-whatsapp { background: #25D366; color: #000; font-weight: 600; }
         .btn-whatsapp:hover { background: #20bd5a; }
+        .status-pending { background: #f59e0b; color: #000; }
+        .status-paid { background: #10b981; color: #fff; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -146,7 +148,7 @@
                 <div class="bank-box mb-3">
                     <p class="font-bold text-yellow-400">BPI</p>
                     <p class="text-sm mt-1">Account Name: Tuhamie A. Dimanang</p>
-                    <p class="font-mono font-bold mt-1">0489720078</p>
+                    <p class="font-mono font-bold mt-1">048 972 0078</p>
                 </div>
                 
                 <div class="bank-box">
@@ -157,14 +159,14 @@
             </div>
         </div>
         
-        <p class="text-xs text-gray-500 text-center mt-5">⚠️ For GCash/Maya/Bank: Send proof of payment via Viber / WhatsApp (0976-046-5134) or email to confirm.<br>After payment verification, Service Invoice / Acknowledgement Receipt will be emailed to you.</p>
+        <p class="text-xs text-gray-500 text-center mt-5">⚠️ For GCash/Maya/Bank: Send proof of payment via Viber / WhatsApp (0976-046-5134) or email to confirm.<br>After verification, Service Invoice / Acknowledgement Receipt will be issued & emailed — marked as <span class="font-bold text-yellow-400">PENDING</span> or <span class="font-bold text-green-400">PAID</span>.</p>
     </div>
 </section>
 
 <!-- BOOKING FORM -->
 <section class="mb-12">
     <h2 class="text-2xl font-bold mb-6 text-center">Make a Booking</h2>
-    <p class="text-gray-400 text-center mb-6">📅 Submit → Google Calendar auto-created → Email sent → Confirm → Invoice Issued</p>
+    <p class="text-gray-400 text-center mb-6">📅 Submit → Email sent first → Confirm → Google Calendar auto-added → Invoice Issued</p>
 
     <form id="bookingForm" class="card rounded-xl p-6 space-y-5">
         <div class="grid md:grid-cols-2 gap-4">
@@ -224,7 +226,7 @@
                 <option value="Cash — Paid directly to driver upon service">💵 Cash — Paid directly to driver upon service</option>
                 <option value="GCash — 0976-046-5134 (Tuhamie A. Dimanang)">GCash — 0976-046-5134</option>
                 <option value="Maya — 0976-046-5134 (Tuhamie A. Dimanang)">Maya — 0976-046-5134</option>
-                <option value="BPI — 0489720078 (Tuhamie A. Dimanang)">BPI — 0489720078</option>
+                <option value="BPI — 048 972 0078 (Tuhamie A. Dimanang)">BPI — 048 972 0078</option>
                 <option value="BDO — 0048 2022 1372 (Tuhamie A. Dimanang)">BDO — 0048 2022 1372</option>
             </select>
         </div>
@@ -234,17 +236,27 @@
             <textarea name="notes" id="notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Flight number, payment reference, places to visit..."></textarea>
         </div>
 
-        <p class="text-sm text-gray-400">⚠️ Toll, fuel & parking fees — client responsibility. Rates subject to confirmation. After payment verification, Service Invoice / Acknowledgement Receipt will be emailed to you.</p>
+        <p class="text-sm text-gray-400">⚠️ Toll, fuel & parking fees — client responsibility. Rates subject to confirmation. After verification, Service Invoice / Acknowledgement Receipt will be emailed — marked PENDING until payment confirmed, then updated to PAID.</p>
 
         <button type="submit" id="submitBtn" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Submit Booking Request</button>
     </form>
 
     <div id="successMsg" class="hidden mt-6 p-5 border border-green-500 rounded-lg bg-green-950/30 text-center">
         <h3 class="text-xl font-bold text-green-400">🎉 Booking Request Submitted!</h3>
-        <p class="mt-2 mb-4">📅 Google Calendar event created automatically — click <strong>"Save"</strong> to add.<br>
-        📩 Email sent to GoCav Transport Services — we will confirm shortly & issue invoice/receipt.</p>
+        <p class="mt-2 mb-4">📩 Email sent to GoCav Transport Services — we will review & confirm shortly.<br>
+        📅 After confirmation → Google Calendar will be auto-added → Invoice issued</p>
         
-        <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg mb-3">📅 View / Re-Open Calendar Event</a>
+        <div class="bg-black/40 rounded-lg p-4 text-left text-sm mb-4">
+            <p class="font-bold text-yellow-400 mb-2">📋 PROCESSING STEPS (GoCav Staff):</p>
+            <p>1. ✅ CONFIRM: Review booking email → reply to client via Viber/WhatsApp/Email</p>
+            <p>2. 📅 CALENDAR: Click Calendar link below → Save event to schedule</p>
+            <p>3. 💰 VERIFY PAYMENT: Check proof sent by client</p>
+            <p>4. 📄 ISSUE INVOICE/RECEIPT: Email from gocav.transport@gmail.com</p>
+            <p class="ml-4">• Mark as: <span class="status-pending px-2 py-0.5 rounded text-xs font-bold">PENDING</span> → before payment</p>
+            <p class="ml-4">• Update to: <span class="status-paid px-2 py-0.5 rounded text-xs font-bold">PAID</span> → once confirmed</p>
+        </div>
+        
+        <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg mb-3">📅 Open Google Calendar</a>
         <br>
         <a href="https://wa.me/639760465134" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg mr-3 mt-2">💬 WhatsApp Us</a>
         <a href="viber://chat?number=+639760465134" class="inline-block bg-purple-700 px-5 py-2 rounded-lg mr-3 mt-2">💬 Viber</a>
@@ -297,9 +309,9 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     const paymentMethod = document.getElementById('payment_method').value;
     const notes = document.getElementById('notes').value.trim() || 'None';
 
-    // Determine rate & service duration
+    // Determine rate & duration
     let rate = 'See service type';
-    let durationHours = 2; // Default: airport transfer = 2hrs
+    let durationHours = 2;
     if (serviceTypeRaw.includes('ACCENT_ONEWAY')) { rate = '₱1,500'; durationHours = 2; }
     else if (serviceTypeRaw.includes('ACCENT_ROUND')) { rate = '₱2,500'; durationHours = 6; }
     else if (serviceTypeRaw.includes('AVANZA_ONEWAY')) { rate = '₱1,800'; durationHours = 2; }
@@ -316,18 +328,19 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
     const startISO = `${formattedDate}T${startTime}`;
     const endISO = `${formattedDate}T${endTime}`;
 
-    // Calendar event title & description
+    // Calendar event details
     const eventTitle = encodeURIComponent(`${fullname} — ${serviceType} — GoCav`);
     const eventDesc = encodeURIComponent(
 `══════════════════════════════════
-📅 BOOKING CONFIRMED — GoCav Transport Services
+📅 BOOKING — GoCav Transport Services
 ══════════════════════════════════
 
 👤 Client: ${fullname}
 📞 Contact: ${phone}
 🚗 Service: ${serviceType}
 💰 Rate: ${rate}
-💳 Payment: ${paymentMethod}
+💳 Payment Method: ${paymentMethod}
+📊 Payment Status: PENDING
 
 📍 Pickup: ${pickup}
 🎯 Destination: ${dropoff}
@@ -340,18 +353,16 @@ ${notes}
 • Professional driver included — NO SELF-DRIVE
 • Toll, Fuel & Parking — Client pays
 • Airport rates valid for Cavite ↔ NAIA only
-• Invoice/Receipt will be sent via email
+• Invoice/Receipt will be emailed — update to PAID once confirmed
 
 GoCav Transport Services
 📞 0976-046-5134 | ✉️ gocav.transport@gmail.com
 Non-VAT Reg. 940-158-988-0000`
     );
     const location = encodeURIComponent(`${pickup} → ${dropoff}`);
-    
-    // Auto-generate Google Calendar link
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&details=${eventDesc}&location=${location}&dates=${startISO}/${endISO}&ctz=Asia/Manila`;
 
-    // Email body sent to gocav.transport@gmail.com
+    // Email body sent FIRST to gocav.transport@gmail.com
     const mailSubject = encodeURIComponent(`NEW BOOKING — ${fullname} | ${serviceType}`);
     const mailBody = encodeURIComponent(
 `══════════════════════════════════════════════════════════
@@ -372,6 +383,7 @@ Time: ${time}
 Pickup: ${pickup}
 Destination: ${dropoff}
 Payment Method: ${paymentMethod}
+Payment Status: PENDING
 
 📝 SPECIAL NOTES
 ══════════════════════════════════════════════════════════
@@ -384,23 +396,25 @@ ${notes}
 • Airport rates valid for Cavite ↔ NAIA only
 • Rates subject to final confirmation
 
-📅 AUTO-CALENDAR LINK:
+📅 GOOGLE CALENDAR LINK (after confirmation):
 ${gcalUrl}
 
 💳 PAYMENT DETAILS
 ══════════════════════════════════════════════════════════
 • 💵 Cash — Paid directly to driver upon service
 • GCash / Maya: 0976-046-5134 — Tuhamie A. Dimanang
-• BPI: 0489720078 — Tuhamie A. Dimanang
+• BPI: 048 972 0078 — Tuhamie A. Dimanang
 • BDO: 0048 2022 1372 — Tuhamie A. Dimanang
 
 📋 PROCESSING STEPS
 ══════════════════════════════════════════════════════════
-1. CONFIRM: Open calendar link above → Save event
-2. REPLY: Message client via Viber / WhatsApp / Email to confirm
-3. VERIFY: If GCash/Maya/Bank → confirm payment proof received
-4. ISSUE: Send SERVICE INVOICE / ACKNOWLEDGEMENT RECEIPT 
-   from: gocav.transport@gmail.com
+1. ✅ CONFIRM: Reply to client via Viber / WhatsApp / Email
+2. 📅 CALENDAR: Open link above → Save event
+3. 💰 VERIFY: Check payment proof sent
+4. 📄 ISSUE INVOICE / ACKNOWLEDGEMENT RECEIPT:
+   - Email from: gocav.transport@gmail.com
+   - Mark as: PENDING → before payment confirmed
+   - Update to: PAID → once payment verified
 
 GoCav Transport Services
 📍 Le Rica Homes, Begonia Street B19 L68, Brgy. San Francisco, General Trias, Cavite
@@ -409,15 +423,15 @@ Non-VAT Reg. 940-158-988-0000
 ══════════════════════════════════════════════════════════`
     );
 
-    // 1. Auto-open Google Calendar first
-    window.open(gcalUrl, '_blank');
+    // STEP 1: Send email FIRST
+    window.location.href = `mailto:gocav.transport@gmail.com?subject=${mailSubject}&body=${mailBody}`;
     
-    // 2. Then send email after short delay
+    // STEP 2: Then open Calendar after short delay
     setTimeout(() => {
-        window.location.href = `mailto:gocav.transport@gmail.com?subject=${mailSubject}&body=${mailBody}`;
-    }, 400);
+        window.open(gcalUrl, '_blank');
+    }, 600);
     
-    // 3. Show success page with calendar link
+    // STEP 3: Show success message
     document.getElementById('bookingForm').classList.add('opacity-50');
     document.getElementById('successMsg').classList.remove('hidden');
     document.getElementById('gcalLink').href = gcalUrl;
