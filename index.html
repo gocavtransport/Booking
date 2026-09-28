@@ -58,16 +58,17 @@
         .audit-box { background: #1e293b; border-radius: 8px; padding: 14px; margin-top: 8px; }
         .audit-option { margin: 6px 0; }
         .logo-dark {
-            filter: brightness(1.15) contrast(1.15) drop-shadow(0 0 10px rgba(255,255,255,0.25));
+            filter: brightness(1.05) contrast(1.05);
+            /* GLOW REMOVED — clean & simple */
         }
     </style>
 </head>
 <body class="min-h-screen">
 
-<header class="py-6 px-4 border-b border-gray-800">
+<header class="py-4 px-4 border-b border-gray-800">
     <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-        <img src="https://i.imgur.com/oSMZnc1.jpeg" alt="Logo" class="h-28 mb-4 rounded-lg logo-dark">
-        <div class="mt-4 text-sm text-gray-300 space-y-1">
+        <img src="https://i.imgur.com/oSMZnc1.jpeg" alt="Logo" class="h-32 mb-1 rounded-lg logo-dark">
+        <div class="mt-3 text-sm text-gray-300 space-y-1">
             <p>Le Rica Homes, Begonia Street B19 L68, Brgy. San Francisco, General Trias, Cavite</p>
             <p>📞 0976-046-5134 / 0995-435-5514 • Viber • WhatsApp</p>
             <p>✉️ gocav.transport@gmail.com</p>
@@ -145,7 +146,7 @@
                 <span class="payment-badge bg-yellow-500 text-black font-bold">CASH</span>
                 <span class="payment-badge bg-green-600 text-white">GCash</span>
                 <span class="payment-badge bg-blue-600 text-white">Maya</span>
-                <p class="mt-3 text-lg font-mono">0976-046-5134</point>
+                <p class="mt-3 text-lg font-mono">0976-046-5134</p>
             </div>
             <div>
                 <h3 class="font-semibold mb-3 text-center">🏦 Bank Transfer</h3>
@@ -167,4 +168,601 @@
     <p class="quote-note text-center mb-6">📩 Rate will be quoted via email, Viber, or WhatsApp</p>
 
     <form id="corporateForm" class="card corporate-form rounded-xl p-6 space-y-5">
-        <d
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-1 font-medium">Company Name *</label>
+                <input type="text" id="corp_company" required class="w-full px-4 py-3 rounded-lg" placeholder="Company / Organization Name">
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Company Address *</label>
+                <input type="text" id="corp_company_address" required class="w-full px-4 py-3 rounded-lg" placeholder="Full Office Address">
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-1 font-medium">Contact Person *</label>
+                <input type="text" id="corp_contact_person" required class="w-full px-4 py-3 rounded-lg" placeholder="Full Name">
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Contact Email *</label>
+                <input type="email" id="corp_email" required class="w-full px-4 py-3 rounded-lg" placeholder="email@company.com">
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-1 font-medium">Contact Number *</label>
+                <input type="tel" id="corp_phone" required class="w-full px-4 py-3 rounded-lg" placeholder="09XX-XXX-XXXX — Viber/WhatsApp OK">
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Preferred Contact Method *</label>
+                <select id="corp_preferred_method" required class="w-full px-4 py-3 rounded-lg">
+                    <option value="">— Select —</option>
+                    <option value="Email">📧 Email</option>
+                    <option value="Viber">💜 Viber</option>
+                    <option value="WhatsApp">💬 WhatsApp</option>
+                    <option value="Any">✅ Any — Contact me fastest</option>
+                    <option value="Phone">📞 Phone Call</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-1 font-medium">📅 Pickup Date * <span class="text-gray-400 text-sm">(Tap icon to select)</span></label>
+                <input type="date" id="corp_date" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">⏰ Pickup Time * <span class="text-gray-400 text-sm">(Tap icon to select)</span></label>
+                <input type="time" id="corp_time" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Number of Passengers *</label>
+            <input type="number" id="corp_passengers" min="1" required class="w-full px-4 py-3 rounded-lg" placeholder="Enter number of passengers">
+            <div id="vehicleSuggest" class="vehicle-suggest hidden-form mt-3">
+                <span class="text-gray-300">Assigned Vehicle: </span>
+                <span id="vehicleResult" class="font-bold text-blue-400"></span>
+            </div>
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Pickup Location No. 1 *</label>
+            <input type="text" id="corp_pickup1" required class="w-full px-4 py-3 rounded-lg" placeholder="First pickup location">
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Pickup Location No. 2</label>
+            <input type="text" id="corp_pickup2" class="w-full px-4 py-3 rounded-lg" placeholder="Second pickup location (if any)">
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">Destination / Drop-off *</label>
+            <input type="text" id="corp_destination" required class="w-full px-4 py-3 rounded-lg" placeholder="Main destination or drop-off point">
+        </div>
+
+        <div>
+            <label class="block mb-2 font-semibold text-yellow-400">🔍 Site Audit / Additional Instructions</label>
+            <div class="audit-box">
+                <div class="audit-option">
+                    <input type="checkbox" id="audit_onsite" value="Yes">
+                    <label for="audit_onsite" class="ml-2">On-site Inspection / Site Audit Required</label>
+                </div>
+                <div class="audit-option">
+                    <input type="checkbox" id="audit_meeting" value="Yes">
+                    <label for="audit_meeting" class="ml-2">Meeting / Site Visit Included</label>
+                </div>
+                <div class="audit-option">
+                    <input type="checkbox" id="audit_equipment" value="Yes">
+                    <label for="audit_equipment" class="ml-2">Equipment / Materials Transport Included</label>
+                </div>
+                <div class="audit-option">
+                    <input type="checkbox" id="audit_multiple" value="Yes">
+                    <label for="audit_multiple" class="ml-2">Multiple Stops / Multi-Location Audit</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label class="block mb-1 font-medium">📝 Additional Details / Special Instructions</label>
+            <textarea id="corp_notes" rows="4" class="w-full px-4 py-3 rounded-lg" placeholder="Describe audit scope, meeting points, materials to carry, estimated duration, return trip details, or any special requirements..."></textarea>
+        </div>
+
+        <p class="quote-note text-center text-sm">✅ Quotation will be sent via your preferred method — Email, Viber, or WhatsApp</p>
+        <button type="submit" id="corpSubmitBtn" class="btn-corporate w-full py-3 rounded-lg text-lg">
+            ✅ Submit Request for Quotation
+        </button>
+    </form>
+
+    <div id="corpSuccessMsg" class="hidden mt-6 p-6 border border-blue-500 rounded-lg bg-blue-950/30 text-center">
+        <h3 class="text-2xl font-bold text-blue-400 mb-2">🏢 Request Received — Quotation in Progress!</h3>
+        <p class="text-sm text-gray-300 mb-4">We will review your details and send the rate quotation via your preferred method shortly</p>
+        
+        <div class="inline-flex items-center gap-3 bg-black/40 px-5 py-3 rounded-lg mb-5">
+            <span class="text-gray-300 font-medium">Reference #:</span>
+            <span id="corpRefNo" class="text-blue-400 font-bold text-lg"></span>
+            <button id="copyCorpRefBtn" class="btn-copy px-3 py-1 rounded text-sm font-medium">📋 Copy</button>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-3 mt-4">
+            <a id="corpEmailClientLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Copy to Client</a>
+            <a id="corpEmailLink" href="#" class="inline-block btn-primary px-5 py-2 rounded-lg">✉️ Send to GoCav</a>
+            <a id="corpViberLink" href="#" class="inline-block btn-viber px-5 py-2 rounded-lg">💜 Viber</a>
+            <a id="corpWaLink" href="#" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg">💬 WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<section class="mb-12">
+    <h2 class="text-2xl font-bold mb-6 text-center">👤 Individual / Regular Booking</h2>
+    <p class="text-gray-400 text-center mb-6">📅 Submit → Recorded → Email/Viber/WhatsApp → Confirm → Calendar</p>
+
+    <form id="bookingForm" class="card rounded-xl p-6 space-y-5">
+        <div class="grid md:grid-cols-2 gap-4">
+            <div><label class="block mb-1 font-medium">Full Name *</label><input type="text" id="fullname" required class="w-full px-4 py-3 rounded-lg"></div>
+            <div><label class="block mb-1 font-medium">Contact Number *</label><input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg" placeholder="09XX-XXX-XXXX — Viber/WhatsApp OK"></div>
+        </div>
+        <div><label class="block mb-1 font-medium">Service Type *</label>
+            <select id="service_type" required class="w-full px-4 py-3 rounded-lg">
+                <option value="">— Select Service —</option>
+                <option value="Accent_OneWay|Hyundai Accent One-Way|1500">Hyundai Accent — One-Way ₱1,500</option>
+                <option value="Accent_Round|Hyundai Accent Round Trip|2500">Hyundai Accent — Round Trip ₱2,500</option>
+                <option value="Avanza_OneWay|Toyota Avanza One-Way|1800">Toyota Avanza — One-Way ₱1,800</option>
+                <option value="Avanza_Round|Toyota Avanza Round Trip|3500">Toyota Avanza — Round Trip ₱3,500</option>
+                <option value="Montero_OneWay|Montero Sport One-Way|2100">Montero Sport — One-Way ₱2,100</option>
+                <option value="Montero_Round|Montero Sport Round Trip|4000">Montero Sport — Round Trip ₱4,000</option>
+                <option value="Tour_Tagaytay|Tagaytay Day Tour — 8–10 Hours|5000">🌄 Tagaytay Day Tour — ₱5,000 (Fuel Extra)</option>
+                <option value="Tour_Manila|Manila Day Tour — 8–10 Hours|5000">🏙️ Manila Day Tour — ₱5,000 (Fuel Extra)</option>
+            </select>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div><label class="block mb-1 font-medium">📅 Pickup Date *</label><input type="date" id="pickup_date" required class="w-full px-4 py-3 rounded-lg"></div>
+            <div><label class="block mb-1 font-medium">⏰ Pickup Time *</label><input type="time" id="pickup_time" required class="w-full px-4 py-3 rounded-lg"></div>
+        </div>
+        <div><label class="block mb-1 font-medium">Pickup Location *</label><input type="text" id="pickup_location" required class="w-full px-4 py-3 rounded-lg" placeholder="Full address"></div>
+        <div><label class="block mb-1 font-medium">Destination / Tour Area</label><input type="text" id="dropoff" class="w-full px-4 py-3 rounded-lg" placeholder="NAIA, Tagaytay, Manila, etc."></div>
+        <div><label class="block mb-1 font-medium">Payment Method *</label>
+            <select id="payment_method" required class="w-full px-4 py-3 rounded-lg">
+                <option value="">— Select —</option>
+                <option value="Cash">💵 Cash — To driver</option>
+                <option value="GCash">GCash — 0976-046-5134</option>
+                <option value="Maya">Maya — 0976-046-5134</option>
+                <option value="BPI">BPI — 0489720078</option>
+                <option value="BDO">BDO — 004820221372</option>
+            </select>
+        </div>
+        <div><label class="block mb-1 font-medium">Notes / Special Requests</label><textarea id="notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Additional info, stops, flight details..."></textarea></div>
+        <button type="submit" id="submitBtn" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Submit Booking</button>
+    </form>
+
+    <div id="successMsg" class="hidden mt-6 p-6 border border-green-500 rounded-lg bg-green-950/30 text-center">
+        <h3 class="text-2xl font-bold text-green-400 mb-2">🎉 Booking Recorded!</h3>
+        <p class="text-sm text-gray-300 mb-4">Added to Sheets → Email/Viber/WhatsApp → Calendar Ready</p>
+        
+        <div class="inline-flex items-center gap-3 bg-black/40 px-5 py-3 rounded-lg mb-5">
+            <span class="text-gray-300 font-medium">Reference #:</span>
+            <span id="refNo" class="text-yellow-400 font-bold text-lg"></span>
+            <button id="copyRefBtn" class="btn-copy px-3 py-1 rounded text-sm font-medium">📋 Copy</button>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-3 mt-4">
+            <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg">📅 Calendar</a>
+            <a id="emailLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Email</a>
+            <a id="viberLink" href="#" class="inline-block btn-viber px-5 py-2 rounded-lg">💜 Viber</a>
+            <a id="waLink" href="#" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg">💬 WhatsApp</a>
+            <a id="sheetLink" href="https://docs.google.com/spreadsheets" target="_blank" class="inline-block btn-sheet px-5 py-2 rounded-lg">📊 View All</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="border-t border-gray-800 py-6 text-center text-sm text-gray-500">
+    <p>© 2019 Transport Services</p>
+</footer>
+
+<script>
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTwEzZuSk0-SNFktyFhGbBaoR5I9x1sCjV2B8_V_73kemeHecYxpRB0gC7_tyjMhU7dA/exec";
+const OWNER_WHATSAPP = "639760465134";
+const OWNER_VIBER = "639760465134";
+const OWNER_EMAIL = "gocav.transport@gmail.com";
+
+function addHours(timeStr, hours) {
+    const [h, m] = timeStr.split(':').map(Number);
+    const nh = (h + hours) % 24;
+    return `${String(nh).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
+
+function getVehicleSuggestion(passengers) {
+    if (!passengers || passengers < 1) return { hide: true };
+    if (passengers >= 1 && passengers <= 3) {
+        return { hide: false, vehicle: 'Hyundai Accent (Sedan) — Up to 3 pax' };
+    }
+    if (passengers >= 4 && passengers <= 5) {
+        return { hide: false, vehicle: 'Toyota Avanza OR Montero Sport Gen 2 — Up to 5 pax' };
+    }
+    if (passengers > 5) {
+        return { hide: false, vehicle: 'Multiple Vehicles / Custom Arrangement — Please inquire' };
+    }
+    return { hide: true };
+}
+
+document.getElementById('corp_passengers').addEventListener('input', function() {
+    const pax = parseInt(this.value) || 0;
+    const result = getVehicleSuggestion(pax);
+    const container = document.getElementById('vehicleSuggest');
+    
+    if (result.hide || !this.value) {
+        container.classList.add('hidden-form');
+    } else {
+        container.classList.remove('hidden-form');
+        document.getElementById('vehicleResult').textContent = result.vehicle;
+    }
+});
+
+document.getElementById('corporateToggle').addEventListener('click', function() {
+    const section = document.getElementById('corporateSection');
+    section.classList.toggle('hidden-form');
+    this.textContent = section.classList.contains('hidden-form') 
+        ? '🏢 CORPORATE CLIENT — TAP HERE' 
+        : '🔼 CLOSE CORPORATE FORM';
+    this.classList.toggle('btn-primary');
+    this.classList.toggle('btn-corporate');
+});
+
+document.getElementById('corporateForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('corpSubmitBtn');
+    const form = document.getElementById('corporateForm');
+    
+    btn.disabled = true;
+    btn.textContent = '⏳ Recording...';
+    Array.from(form.elements).forEach(el => el.disabled = true);
+
+    const company = document.getElementById('corp_company').value.trim();
+    const companyAddr = document.getElementById('corp_company_address').value.trim();
+    const contactPerson = document.getElementById('corp_contact_person').value.trim();
+    const contactEmail = document.getElementById('corp_email').value.trim();
+    const phone = document.getElementById('corp_phone').value.trim();
+    const preferredMethod = document.getElementById('corp_preferred_method').value;
+    const date = document.getElementById('corp_date').value;
+    const time = document.getElementById('corp_time').value;
+    const passengers = parseInt(document.getElementById('corp_passengers').value);
+    const vehicleAssigned = getVehicleSuggestion(passengers).vehicle || 'To be confirmed';
+    const pickup1 = document.getElementById('corp_pickup1').value.trim();
+    const pickup2 = document.getElementById('corp_pickup2').value.trim() || 'N/A';
+    const destination = document.getElementById('corp_destination').value.trim();
+    
+    const auditOnsite = document.getElementById('audit_onsite').checked ? 'Yes' : 'No';
+    const auditMeeting = document.getElementById('audit_meeting').checked ? 'Yes' : 'No';
+    const auditEquipment = document.getElementById('audit_equipment').checked ? 'Yes' : 'No';
+    const auditMultiple = document.getElementById('audit_multiple').checked ? 'Yes' : 'No';
+    
+    const notes = document.getElementById('corp_notes').value.trim() || 'None';
+
+    const refNo = `GC-CORP${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*900+100)}`;
+
+    const mailBodyText = `🏢 CORPORATE QUOTE REQUEST — REF: ${refNo}
+═════════════════════════
+🏢 Company: ${company}
+📍 Company Address: ${companyAddr}
+👤 Contact Person: ${contactPerson}
+✉️ Email: ${contactEmail}
+📞 Phone: ${phone}
+💜 Preferred: ${preferredMethod}
+👥 Passengers: ${passengers}
+🚗 Suggested Vehicle: ${vehicleAssigned}
+📅 Date: ${date} @ ${time}
+📍 Pickup 1: ${pickup1}
+📍 Pickup 2: ${pickup2}
+🎯 Destination: ${destination}
+
+🔍 SITE AUDIT DETAILS
+• On-site Inspection: ${auditOnsite}
+• Meeting Included: ${auditMeeting}
+• Equipment/Materials: ${auditEquipment}
+• Multiple Locations: ${auditMultiple}
+
+📝 Additional Instructions:
+${notes}
+
+💰 Status: PENDING — Send quote via ${preferredMethod}
+
+Transport Services
+Ref: ${refNo}`;
+
+    const subjectToOwner = encodeURIComponent(`CORPORATE QUOTE REQUEST ${refNo} — ${company}`);
+    const bodyToOwner = encodeURIComponent(mailBodyText);
+    const mailtoOwnerUrl = `mailto:${OWNER_EMAIL}?subject=${subjectToOwner}&body=${bodyToOwner}`;
+
+    const subjectToClient = encodeURIComponent(`Request Received — ${refNo} — Transport Services`);
+    const bodyToClient = encodeURIComponent(`Dear ${contactPerson},
+
+Thank you for your request! We have received your booking details.
+
+✅ Reference No: ${refNo}
+🏢 Company: ${company}
+📅 Pickup: ${date} @ ${time}
+👥 Passengers: ${passengers}
+🚗 Suggested Vehicle: ${vehicleAssigned}
+📬 Preferred: ${preferredMethod}
+
+🔍 Site Audit Details:
+• On-site Inspection: ${auditOnsite}
+• Meeting Included: ${auditMeeting}
+• Equipment/Materials: ${auditEquipment}
+• Multiple Locations: ${auditMultiple}
+
+We are preparing your quotation and will send it to you shortly.
+
+Best regards,
+Transport Services
+📞 0976-046-5134 • Viber • WhatsApp
+✉️ gocav.transport@gmail.com`);
+    const mailtoClientUrl = `mailto:${contactEmail}?subject=${subjectToClient}&body=${bodyToClient}`;
+
+    const viberMsg = encodeURIComponent(`🔔 NEW CORPORATE QUOTE REQUEST!
+
+Ref: ${refNo}
+Company: ${company}
+Contact: ${contactPerson}
+Phone: ${phone}
+Preferred: ${preferredMethod}
+Passengers: ${passengers}
+Vehicle: ${vehicleAssigned}
+Date: ${date} @ ${time}
+Pickup: ${pickup1} → ${destination}
+
+🔍 SITE AUDIT
+• On-site: ${auditOnsite}
+• Meeting: ${auditMeeting}
+• Equipment: ${auditEquipment}
+• Multi-location: ${auditMultiple}
+
+Status: PENDING — Send quote via ${preferredMethod}
+
+---
+Transport Services`);
+    const viberUrl = `viber://chat?number=${OWNER_VIBER}&text=${viberMsg}`;
+
+    const waMsg = encodeURIComponent(`🔔 NEW CORPORATE QUOTE REQUEST!
+
+Ref: ${refNo}
+Company: ${company}
+Contact: ${contactPerson}
+Phone: ${phone}
+Preferred: ${preferredMethod}
+Passengers: ${passengers}
+Vehicle: ${vehicleAssigned}
+Date: ${date} @ ${time}
+Pickup: ${pickup1} → ${destination}
+
+🔍 SITE AUDIT
+• On-site: ${auditOnsite}
+• Meeting: ${auditMeeting}
+• Equipment: ${auditEquipment}
+• Multi-location: ${auditMultiple}
+
+Status: PENDING — Send quote via ${preferredMethod}
+
+---
+Transport Services`);
+    const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${waMsg}`;
+
+    try {
+        const formData = new URLSearchParams();
+        formData.append('type', 'CORPORATE');
+        formData.append('refNo', refNo);
+        formData.append('dateSubmitted', new Date().toLocaleString('en-PH'));
+        formData.append('companyName', company);
+        formData.append('companyAddress', companyAddr);
+        formData.append('contactPerson', contactPerson);
+        formData.append('contactEmail', contactEmail);
+        formData.append('phone', phone);
+        formData.append('preferredMethod', preferredMethod);
+        formData.append('passengers', passengers);
+        formData.append('vehicleAssigned', vehicleAssigned);
+        formData.append('pickupDate', date);
+        formData.append('pickupTime', time);
+        formData.append('pickup1', pickup1);
+        formData.append('pickup2', pickup2);
+        formData.append('destination', destination);
+        formData.append('auditOnsite', auditOnsite);
+        formData.append('auditMeeting', auditMeeting);
+        formData.append('auditEquipment', auditEquipment);
+        formData.append('auditMultiple', auditMultiple);
+        formData.append('notes', notes);
+        formData.append('status', 'PENDING — QUOTE VIA ' + preferredMethod.toUpperCase());
+
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: formData
+        });
+    } catch(e) { 
+        console.log('⚠️ Corporate sheet error: ', e.message); 
+    }
+
+    form.classList.add('opacity-50');
+    document.getElementById('corpSuccessMsg').classList.remove('hidden');
+    document.getElementById('corpRefNo').textContent = refNo;
+    document.getElementById('corpEmailLink').href = mailtoOwnerUrl;
+    document.getElementById('corpEmailClientLink').href = mailtoClientUrl;
+    document.getElementById('corpViberLink').href = viberUrl;
+    document.getElementById('corpWaLink').href = waUrl;
+    btn.textContent = '✅ Request Submitted';
+
+    const copyBtn = document.getElementById('copyCorpRefBtn');
+    copyBtn.onclick = async () => {
+        try {
+            await navigator.clipboard.writeText(refNo);
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
+        } catch(err) {
+            const textArea = document.createElement('textarea');
+            textArea.value = refNo;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
+        }
+    };
+
+    setTimeout(() => { window.open(mailtoOwnerUrl, '_blank'); }, 600);
+});
+
+document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const form = document.getElementById('bookingForm');
+    
+    btn.disabled = true;
+    btn.textContent = '⏳ Recording...';
+    Array.from(form.elements).forEach(el => el.disabled = true);
+
+    const svcParts = document.getElementById('service_type').value.split('|');
+    const svcCode = svcParts[0];
+    const svcName = svcParts[1];
+    const rate = svcParts[2];
+
+    const fullname = document.getElementById('fullname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const date = document.getElementById('pickup_date').value;
+    const time = document.getElementById('pickup_time').value;
+    const pickup = document.getElementById('pickup_location').value.trim();
+    const dropoff = document.getElementById('dropoff').value.trim() || 'N/A';
+    const payMethod = document.getElementById('payment_method').value;
+    const notes = document.getElementById('notes').value.trim() || 'None';
+
+    const refNo = `GC${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*9000+1000)}`;
+
+    let durHrs = 2;
+    let fuelNote = '✅ Fuel Included • Toll & Parking Paid by Client';
+    if (svcCode.includes('Round')) {
+        durHrs = 6;
+    } else if (svcCode.includes('Tour')) {
+        durHrs = 10;
+        fuelNote = '⚠️ Fuel, Toll & Parking — Additional Charge to Client';
+    }
+
+    const fDate = date.replace(/-/g,'');
+    const tStart = time.replace(/:/g,'') + '00';
+    const tEnd = addHours(time, durHrs).replace(/:/g,'') + '00';
+    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+fullname+' | '+svcName)}&details=${encodeURIComponent('Ref: '+refNo+'\nClient: '+fullname+'\nContact: '+phone+'\nService: '+svcName+'\nRate: ₱'+rate+'\n'+fuelNote+'\nPayment: '+payMethod+'\nStatus: PENDING\n\nNotes: '+notes)}&location=${encodeURIComponent(pickup+' → '+dropoff)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
+
+    const mailSubject = encodeURIComponent(`BOOKING ${refNo} — ${fullname} | ${svcName}`);
+    const mailBodyText = `NEW BOOKING — REF: ${refNo}
+══════════════════════
+👤 Client: ${fullname}
+📞 Contact: ${phone}
+🚗 Service: ${svcName}
+💰 Rate: ₱${rate}
+${fuelNote}
+📅 Pickup: ${date} @ ${time}
+📍 From: ${pickup}
+🎯 To: ${dropoff}
+💳 Payment: ${payMethod}
+📊 Status: PENDING
+
+📝 Notes: ${notes}
+
+📅 Calendar: ${gcalUrl}
+
+Transport Services
+Ref: ${refNo}`;
+    const mailBody = encodeURIComponent(mailBodyText);
+    const mailtoUrl = `mailto:${OWNER_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
+
+    const viberMsg = encodeURIComponent(`🔔 NEW BOOKING!
+
+Ref: ${refNo}
+Client: ${fullname}
+Phone: ${phone}
+Service: ${svcName}
+Rate: ₱${rate}
+Pickup: ${date} @ ${time}
+From: ${pickup} → ${dropoff}
+Payment: ${payMethod}
+Status: PENDING
+
+---
+Transport Services`);
+    const viberUrl = `viber://chat?number=${OWNER_VIBER}&text=${viberMsg}`;
+
+    const waMsg = encodeURIComponent(`🔔 NEW BOOKING!
+
+Ref: ${refNo}
+Client: ${fullname}
+Phone: ${phone}
+Service: ${svcName}
+Rate: ₱${rate}
+Pickup: ${date} @ ${time}
+From: ${pickup} → ${dropoff}
+Payment: ${payMethod}
+Status: PENDING
+
+---
+Transport Services`);
+    const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${waMsg}`;
+
+    try {
+        const formData = new URLSearchParams();
+        formData.append('type', 'INDIVIDUAL');
+        formData.append('refNo', refNo);
+        formData.append('dateSubmitted', new Date().toLocaleString('en-PH'));
+        formData.append('fullname', fullname);
+        formData.append('phone', phone);
+        formData.append('service', svcName);
+        formData.append('vehicle', svcName.includes('Accent') ? 'Hyundai Accent' : 
+                         svcName.includes('Avanza') ? 'Toyota Avanza' : 
+                         svcName.includes('Montero') ? 'Montero Sport Gen 2' : 
+                         svcName.includes('Tagaytay') ? 'Tagaytay Tour' : 'Manila Tour');
+        formData.append('rate', '₱' + rate);
+        formData.append('rateValue', rate);
+        formData.append('pickupDate', date);
+        formData.append('pickup', pickup);
+        formData.append('dropoff', dropoff);
+        formData.append('payMethod', payMethod);
+        formData.append('notes', notes);
+
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: formData
+        });
+    } catch(e) { 
+        console.log('⚠️ Sheet error:', e.message); 
+    }
+
+    form.classList.add('opacity-50');
+    document.getElementById('successMsg').classList.remove('hidden');
+    document.getElementById('refNo').textContent = refNo;
+    document.getElementById('gcalLink').href = gcalUrl;
+    document.getElementById('emailLink').href = mailtoUrl;
+    document.getElementById('viberLink').href = viberUrl;
+    document.getElementById('waLink').href = waUrl;
+    btn.textContent = '✅ Submitted';
+
+    const copyBtn = document.getElementById('copyRefBtn');
+    copyBtn.onclick = async () => {
+        try {
+            await navigator.clipboard.writeText(refNo);
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
+        } catch(err) {
+            const textArea = document.createElement('textarea');
+            textArea.value = refNo;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
+        }
+    };
+
+    setTimeout(() => { window.open(mailtoUrl, '_blank'); }, 600);
+});
+</script>
+</body>
+</html>
