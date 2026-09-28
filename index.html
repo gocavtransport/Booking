@@ -25,8 +25,6 @@
             50% { box-shadow: 0 0 25px #60a5fa, 0 0 40px rgba(59,130,246,0.4); }
             100% { box-shadow: 0 0 8px #3b82f6; }
         }
-
-        /* 🏆 PREMIUM VEHICLE SUGGESTION — IMPRESSIVE VERSION */
         .vehicle-suggest {
             position: relative;
             background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(255,215,0,0.08));
@@ -37,7 +35,6 @@
             overflow: hidden;
             animation: premiumGlow 1.4s infinite ease-in-out;
         }
-        /* Shimmer sweep effect */
         .vehicle-suggest::before {
             content: '';
             position: absolute;
@@ -47,31 +44,18 @@
             animation: shimmer 2.5s infinite ease-in-out;
         }
         @keyframes premiumGlow {
-            0% { 
-                box-shadow: 0 0 6px #d4af37, 0 0 12px rgba(212,175,55,0.3), inset 0 0 8px rgba(212,175,55,0.15);
-                border-color: #b8860b;
-            }
-            50% { 
-                box-shadow: 0 0 18px #ffd700, 0 0 35px rgba(255,215,0,0.5), inset 0 0 20px rgba(255,215,0,0.25);
-                border-color: #ffd700;
-                background: linear-gradient(135deg, rgba(212,175,55,0.28), rgba(255,215,0,0.15));
-            }
-            100% { 
-                box-shadow: 0 0 6px #d4af37, 0 0 12px rgba(212,175,55,0.3), inset 0 0 8px rgba(212,175,55,0.15);
-                border-color: #b8860b;
-            }
+            0% { box-shadow: 0 0 6px #d4af37, 0 0 12px rgba(212,175,55,0.3), inset 0 0 8px rgba(212,175,55,0.15); border-color: #b8860b; }
+            50% { box-shadow: 0 0 18px #ffd700, 0 0 35px rgba(255,215,0,0.5), inset 0 0 20px rgba(255,215,0,0.25); border-color: #ffd700; background: linear-gradient(135deg, rgba(212,175,55,0.28), rgba(255,215,0,0.15)); }
+            100% { box-shadow: 0 0 6px #d4af37, 0 0 12px rgba(212,175,55,0.3), inset 0 0 8px rgba(212,175,55,0.15); border-color: #b8860b; }
         }
         @keyframes shimmer {
             0% { left: -100%; }
             100% { left: 100%; }
         }
         .vehicle-suggest strong, .vehicle-suggest span {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: #ffd700;
+            font-size: 1.15rem; font-weight: 800; color: #ffd700;
             text-shadow: 0 0 10px rgba(255,215,0,0.4);
         }
-
         input, select, textarea { background: #1a1a1a; border: 1px solid #333; color: #fff; transition: border-color 0.2s; }
         input:focus, select:focus, textarea:focus { border-color: #d4af37; outline: none; box-shadow: 0 0 0 2px rgba(212,175,55,0.2); }
         input[type="date"], input[type="time"] { min-height: 48px; }
@@ -96,6 +80,7 @@
         .send-option:hover { border-color: #555; background: #1a1a1a; }
         .send-option.selected { border-color: #d4af37; background: #1f1a0a; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
         .recommended-badge { background: linear-gradient(90deg, #d4af37, #ffd700); color: #000; font-size: 0.7rem; padding: 3px 8px; border-radius: 6px; margin-left: 8px; font-weight: 800; text-transform: uppercase; }
+        .label-sm { font-size: 0.9rem; color: #94a3b8; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -200,7 +185,6 @@
 
 <section id="corporateSection" class="mb-12 hidden-form">
     <h2 class="text-2xl font-bold mb-6 text-center text-blue-400">🏢 Corporate Booking Request</h2>
-    <p class="notice-box text-center mb-6">📩 Choose how to send your request</p>
 
     <form id="corporateForm" class="card corporate-form rounded-xl p-6 space-y-5">
         <div class="grid md:grid-cols-2 gap-4">
@@ -261,17 +245,30 @@
                 🚗 Suggested Vehicle: <span id="vehicleResultCorp"></span>
             </div>
         </div>
+        
+        <!-- PICKUP LOCATIONS -->
         <div>
-            <label class="block mb-1 font-medium required">Pickup Location</label>
-            <input type="text" id="corp_pickup" required class="w-full px-4 py-3 rounded-lg">
+            <label class="block mb-1 font-medium required">📍 1st Pickup Location</label>
+            <input type="text" id="corp_pickup" required class="w-full px-4 py-3 rounded-lg" placeholder="Primary pickup point...">
         </div>
         <div>
-            <label class="block mb-1 font-medium required">Destination / Drop-off</label>
-            <input type="text" id="corp_destination" required class="w-full px-4 py-3 rounded-lg">
+            <label class="block mb-1 font-medium">📍 2nd Pickup Location <span class="label-sm">(Optional — if multiple pickups)</span></label>
+            <input type="text" id="corp_pickup2" class="w-full px-4 py-3 rounded-lg" placeholder="Enter 2nd pickup location...">
+        </div>
+
+        <!-- VISIT DETAILS -->
+        <div>
+            <label class="block mb-1 font-medium required">🏢 Company Name & Address to Visit</label>
+            <input type="text" id="corp_visit_company" required class="w-full px-4 py-3 rounded-lg" placeholder="Company name and full address...">
         </div>
         <div>
-            <label class="block mb-1 font-medium">📝 Additional Instructions</label>
-            <textarea id="corp_notes" rows="3" class="w-full px-4 py-3 rounded-lg"></textarea>
+            <label class="block mb-1 font-medium required">📋 Purpose of Visit</label>
+            <textarea id="corp_purpose" rows="3" required class="w-full px-4 py-3 rounded-lg" placeholder="e.g. audit, inspection, meeting, client presentation, etc."></textarea>
+        </div>
+
+        <div>
+            <label class="block mb-1 font-medium">📝 Additional Instructions / Special Requirements</label>
+            <textarea id="corp_notes" rows="2" class="w-full px-4 py-3 rounded-lg" placeholder="PO number, billing details, drop-off location, return trip, etc."></textarea>
         </div>
         <button type="submit" id="corpSubmitBtn" class="btn-corporate w-full py-3 rounded-lg text-lg">✅ Prepare & Send Request</button>
     </form>
@@ -303,7 +300,6 @@
             </div>
         </div>
 
-        <!-- 🏆 PREMIUM BLINKING VEHICLE SUGGESTION -->
         <div id="vehicleSuggest" class="vehicle-suggest hidden-form">
             🚗 Suggested Vehicle: <span id="vehicleResult"></span>
         </div>
@@ -321,7 +317,6 @@
             </select>
         </div>
 
-        <!-- Notice shown for custom quotation services -->
         <div id="customQuoteNotice" class="notice-box hidden-form">
             ⚠️ <strong>Note:</strong> A formal quotation including rates, fuel, toll, parking, and other expenses will be sent to your email address or via call from GoCav Transport.
         </div>
@@ -337,7 +332,6 @@
             </div>
         </div>
 
-        <!-- Pickup Location -->
         <div id="pickupContainer">
             <label class="block mb-1 font-medium required" id="pickupLabel">📍 Pickup Location</label>
             <select id="pickup_naia_select" class="w-full px-4 py-3 rounded-lg hidden-form">
@@ -350,7 +344,6 @@
             <input type="text" id="pickup_text" class="w-full px-4 py-3 rounded-lg" placeholder="Enter pickup location...">
         </div>
 
-        <!-- Dropoff Location -->
         <div id="dropoffContainer">
             <label class="block mb-1 font-medium required" id="dropoffLabel">📍 Drop-off / Destination</label>
             <select id="dropoff_naia_select" class="w-full px-4 py-3 rounded-lg hidden-form">
@@ -447,7 +440,6 @@ function getVehicleSuggestion(passengers) {
     return { hide: false, vehicle: 'Multiple Vehicles / Custom Arrangement — Please inquire' };
 }
 
-// Selector styling
 document.querySelectorAll('.send-option').forEach(opt => {
     opt.addEventListener('click', function() {
         const form = this.closest('form');
@@ -458,7 +450,6 @@ document.querySelectorAll('.send-option').forEach(opt => {
     });
 });
 
-// Vehicle suggestion — Individual
 document.getElementById('passengers').addEventListener('input', function() {
     const pax = parseInt(this.value) || 0;
     const result = getVehicleSuggestion(pax);
@@ -471,7 +462,6 @@ document.getElementById('passengers').addEventListener('input', function() {
     }
 });
 
-// Vehicle suggestion — Corporate
 document.getElementById('corp_passengers').addEventListener('input', function() {
     const pax = parseInt(this.value) || 0;
     const result = getVehicleSuggestion(pax);
@@ -484,7 +474,6 @@ document.getElementById('corp_passengers').addEventListener('input', function() 
     }
 });
 
-// Service type change → update pickup/dropoff fields & custom notice
 const serviceSelect = document.getElementById('service_type');
 const pickupNaiaSelect = document.getElementById('pickup_naia_select');
 const pickupText = document.getElementById('pickup_text');
@@ -498,7 +487,6 @@ function updateFieldsByService() {
     const val = serviceSelect.value;
     customNotice.classList.add('hidden-form');
     
-    // Reset all
     pickupNaiaSelect.classList.add('hidden-form');
     pickupText.classList.remove('hidden-form');
     pickupNaiaSelect.required = false;
@@ -537,7 +525,6 @@ function updateFieldsByService() {
 }
 serviceSelect.addEventListener('change', updateFieldsByService);
 
-// Corporate toggle
 document.getElementById('corporateToggle').addEventListener('click', function() {
     const section = document.getElementById('corporateSection');
     section.classList.toggle('hidden-form');
@@ -558,7 +545,6 @@ function getDropoffValue() {
     return dropoffText.value.trim();
 }
 
-// --- Individual Booking Submit ---
 document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
@@ -660,7 +646,6 @@ GoCav Transport Services
     } catch (e) { console.log('Sheet submit skipped'); }
 });
 
-// --- Corporate Submit ---
 document.getElementById('corporateForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('corpSubmitBtn');
@@ -676,8 +661,10 @@ document.getElementById('corporateForm').addEventListener('submit', async functi
     const time = document.getElementById('corp_time').value;
     const passengers = parseInt(document.getElementById('corp_passengers').value);
     const vehicleAssigned = getVehicleSuggestion(passengers).vehicle;
-    const pickup = document.getElementById('corp_pickup').value.trim();
-    const destination = document.getElementById('corp_destination').value.trim();
+    const pickup1 = document.getElementById('corp_pickup').value.trim();
+    const pickup2 = document.getElementById('corp_pickup2').value.trim() || 'N/A';
+    const visitCompany = document.getElementById('corp_visit_company').value.trim();
+    const purpose = document.getElementById('corp_purpose').value.trim();
     const notes = document.getElementById('corp_notes').value.trim() || 'None';
     
     let sendMethod = 'Email';
@@ -690,7 +677,7 @@ document.getElementById('corporateForm').addEventListener('submit', async functi
     const msgText = `🔔 CORPORATE REQUEST — REF: ${refNo}
 ═════════════════════════
 🏢 Company: ${company}
-📍 Address: ${address}
+📍 Company Address: ${address}
 👤 Contact Person: ${contactPerson}
 ✉️ Email: ${email}
 📞 Phone: ${phone}
@@ -698,8 +685,10 @@ document.getElementById('corporateForm').addEventListener('submit', async functi
 🚗 Vehicle: ${vehicleAssigned}
 📅 Date: ${date}
 ⏰ Time: ${time}
-📍 Pickup: ${pickup}
-🎯 Destination: ${destination}
+📍 1st Pickup: ${pickup1}
+📍 2nd Pickup: ${pickup2}
+🏢 Visiting: ${visitCompany}
+📋 Purpose of Visit: ${purpose}
 📝 Notes: ${notes}
 📤 Sent via: ${sendMethod}
 ═════════════════════════
@@ -716,6 +705,19 @@ GoCav Transport Services
         else if (sendMethod === 'WhatsApp') window.open(waLink, '_blank');
         else if (sendMethod === 'Viber') window.location.href = viberLink;
     }, 600);
+
+    try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                type: 'CORPORATE', refNo, company, companyAddress: address, contactPerson, email, phone,
+                passengers, vehicleAssigned, date, time,
+                pickup1, pickup2, visitCompany, purpose, notes, sendMethod
+            })
+        });
+    } catch (e) { console.log('Sheet submit skipped'); }
 });
 </script>
 </body>
