@@ -281,7 +281,9 @@
 </footer>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOpfzSq9ANkBtlU0P1lVPaimx3gQv8aza1zK_VAkOebwJ2822Cn-DBUozu6Hg51Hgf/exec";
+// ✅ YOUR GOOGLE SCRIPT URL — ALREADY INSERTED ✅
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPxH8Ph9cVgOeaYkXJq0A-aLFgv88p1buVBZ53fjkapJz3l5LLghlmzARcT3tuB70/exec";
+
 const OWNER_WHATSAPP = "639760465134";
 const OWNER_VIBER = "639760465134";
 const OWNER_EMAIL = "gocav.transport@gmail.com";
@@ -315,7 +317,9 @@ document.getElementById('corporateToggle').addEventListener('click', function() 
     this.classList.toggle('btn-corporate');
 });
 
-// CORPORATE SUBMIT
+// ==========================================
+// ✅ CORPORATE SUBMIT — mode: no-cors ADDED
+// ==========================================
 document.getElementById('corporateForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('corpSubmitBtn');
@@ -403,7 +407,14 @@ Status: PENDING — quote via ${preferredMethod}
         fd.append('notes',notes);
         fd.append('withholdingTax','2% of gross (corporate)');
         fd.append('status','PENDING — QUOTE VIA '+preferredMethod.toUpperCase());
-        await fetch(GOOGLE_SCRIPT_URL, {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:fd});
+        
+        // ✅ mode: 'no-cors' ADDED ✅
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: fd
+        });
     } catch(err) { console.log('Sheet error:', err.message); }
 
     form.classList.add('opacity-50');
@@ -423,7 +434,9 @@ Status: PENDING — quote via ${preferredMethod}
     setTimeout(() => { window.open(mailtoOwnerUrl, '_blank'); }, 600);
 });
 
-// REGULAR SUBMIT
+// ==========================================
+// ✅ REGULAR BOOKING SUBMIT — mode: no-cors ADDED
+// ==========================================
 document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
@@ -492,7 +505,14 @@ Status: PENDING
         fd.append('pickupDate',date); fd.append('pickup',pickup); fd.append('dropoff',dropoff);
         fd.append('payMethod',payMethod); fd.append('notes',notes);
         fd.append('withholdingTax','N/A — Individual');
-        await fetch(GOOGLE_SCRIPT_URL, {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:fd});
+        
+        // ✅ mode: 'no-cors' ADDED ✅
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: fd
+        });
     } catch(err) { console.log('Sheet error:', err.message); }
 
     form.classList.add('opacity-50');
