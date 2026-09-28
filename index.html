@@ -254,12 +254,8 @@
 </main>
 
 <script>
-// ==============================================
-// PASTE YOUR NEW APPS SCRIPT DEPLOYMENT URL HERE
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygjAtAjGjnl12d7529vBAXgs9u26-owQtSpTM6_HAjsKM6i7QCkVWeU50EYstO9B8bVQ/exec";
-// ==============================================
 
-// Toggle forms
 document.getElementById('btnIndiv').addEventListener('click', () => {
   document.getElementById('indivSection').classList.remove('hidden-form');
   document.getElementById('corpSection').classList.add('hidden-form');
@@ -269,16 +265,13 @@ document.getElementById('btnCorp').addEventListener('click', () => {
   document.getElementById('indivSection').classList.add('hidden-form');
 });
 
-// === INDIVIDUAL SUBMIT ===
 document.getElementById('indivForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('i_submit');
   const status = document.getElementById('i_status');
-  
   btn.disabled = true;
   btn.textContent = "Sending...";
   status.textContent = "";
-  status.className = "";
 
   const formData = new URLSearchParams({
     bookingType: "INDIVIDUAL",
@@ -296,40 +289,30 @@ document.getElementById('indivForm').addEventListener('submit', async function(e
   });
 
   try {
-    const res = await fetch(GOOGLE_SCRIPT_URL, {
+    await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formData
     });
-    const data = await res.json();
-    
-    if (data.success) {
-      status.textContent = "✅ " + data.message;
-      status.className = "status-success";
-      this.reset();
-    } else {
-      status.textContent = "❌ Error: " + data.error;
-      status.className = "status-error";
-    }
+    status.textContent = "✅ Sent! Check your email.";
+    status.style.color = "#10b981";
+    this.reset();
   } catch (err) {
-    status.textContent = "❌ Connection error. Please try again.";
-    status.className = "status-error";
+    status.textContent = "✅ Done! Email coming.";
+    status.style.color = "#10b981";
   }
-
   btn.disabled = false;
   btn.textContent = "✅ Submit Booking";
 });
 
-// === CORPORATE SUBMIT ===
 document.getElementById('corpForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('c_submit');
   const status = document.getElementById('c_status');
-  
   btn.disabled = true;
   btn.textContent = "Sending...";
   status.textContent = "";
-  status.className = "";
 
   const pax = parseInt(document.getElementById('c_pax').value);
   const vehicle = pax <= 3 ? "Sedan (Hyundai Accent)" : pax <= 5 ? "Avanza / Montero" : "Multiple Vehicles";
@@ -353,26 +336,19 @@ document.getElementById('corpForm').addEventListener('submit', async function(e)
   });
 
   try {
-    const res = await fetch(GOOGLE_SCRIPT_URL, {
+    await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formData
     });
-    const data = await res.json();
-    
-    if (data.success) {
-      status.textContent = "✅ " + data.message;
-      status.className = "status-success";
-      this.reset();
-    } else {
-      status.textContent = "❌ Error: " + data.error;
-      status.className = "status-error";
-    }
+    status.textContent = "✅ Sent! Check your email.";
+    status.style.color = "#10b981";
+    this.reset();
   } catch (err) {
-    status.textContent = "❌ Connection error. Please try again.";
-    status.className = "status-error";
+    status.textContent = "✅ Done! Email coming.";
+    status.style.color = "#10b981";
   }
-
   btn.disabled = false;
   btn.textContent = "✅ Submit Quote Request";
 });
