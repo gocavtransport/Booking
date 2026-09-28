@@ -22,10 +22,8 @@
         input[type="date"]::-webkit-calendar-picker-indicator,
         input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(1); transform: scale(1.2); }
         .hidden-form { display: none; }
-        .tax-note { color: #f87171; font-size: 0.85rem; }
-        .amount-box { background: #1e293b; border-radius: 8px; padding: 12px; margin: 8px 0; }
-        .tax-row { display: flex; justify-content: space-between; padding: 4px 0; }
-        .net-row { display: flex; justify-content: space-between; padding: 6px 0; border-top: 1px solid #333; font-weight: bold; color: #10b981; }
+        .status-success { color: #10b981; font-weight: 500; }
+        .status-error { color: #ef4444; font-weight: 500; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -100,40 +98,59 @@
         <h2 class="text-xl font-bold mb-2">👤 Individual Booking</h2>
         
         <div class="grid md:grid-cols-2 gap-4">
-            <div><label class="block mb-1 text-sm font-medium">Full Name *</label>
-            <input type="text" id="i_name" required class="w-full px-4 py-3 rounded-lg"></div>
-            <div><label class="block mb-1 text-sm font-medium">Contact Number *</label>
-            <input type="tel" id="i_phone" required class="w-full px-4 py-3 rounded-lg" placeholder="09XX-XXX-XXXX"></div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Full Name *</label>
+                <input type="text" id="i_name" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Email Address *</label>
+                <input type="email" id="i_email" required class="w-full px-4 py-3 rounded-lg" placeholder="your@email.com">
+            </div>
         </div>
-        
-        <div><label class="block mb-1 text-sm font-medium">Service Type *</label>
-            <select id="i_service" required class="w-full px-4 py-3 rounded-lg">
-                <option value="">— Select Service —</option>
-                <option value="Hyundai Accent One-Way|1500">Hyundai Accent — One-Way ₱1,500</option>
-                <option value="Hyundai Accent Round Trip|2500">Hyundai Accent — Round Trip ₱2,500</option>
-                <option value="Toyota Avanza One-Way|1800">Toyota Avanza — One-Way ₱1,800</option>
-                <option value="Toyota Avanza Round Trip|3500">Toyota Avanza — Round Trip ₱3,500</option>
-                <option value="Montero Sport One-Way|2100">Montero Sport — One-Way ₱2,100</option>
-                <option value="Montero Sport Round Trip|4000">Montero Sport — Round Trip ₱4,000</option>
-                <option value="Tagaytay Day Tour|5000">🌄 Tagaytay Day Tour — ₱5,000</option>
-                <option value="Manila Day Tour|5000">🏙️ Manila Day Tour — ₱5,000</option>
-            </select>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block mb-1 text-sm font-medium">Contact Number *</label>
+                <input type="tel" id="i_phone" required class="w-full px-4 py-3 rounded-lg" placeholder="09XX-XXX-XXXX">
+            </div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Service Type *</label>
+                <select id="i_service" required class="w-full px-4 py-3 rounded-lg">
+                    <option value="">— Select Service —</option>
+                    <option value="Hyundai Accent — One-Way">Hyundai Accent — One-Way ₱1,500</option>
+                    <option value="Hyundai Accent — Round Trip">Hyundai Accent — Round Trip ₱2,500</option>
+                    <option value="Toyota Avanza — One-Way">Toyota Avanza — One-Way ₱1,800</option>
+                    <option value="Toyota Avanza — Round Trip">Toyota Avanza — Round Trip ₱3,500</option>
+                    <option value="Montero Sport — One-Way">Montero Sport — One-Way ₱2,100</option>
+                    <option value="Montero Sport — Round Trip">Montero Sport — Round Trip ₱4,000</option>
+                    <option value="Tagaytay Day Tour">🌄 Tagaytay Day Tour — From ₱5,000</option>
+                    <option value="Manila Day Tour">🏙️ Manila Day Tour — From ₱5,000</option>
+                </select>
+            </div>
         </div>
         
         <div class="grid md:grid-cols-2 gap-4">
-            <div><label class="block mb-1 text-sm font-medium">📅 Pickup Date *</label>
-            <input type="date" id="i_date" required class="w-full px-4 py-3 rounded-lg"></div>
-            <div><label class="block mb-1 text-sm font-medium">⏰ Pickup Time *</label>
-            <input type="time" id="i_time" required class="w-full px-4 py-3 rounded-lg"></div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">📅 Pickup Date *</label>
+                <input type="date" id="i_date" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">⏰ Pickup Time *</label>
+                <input type="time" id="i_time" required class="w-full px-4 py-3 rounded-lg">
+            </div>
         </div>
         
-        <div><label class="block mb-1 text-sm font-medium">Pickup Location *</label>
-        <input type="text" id="i_pickup" required class="w-full px-4 py-3 rounded-lg" placeholder="Full address"></div>
+        <div>
+            <label class="block mb-1 text-sm font-medium">Pickup Location *</label>
+            <input type="text" id="i_pickup" required class="w-full px-4 py-3 rounded-lg" placeholder="Full address">
+        </div>
         
-        <div><label class="block mb-1 text-sm font-medium">Destination</label>
-        <input type="text" id="i_dest" class="w-full px-4 py-3 rounded-lg" placeholder="NAIA / Tagaytay / etc."></div>
+        <div>
+            <label class="block mb-1 text-sm font-medium">Destination</label>
+            <input type="text" id="i_dest" class="w-full px-4 py-3 rounded-lg" placeholder="NAIA / Tagaytay / etc.">
+        </div>
         
-        <div><label class="block mb-1 text-sm font-medium">Payment Method *</label>
+        <div>
+            <label class="block mb-1 text-sm font-medium">Payment Method *</label>
             <select id="i_pay" required class="w-full px-4 py-3 rounded-lg">
                 <option value="">— Select —</option>
                 <option value="Cash">💵 Cash to Driver</option>
@@ -144,10 +161,12 @@
             </select>
         </div>
         
-        <div><label class="block mb-1 text-sm font-medium">Notes</label>
-        <textarea id="i_notes" rows="2" class="w-full px-4 py-3 rounded-lg" placeholder="Special requests..."></textarea></div>
+        <div>
+            <label class="block mb-1 text-sm font-medium">Notes / Special Requests</label>
+            <textarea id="i_notes" rows="2" class="w-full px-4 py-3 rounded-lg" placeholder="Any special instructions..."></textarea>
+        </div>
         
-        <button type="submit" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Submit Booking</button>
+        <button type="submit" id="i_submit" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Submit Booking</button>
         <p id="i_status" class="text-center text-sm mt-2"></p>
     </form>
 </section>
@@ -156,24 +175,34 @@
 <section id="corpSection" class="mb-8 hidden-form">
     <form id="corpForm" class="card rounded-xl p-6 space-y-4 border-2 border-blue-500/50">
         <h2 class="text-xl font-bold mb-2 text-blue-400">🏢 Corporate Booking Request</h2>
-        <p class="tax-note mb-3">⚠️ 2% Withholding Tax will be deducted from Gross Amount — Net amount payable shown below</p>
         
         <div class="grid md:grid-cols-2 gap-4">
-            <div><label class="block mb-1 text-sm font-medium">Company Name *</label>
-            <input type="text" id="c_company" required class="w-full px-4 py-3 rounded-lg"></div>
-            <div><label class="block mb-1 text-sm font-medium">Company Address *</label>
-            <input type="text" id="c_addr" required class="w-full px-4 py-3 rounded-lg"></div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Company Name *</label>
+                <input type="text" id="c_company" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Company Address *</label>
+                <input type="text" id="c_addr" required class="w-full px-4 py-3 rounded-lg">
+            </div>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
-            <div><label class="block mb-1 text-sm font-medium">Contact Person *</label>
-            <input type="text" id="c_contact" required class="w-full px-4 py-3 rounded-lg"></div>
-            <div><label class="block mb-1 text-sm font-medium">Email Address *</label>
-            <input type="email" id="c_email" required class="w-full px-4 py-3 rounded-lg"></div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Contact Person *</label>
+                <input type="text" id="c_contact" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Email Address *</label>
+                <input type="email" id="c_email" required class="w-full px-4 py-3 rounded-lg" placeholder="contact@company.com">
+            </div>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
-            <div><label class="block mb-1 text-sm font-medium">Phone / Viber *</label>
-            <input type="tel" id="c_phone" required class="w-full px-4 py-3 rounded-lg" placeholder="09XX-XXX-XXXX"></div>
-            <div><label class="block mb-1 text-sm font-medium">Preferred Contact *</label>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Phone / Viber *</label>
+                <input type="tel" id="c_phone" required class="w-full px-4 py-3 rounded-lg" placeholder="09XX-XXX-XXXX">
+            </div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">Preferred Contact *</label>
                 <select id="c_pref" required class="w-full px-4 py-3 rounded-lg">
                     <option value="">— Select —</option>
                     <option value="Email">📧 Email</option>
@@ -183,270 +212,171 @@
             </div>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
-            <div><label class="block mb-1 text-sm font-medium">📅 Pickup Date *</label>
-            <input type="date" id="c_date" required class="w-full px-4 py-3 rounded-lg"></div>
-            <div><label class="block mb-1 text-sm font-medium">⏰ Pickup Time *</label>
-            <input type="time" id="c_time" required class="w-full px-4 py-3 rounded-lg"></div>
-        </div>
-        
-        <div><label class="block mb-1 text-sm font-medium">Number of Passengers *</label>
-            <input type="number" id="c_pax" min="1" required class="w-full px-4 py-3 rounded-lg" placeholder="1–3 = Sedan • 1–5 = Avanza/Montero">
-            <p id="c_vehiclenote" class="text-xs text-gray-400 mt-1">Vehicle will be assigned based on passenger count</p>
-        </div>
-        
-        <div><label class="block mb-1 text-sm font-medium">Pickup Location 1 *</label>
-        <input type="text" id="c_pick1" required class="w-full px-4 py-3 rounded-lg"></div>
-        <div><label class="block mb-1 text-sm font-medium">Pickup Location 2</label>
-        <input type="text" id="c_pick2" class="w-full px-4 py-3 rounded-lg" placeholder="If any"></div>
-        <div><label class="block mb-1 text-sm font-medium">Destination *</label>
-        <input type="text" id="c_dest" required class="w-full px-4 py-3 rounded-lg"></div>
-        
-        <!-- AUTO TAX CALCULATION DISPLAY -->
-        <div class="amount-box">
-            <p class="text-sm font-medium mb-2">💰 Rate Preview (for quotation)</p>
-            <p class="text-xs text-gray-400 mb-2">Enter estimated gross amount below to see net:</p>
-            <input type="number" id="c_gross" min="0" step="100" class="w-full px-4 py-2 rounded-lg mb-2" placeholder="Gross Amount (e.g. 5000)">
-            <div id="c_taxcalc" class="hidden-form">
-                <div class="tax-row"><span>Gross Amount:</span><span id="disp_gross">—</span></div>
-                <div class="tax-row text-red-400"><span>Less 2% Withholding Tax:</span><span id="disp_tax">—</span></div>
-                <div class="net-row"><span>Net Amount Payable:</span><span id="disp_net">—</span></div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">📅 Pickup Date *</label>
+                <input type="date" id="c_date" required class="w-full px-4 py-3 rounded-lg">
+            </div>
+            <div>
+                <label class="block mb-1 text-sm font-medium">⏰ Pickup Time *</label>
+                <input type="time" id="c_time" required class="w-full px-4 py-3 rounded-lg">
             </div>
         </div>
         
-        <div><label class="block mb-1 text-sm font-medium">📝 Additional Instructions / Site Audit</label>
-        <textarea id="c_notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Site inspection, multiple stops, equipment transport, etc."></textarea></div>
+        <div>
+            <label class="block mb-1 text-sm font-medium">Number of Passengers *</label>
+            <input type="number" id="c_pax" min="1" required class="w-full px-4 py-3 rounded-lg" placeholder="1–3 = Sedan • 1–5 = Avanza/Montero">
+            <p class="text-xs text-gray-400 mt-1">Vehicle type & rate will be confirmed via email</p>
+        </div>
         
-        <button type="submit" class="btn-corp w-full py-3 rounded-lg text-lg">✅ Submit Quote Request</button>
+        <div>
+            <label class="block mb-1 text-sm font-medium">Pickup Location 1 *</label>
+            <input type="text" id="c_pick1" required class="w-full px-4 py-3 rounded-lg" placeholder="Full address">
+        </div>
+        <div>
+            <label class="block mb-1 text-sm font-medium">Pickup Location 2 (if any)</label>
+            <input type="text" id="c_pick2" class="w-full px-4 py-3 rounded-lg" placeholder="Optional">
+        </div>
+        <div>
+            <label class="block mb-1 text-sm font-medium">Destination *</label>
+            <input type="text" id="c_dest" required class="w-full px-4 py-3 rounded-lg" placeholder="Full address">
+        </div>
+        
+        <div>
+            <label class="block mb-1 text-sm font-medium">📝 Site Audit / Additional Instructions</label>
+            <textarea id="c_notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Any special instructions, site audit details..."></textarea>
+        </div>
+        
+        <button type="submit" id="c_submit" class="btn-corp w-full py-3 rounded-lg text-lg">✅ Submit Quote Request</button>
         <p id="c_status" class="text-center text-sm mt-2"></p>
     </form>
 </section>
 
-<!-- SUCCESS MESSAGE (SHARED) -->
-<div id="successBox" class="hidden-form mt-6 p-6 rounded-xl border border-green-500 bg-green-950/30 text-center">
-    <h3 class="text-xl font-bold text-green-400 mb-2">✅ Recorded Successfully!</h3>
-    <p class="mb-1">Reference: <span id="s_ref" class="font-bold text-lg"></span></p>
-    <p id="s_type" class="text-sm text-gray-300 mb-4"></p>
-    <p class="text-sm mb-4">📧 Email sent — Click Calendar link to review & confirm<br>
-    After saving to Calendar → run <code class="bg-gray-800 px-2 py-1 rounded text-xs">confirmBooking("REFNO")</code> in Apps Script</p>
-    <div class="flex flex-wrap justify-center gap-3">
-        <a id="s_cal" href="#" target="_blank" class="bg-green-600 px-5 py-2 rounded-lg font-bold">📅 Add to Calendar</a>
-        <a id="s_email" href="#" class="bg-blue-600 px-5 py-2 rounded-lg">✉️ Open Email</a>
-        <a id="s_wa" href="#" target="_blank" class="bg-green-500 px-5 py-2 rounded-lg">💬 WhatsApp</a>
-    </div>
-</div>
-
 </main>
 
 <script>
-// ==========================================
+// ==============================================
+// PASTE YOUR NEW APPS SCRIPT DEPLOYMENT URL HERE
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygjAtAjGjnl12d7529vBAXgs9u26-owQtSpTM6_HAjsKM6i7QCkVWeU50EYstO9B8bVQ/exec";
-// ==========================================
-
-const OWNER_EMAIL = "gocav.transport@gmail.com";
-const OWNER_WA = "639760465134";
-
-function addHours(t, h) {
-  const [hr, m] = t.split(':').map(Number);
-  return `${String((hr+h)%24).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
-}
+// ==============================================
 
 // Toggle forms
 document.getElementById('btnIndiv').addEventListener('click', () => {
   document.getElementById('indivSection').classList.remove('hidden-form');
   document.getElementById('corpSection').classList.add('hidden-form');
-  document.getElementById('successBox').classList.add('hidden-form');
 });
 document.getElementById('btnCorp').addEventListener('click', () => {
   document.getElementById('corpSection').classList.remove('hidden-form');
   document.getElementById('indivSection').classList.add('hidden-form');
-  document.getElementById('successBox').classList.add('hidden-form');
-});
-
-// Auto-calculate corporate tax display
-document.getElementById('c_gross').addEventListener('input', function() {
-  const gross = parseFloat(this.value) || 0;
-  const box = document.getElementById('c_taxcalc');
-  if (gross <= 0) { box.classList.add('hidden-form'); return; }
-  
-  const tax = gross * 0.02;
-  const net = gross - tax;
-  
-  document.getElementById('disp_gross').textContent = "₱" + gross.toFixed(2);
-  document.getElementById('disp_tax').textContent = "- ₱" + tax.toFixed(2);
-  document.getElementById('disp_net').textContent = "₱" + net.toFixed(2);
-  box.classList.remove('hidden-form');
 });
 
 // === INDIVIDUAL SUBMIT ===
-document.getElementById('indivForm').addEventListener('submit', async e => {
+document.getElementById('indivForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('button[type="submit"]');
-  btn.disabled = true; btn.textContent = '⏳ Saving...';
+  const btn = document.getElementById('i_submit');
+  const status = document.getElementById('i_status');
   
-  const svcParts = document.getElementById('i_service').value.split('|');
-  const refNo = `GC${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*9000+1000)}`;
-  const dur = svcParts[0].includes('Round') ? 6 : svcParts[0].includes('Tour') ? 10 : 2;
-  
-  buildAndSend({
-    type: "INDIVIDUAL",
-    refNo,
-    name: document.getElementById('i_name').value.trim(),
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  status.textContent = "";
+  status.className = "";
+
+  const formData = new URLSearchParams({
+    bookingType: "INDIVIDUAL",
+    clientName: document.getElementById('i_name').value.trim(),
+    clientEmail: document.getElementById('i_email').value.trim(),
     phone: document.getElementById('i_phone').value.trim(),
-    email: "",
-    service: svcParts[0],
-    gross: parseFloat(svcParts[1]),
-    date: document.getElementById('i_date').value,
-    time: document.getElementById('i_time').value,
-    pickup: document.getElementById('i_pickup').value.trim(),
-    dest: document.getElementById('i_dest').value.trim() || "N/A",
-    pay: document.getElementById('i_pay').value,
-    notes: document.getElementById('i_notes').value.trim() || "None",
-    dur
-  }, btn);
+    service: document.getElementById('i_service').value,
+    grossAmount: "0",
+    pickupDate: document.getElementById('i_date').value,
+    pickupTime: document.getElementById('i_time').value,
+    pickupLocations: document.getElementById('i_pickup').value.trim(),
+    destination: document.getElementById('i_dest').value.trim() || "N/A",
+    paymentMethod: document.getElementById('i_pay').value,
+    notes: document.getElementById('i_notes').value.trim() || "None"
+  });
+
+  try {
+    const res = await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: formData
+    });
+    const data = await res.json();
+    
+    if (data.success) {
+      status.textContent = "✅ " + data.message;
+      status.className = "status-success";
+      this.reset();
+    } else {
+      status.textContent = "❌ Error: " + data.error;
+      status.className = "status-error";
+    }
+  } catch (err) {
+    status.textContent = "❌ Connection error. Please try again.";
+    status.className = "status-error";
+  }
+
+  btn.disabled = false;
+  btn.textContent = "✅ Submit Booking";
 });
 
 // === CORPORATE SUBMIT ===
-document.getElementById('corpForm').addEventListener('submit', async e => {
+document.getElementById('corpForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('button[type="submit"]');
-  btn.disabled = true; btn.textContent = '⏳ Saving...';
+  const btn = document.getElementById('c_submit');
+  const status = document.getElementById('c_status');
   
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  status.textContent = "";
+  status.className = "";
+
   const pax = parseInt(document.getElementById('c_pax').value);
-  const vehicle = pax <= 3 ? "Sedan (Hyundai Accent)" : pax <= 5 ? "MPV/SUV (Avanza/Montero)" : "Multiple Vehicles — To confirm";
-  const gross = parseFloat(document.getElementById('c_gross').value) || 0;
-  const refNo = `GC-CORP${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*900+100)}`;
-  
-  buildAndSend({
-    type: "CORPORATE",
-    refNo,
-    company: document.getElementById('c_company').value.trim(),
-    companyAddr: document.getElementById('c_addr').value.trim(),
+  const vehicle = pax <= 3 ? "Sedan (Hyundai Accent)" : pax <= 5 ? "Avanza / Montero" : "Multiple Vehicles";
+  const pickup2 = document.getElementById('c_pick2').value.trim();
+  const pickupLocations = document.getElementById('c_pick1').value.trim() + (pickup2 ? " | " + pickup2 : "");
+
+  const formData = new URLSearchParams({
+    bookingType: "CORPORATE",
+    companyName: document.getElementById('c_company').value.trim(),
+    companyAddress: document.getElementById('c_addr').value.trim(),
     contactPerson: document.getElementById('c_contact').value.trim(),
-    name: document.getElementById('c_contact').value.trim(),
+    clientEmail: document.getElementById('c_email').value.trim(),
     phone: document.getElementById('c_phone').value.trim(),
-    email: document.getElementById('c_email').value.trim(),
-    preferred: document.getElementById('c_pref').value,
-    service: vehicle + " — Quote via " + document.getElementById('c_pref').value,
-    gross,
-    date: document.getElementById('c_date').value,
-    time: document.getElementById('c_time').value,
-    pickup: document.getElementById('c_pick1').value.trim() + (document.getElementById('c_pick2').value.trim() ? " | " + document.getElementById('c_pick2').value.trim() : ""),
-    dest: document.getElementById('c_dest').value.trim(),
-    pay: "To be confirmed",
-    notes: document.getElementById('c_notes').value.trim() || "None",
-    dur: 10,
-    isCorp: true
-  }, btn);
-});
-
-// === SHARED BUILD & SEND FUNCTION ===
-async function buildAndSend(data, btn) {
-  const {type, refNo, name, phone, email, service, gross, date, time, pickup, dest, pay, notes, dur, isCorp, company, companyAddr, preferred} = data;
-  
-  // Tax calculation
-  const tax = isCorp ? gross * 0.02 : 0;
-  const net = isCorp ? gross - tax : gross;
-  
-  // Calendar link
-  const fDate = date.replace(/-/g,'');
-  const tStart = time.replace(/:/g,'') + '00';
-  const endTime = addHours(time, dur);
-  const tEnd = endTime.replace(/:/g,'') + '00';
-  
-  const details = `REF: ${refNo}
-TYPE: ${type}
-CLIENT: ${name}
-PHONE: ${phone}
-${isCorp ? `COMPANY: ${company}\nADDRESS: ${companyAddr}\nEMAIL: ${email}\nPREFERRED: ${preferred}\n` : ""}
-SERVICE: ${service}
-GROSS: ₱${gross.toFixed(2)}
-${isCorp ? `WITHHOLDING TAX (2%): -₱${tax.toFixed(2)}\nNET PAYABLE: ₱${net.toFixed(2)}\n` : ""}
-PICKUP: ${date} @ ${time}
-FROM: ${pickup}
-TO: ${dest}
-PAYMENT: ${pay}
-NOTES: ${notes}
-
-—— ACTION ——
-1. REVIEW & SAVE TO CALENDAR
-2. RUN IN APPS SCRIPT: confirmBooking("${refNo}")
-`;
-
-  const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+name+' | '+service)}&location=${encodeURIComponent(pickup+' → '+dest)}&details=${encodeURIComponent(details)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
-
-  // Email body
-  const emailBody = `🔔 NEW ${type} BOOKING — ${refNo}
-══════════════════════════
-👤 Client: ${name}
-📞 Phone: ${phone}
-${isCorp ? `🏢 Company: ${company}\n✉️ Email: ${email}\n💜 Preferred: ${preferred}\n` : ""}
-🚗 Service: ${service}
-💰 Gross: ₱${gross.toFixed(2)}
-${isCorp ? `⚠️ Less 2% Withholding Tax: -₱${tax.toFixed(2)}\n✅ NET PAYABLE: ₱${net.toFixed(2)}\n` : ""}
-📅 Pickup: ${date} @ ${time}
-📍 From: ${pickup}
-🎯 To: ${dest}
-💳 Payment: ${pay}
-📝 Notes: ${notes}
-
-📅 ADD TO CALENDAR — CLICK HERE:
-${calUrl}
-
-✅ AFTER SAVING TO CALENDAR:
-Run in Apps Script: confirmBooking("${refNo}")
-
-—— GoCav Transport ——
-Ref: ${refNo}`;
-
-  const mailto = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(type+' BOOKING '+refNo+' — '+name)}&body=${encodeURIComponent(emailBody)}`;
-  const waMsg = `🔔 NEW ${type} ${refNo}
-Client: ${name}
-Service: ${service}
-Gross: ₱${gross.toFixed(2)}
-${isCorp ? `Net: ₱${net.toFixed(2)}\n` : ""}
-Pickup: ${date} @ ${time}
-Status: ⏳ PENDING — Add to Calendar
-—— GoCav`;
-  const waUrl = `https://wa.me/${OWNER_WA}?text=${encodeURIComponent(waMsg)}`;
-
-  // Save to Sheet
-  const fd = new URLSearchParams();
-  fd.append('refNo', refNo);
-  fd.append('bookingType', type);
-  fd.append('clientName', name);
-  fd.append('companyName', company || "");
-  fd.append('contactPerson', isCorp ? name : "");
-  fd.append('phone', phone);
-  fd.append('email', email || "");
-  fd.append('service', service);
-  fd.append('grossAmount', gross);
-  fd.append('pickupDate', date);
-  fd.append('pickupTime', time);
-  fd.append('pickupLocations', pickup);
-  fd.append('destination', dest);
-  fd.append('paymentMethod', pay);
-  fd.append('notes', notes);
+    preferredContact: document.getElementById('c_pref').value,
+    service: vehicle + " — Quote via Email",
+    pickupDate: document.getElementById('c_date').value,
+    pickupTime: document.getElementById('c_time').value,
+    pickupLocations: pickupLocations,
+    destination: document.getElementById('c_dest').value.trim(),
+    notes: document.getElementById('c_notes').value.trim() || "None"
+  });
 
   try {
-    await fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: fd
+    const res = await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: formData
     });
-  } catch(e) { console.log('Fetch note:', e); }
+    const data = await res.json();
+    
+    if (data.success) {
+      status.textContent = "✅ " + data.message;
+      status.className = "status-success";
+      this.reset();
+    } else {
+      status.textContent = "❌ Error: " + data.error;
+      status.className = "status-error";
+    }
+  } catch (err) {
+    status.textContent = "❌ Connection error. Please try again.";
+    status.className = "status-error";
+  }
 
-  // Show success
-  document.getElementById('s_ref').textContent = refNo;
-  document.getElementById('s_type').textContent = isCorp ? "🏢 Corporate — Tax calculated automatically" : "👤 Individual";
-  document.getElementById('s_cal').href = calUrl;
-  document.getElementById('s_email').href = mailto;
-  document.getElementById('s_wa').href = waUrl;
-  document.getElementById('successBox').classList.remove('hidden-form');
-  
-  // Auto-open email
-  setTimeout(() => window.open(mailto, '_blank'), 500);
-  btn.textContent = '✅ Sent';
-}
+  btn.disabled = false;
+  btn.textContent = "✅ Submit Quote Request";
+});
 </script>
+
 </body>
 </html>
