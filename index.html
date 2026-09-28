@@ -16,6 +16,8 @@
             --card-bg: #111;
             --input-bg: #1a1a1a;
             --corp-accent: #3b82f6;
+            --success: #10b981;
+            --danger: #ef4444;
         }
         * { box-sizing: border-box; }
         body { 
@@ -101,7 +103,7 @@
             100% { left: 100%; }
         }
         .vehicle-suggest span {
-            font-size: 1.15rem; font-weight: 800; color: var(--gold-light);
+            font-size: 1rem; font-weight: 700; color: var(--gold-light);
             text-shadow: 0 0 10px rgba(255,215,0,0.4);
         }
         
@@ -134,6 +136,18 @@
         .hidden-form { display: none !important; }
         .notice-box { background: #1e293b; border-left: 3px solid #3b82f6; padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 12px 0; }
         .corp-box { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 10px; padding: 16px; margin-top: 10px; }
+        .terms-box { 
+            background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(245,158,11,0.1)); 
+            border: 1px solid rgba(245,158,11,0.4); 
+            border-radius: 10px; 
+            padding: 14px 16px; 
+            margin-top: 10px;
+        }
+        .terms-title { font-weight: 700; color: #fbbf24; margin-bottom: 8px; font-size: 0.95rem; }
+        .term-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; font-size: 0.9rem; }
+        .term-due { font-weight: 700; color: #fff; min-width: 70px; }
+        .term-penalty-15 { color: #fcd34d; }
+        .term-penalty-30 { color: #f87171; }
         .required:after { content: " *"; color: #ef4444; font-weight: bold; }
         .send-option { border: 2px solid #333; border-radius: 12px; padding: 14px; margin: 8px 0; cursor: pointer; transition: all 0.25s; }
         .send-option:hover { border-color: #555; background: #1a1a1a; }
@@ -141,7 +155,9 @@
         .recommended-badge { background: linear-gradient(90deg, #d4af37, #ffd700); color: #000; font-size: 0.7rem; padding: 3px 8px; border-radius: 6px; margin-left: 8px; font-weight: 800; text-transform: uppercase; }
         .passenger-note { font-size: 0.75rem; color: #9ca3af; margin-top: 4px; }
         .toggle-option { border: 2px solid #333; border-radius: 10px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; }
-        .toggle-option.selected { border-color: var(--corp-accent); background: rgba(59, 130, 246, 0.1); }
+        .toggle-option.selected.individual { border-color: var(--gold); background: rgba(212,175,55,0.08); }
+        .toggle-option.selected.corporate { border-color: var(--corp-accent); background: rgba(59, 130, 246, 0.1); }
+        .success-border { border-color: #10b981; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -171,7 +187,7 @@
     <div class="grid md:grid-cols-3 gap-6 mb-8">
         <div class="card rounded-xl p-5 service-card" data-service="CAVITE_TO_NAIA|Cavite → NAIA Terminal|AIRPORT_ONE_WAY">
             <div class="booking-hint">
-                🤚 <strong>PRESS & HOLD</strong> to Book This Service
+                🤚 <strong>PRESS & HOLD</strong> 0.5s to Book This Service
             </div>
             <img src="https://i.imgur.com/xbQhOQU.jpeg" alt="Hyundai Accent" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Hyundai Accent</h3>
@@ -183,7 +199,7 @@
         </div>
         <div class="card rounded-xl p-5 service-card" data-service="CAVITE_TO_NAIA|Cavite → NAIA Terminal|AIRPORT_ONE_WAY">
             <div class="booking-hint">
-                🤚 <strong>PRESS & HOLD</strong> to Book This Service
+                🤚 <strong>PRESS & HOLD</strong> 0.5s to Book This Service
             </div>
             <img src="https://i.imgur.com/8lpLbVA.jpeg" alt="Toyota Avanza" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Toyota Avanza</h3>
@@ -195,7 +211,7 @@
         </div>
         <div class="card rounded-xl p-5 service-card" data-service="CAVITE_TO_NAIA|Cavite → NAIA Terminal|AIRPORT_ONE_WAY">
             <div class="booking-hint">
-                🤚 <strong>PRESS & HOLD</strong> to Book This Service
+                🤚 <strong>PRESS & HOLD</strong> 0.5s to Book This Service
             </div>
             <img src="https://i.imgur.com/XR0EhsT.jpeg" alt="Montero Sport Gen 2" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">Montero Sport Gen 2</h3>
@@ -211,7 +227,7 @@
     <div class="grid md:grid-cols-2 gap-6">
         <div class="card rounded-xl p-6 text-center service-card" data-service="TAGAYTAY_TOUR|Tagaytay Day Tour|CUSTOM_QUOTE">
             <div class="booking-hint">
-                🤚 <strong>PRESS & HOLD</strong> to Book This Service
+                🤚 <strong>PRESS & HOLD</strong> 0.5s to Book This Service
             </div>
             <img src="https://i.imgur.com/J51EpPr.jpeg" alt="Tagaytay Day Tour" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">🌄 Tagaytay Day Tour</h3>
@@ -221,7 +237,7 @@
         </div>
         <div class="card rounded-xl p-6 text-center service-card" data-service="MANILA_TOUR|Manila Day Tour|CUSTOM_QUOTE">
             <div class="booking-hint">
-                🤚 <strong>PRESS & HOLD</strong> to Book This Service
+                🤚 <strong>PRESS & HOLD</strong> 0.5s to Book This Service
             </div>
             <img src="https://i.imgur.com/SMHZTMN.jpeg" alt="Manila Day Tour" class="w-full h-48 object-cover rounded-lg mb-4">
             <h3 class="text-xl font-semibold">🏙️ Manila Day Tour</h3>
@@ -266,10 +282,10 @@
         <div>
             <label class="block mb-2 font-medium">Client Type</label>
             <div class="grid grid-cols-2 gap-4">
-                <div id="toggleIndividual" class="toggle-option selected text-center" data-type="individual">
+                <div id="toggleIndividual" class="toggle-option selected individual text-center" data-type="individual">
                     <span class="font-bold">👤 Individual / Personal</span>
                 </div>
-                <div id="toggleCorporate" class="toggle-option text-center" data-type="corporate">
+                <div id="toggleCorporate" class="toggle-option corporate text-center" data-type="corporate">
                     <span class="font-bold text-blue-400">🏢 Corporate / Company</span>
                 </div>
             </div>
@@ -292,8 +308,21 @@
                 <label class="block mb-1 font-medium">Billing Address</label>
                 <input type="text" id="billing_address" class="w-full px-4 py-3 rounded-lg" placeholder="Company billing address">
             </div>
-            <div class="mt-3 p-3 bg-yellow-900/20 rounded-lg border border-yellow-600/30">
-                <p class="text-sm text-yellow-300 font-medium">💡 Corporate Note: <strong>2% Withholding Tax</strong> will be deducted from the total amount. Net amount payable = Gross amount × 98%.</p>
+            <div class="mt-3 p-3 bg-yellow-900/20 rounded-lg border border-yellow-600/30 mb-3">
+                <p class="text-sm text-yellow-300 font-medium">💡 Corporate Note: <strong>2% Withholding Tax</strong> will be deducted from the total amount. Net payable = Gross × 98%.</p>
+            </div>
+            
+            <!-- PAYMENT TERMS — NOW ALWAYS VISIBLE, NO SELECTION -->
+            <div class="terms-box">
+                <p class="terms-title">📋 CORPORATE PAYMENT TERMS</p>
+                <div class="term-item">
+                    <span class="term-due">15 Days</span>
+                    <span class="term-penalty-15">→ 2% penalty shall be applied to the outstanding balance</span>
+                </div>
+                <div class="term-item">
+                    <span class="term-due">30 Days</span>
+                    <span class="term-penalty-30">→ Service suspended until full payment is settled</span>
+                </div>
             </div>
         </div>
 
@@ -326,19 +355,12 @@
         <div>
             <label class="block mb-1 font-medium required">Service Type</label>
             <select id="service_type" required class="w-full px-4 py-3 rounded-lg">
-                <option value="">— Select Service —</option>
-                <option value="CAVITE_TO_NAIA|Cavite → NAIA Terminal|AIRPORT_ONE_WAY">✈️ Cavite to NAIA Terminal — ₱1,500</option>
-                <option value="NAIA_TO_CAVITE|NAIA Terminal → Cavite|AIRPORT_ONE_WAY">✈️ NAIA Terminal to Cavite — ₱1,500</option>
-                <option value="ROUND_TRIP|Cavite ↔ NAIA Round Trip|AIRPORT_ROUND">✈️ Round Trip — ₱2,500–₱4,000</option>
-                <option value="TAGAYTAY_TOUR|Tagaytay Day Tour|CUSTOM_QUOTE">🌄 Tagaytay Day Tour</option>
-                <option value="MANILA_TOUR|Manila Day Tour|CUSTOM_QUOTE">🏙️ Manila Day Tour</option>
-                <option value="CORPORATE_RENTAL|Corporate / Long-Term Rental|CUSTOM_QUOTE">🏢 Corporate Rental / Monthly</option>
-                <option value="CUSTOM|Other Service / Custom Route|CUSTOM_QUOTE">📍 Other Service / Custom Destination</option>
+                <!-- Options populated dynamically by JS based on client type -->
             </select>
         </div>
 
         <div id="customQuoteNotice" class="notice-box hidden-form">
-            ⚠️ <strong>Note:</strong> A formal quotation including rates, fuel, toll, parking, and other expenses will be sent to your email address or via call from GoCav Transport.
+            ⚠️ <strong>Note:</strong> A formal quotation including rates, fuel, toll, parking, and other expenses will be sent to your email or via call.
         </div>
 
         <div class="grid md:grid-cols-2 gap-4">
@@ -407,13 +429,13 @@
 
         <div>
             <label class="block mb-1 font-medium">Notes / Special Requests</label>
-            <textarea id="notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Flight details, PO/Reference No., special requests..."></textarea>
+            <textarea id="notes" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Flight details, PO No., special requests..."></textarea>
         </div>
 
         <button type="submit" id="submitBtn" class="btn-primary w-full py-3 rounded-lg text-lg">✅ Prepare & Send Booking</button>
     </form>
 
-    <div id="successMsg" class="hidden-form mt-6 p-6 border border-green-500 rounded-lg bg-green-950/30 text-center">
+    <div id="successMsg" class="hidden-form mt-6 p-6 border rounded-lg bg-green-950/30 text-center success-border">
         <h3 class="text-2xl font-bold text-green-400 mb-2">🎉 Booking Request Submitted!</h3>
         <p class="text-sm text-gray-300 mb-4">Your message should open automatically — just tap SEND</p>
         <p id="followUpNote" class="text-yellow-400 mb-4"></p>
@@ -444,11 +466,32 @@ const OWNER_WHATSAPP = "639760465134";
 const OWNER_VIBER = "639760465134";
 const OWNER_EMAIL = "gocav.transport@gmail.com";
 
+// Service options for each client type
+const INDIVIDUAL_SERVICES = [
+    { value: "", label: "— Select Service —" },
+    { value: "CAVITE_TO_NAIA|Cavite → NAIA Terminal|AIRPORT_ONE_WAY", label: "✈️ Cavite → NAIA — ₱1,500+" },
+    { value: "NAIA_TO_CAVITE|NAIA → Cavite|AIRPORT_ONE_WAY", label: "✈️ NAIA → Cavite — ₱1,500+" },
+    { value: "ROUND_TRIP|Cavite ↔ NAIA Round Trip|AIRPORT_ROUND", label: "✈️ Round Trip — ₱2,500–₱4,000" },
+    { value: "TAGAYTAY_TOUR|Tagaytay Day Tour|CUSTOM_QUOTE", label: "🌄 Tagaytay Day Tour" },
+    { value: "MANILA_TOUR|Manila Day Tour|CUSTOM_QUOTE", label: "🏙️ Manila Day Tour" },
+    { value: "CUSTOM|Other Service / Custom Route|CUSTOM_QUOTE", label: "📍 Other Service / Custom Destination" }
+];
+
+const CORPORATE_SERVICES = [
+    { value: "", label: "— Select Service —" },
+    { value: "CAVITE_TO_NAIA|Cavite → NAIA Terminal|AIRPORT_ONE_WAY", label: "✈️ Cavite → NAIA — ₱1,500+" },
+    { value: "NAIA_TO_CAVITE|NAIA → Cavite|AIRPORT_ONE_WAY", label: "✈️ NAIA → Cavite — ₱1,500+" },
+    { value: "ROUND_TRIP|Cavite ↔ NAIA Round Trip|AIRPORT_ROUND", label: "✈️ Round Trip — ₱2,500–₱4,000" },
+    { value: "CORPORATE_RENTAL|Corporate / Long-Term Rental|CUSTOM_QUOTE", label: "🏢 Corporate Rental / Monthly" },
+    { value: "CUSTOM|Other Service / Custom Route|CUSTOM_QUOTE", label: "📍 Other Service / Custom Destination" }
+];
+
 // --- Client Type Toggle ---
 let isCorporate = false;
 const corporateFields = document.getElementById('corporateFields');
 const toggleIndividual = document.getElementById('toggleIndividual');
 const toggleCorporate = document.getElementById('toggleCorporate');
+const serviceSelect = document.getElementById('service_type');
 
 function setClientType(type) {
     isCorporate = type === 'corporate';
@@ -459,6 +502,20 @@ function setClientType(type) {
     // Set required fields
     document.getElementById('company_name').required = isCorporate;
     document.getElementById('company_tin').required = isCorporate;
+    
+    // Update service options
+    const currentSelection = serviceSelect.value;
+    serviceSelect.innerHTML = '';
+    const services = isCorporate ? CORPORATE_SERVICES : INDIVIDUAL_SERVICES;
+    services.forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt.value;
+        option.textContent = opt.label;
+        if (opt.value === currentSelection) option.selected = true;
+        serviceSelect.appendChild(option);
+    });
+    
+    updateFieldsByService();
 }
 
 toggleIndividual.addEventListener('click', () => setClientType('individual'));
@@ -473,7 +530,8 @@ function scrollToBooking() {
 }
 
 function selectService(serviceValue) {
-    document.getElementById('service_type').value = serviceValue;
+    setClientType(serviceValue.includes('CORPORATE') ? 'corporate' : 'individual');
+    serviceSelect.value = serviceValue;
     updateFieldsByService();
     scrollToBooking();
 }
@@ -491,11 +549,26 @@ serviceCards.forEach(card => {
     card.addEventListener('contextmenu', e => e.preventDefault());
 });
 
+// --- VEHICLE SUGGESTION ---
 function getVehicleSuggestion(passengers) {
     if (!passengers || passengers < 1) return { hide: true };
-    if (passengers <= 4) return { hide: false, vehicle: 'Hyundai Accent — Sedan (1–4 pax)' };
-    if (passengers <= 6) return { hide: false, vehicle: 'Toyota Avanza / Montero Sport — MPV/SUV (1–6 pax)' };
-    return { hide: false, vehicle: 'Multiple Vehicles / Custom Arrangement — Please inquire' };
+    
+    if (passengers >= 1 && passengers <= 4) {
+        return { 
+            hide: false, 
+            vehicle: 'Hyundai Accent / Mitsubishi Mirage / Toyota Vios' 
+        };
+    }
+    if (passengers >= 5 && passengers <= 6) {
+        return { 
+            hide: false, 
+            vehicle: 'Toyota Avanza / Mitsubishi Expander / Mitsubishi Montero' 
+        };
+    }
+    return { 
+        hide: false, 
+        vehicle: 'Multiple Vehicles / Custom Arrangement — Please inquire' 
+    };
 }
 
 document.querySelectorAll('.send-option').forEach(opt => {
@@ -520,7 +593,6 @@ document.getElementById('passengers').addEventListener('input', function() {
     }
 });
 
-const serviceSelect = document.getElementById('service_type');
 const pickupNaiaSelect = document.getElementById('pickup_naia_select');
 const pickupText = document.getElementById('pickup_text');
 const pickupLabel = document.getElementById('pickupLabel');
@@ -594,11 +666,13 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     const paymentMethod = document.getElementById('payment_method').value;
     const notes = document.getElementById('notes').value.trim() || 'None';
     
-    // Corporate data
     const companyName = isCorporate ? document.getElementById('company_name').value.trim() : '—';
     const companyTin = isCorporate ? document.getElementById('company_tin').value.trim() : '—';
     const billingAddress = isCorporate ? document.getElementById('billing_address').value.trim() || '—' : '—';
     const taxNote = isCorporate ? '💡 2% Withholding Tax applies — Net payable = 98% of gross amount' : 'N/A';
+    const termsNote = isCorporate 
+        ? `📋 CORPORATE PAYMENT TERMS:\n• 15 Days from Invoice Date → 2% penalty on outstanding balance\n• 30 Days from Invoice Date → Service suspended until full payment is settled` 
+        : 'N/A';
     
     let sendMethod = 'Email';
     document.querySelectorAll('input[name="send_method"]').forEach(radio => {
@@ -615,8 +689,8 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     let followUpNote = '';
     if (svcType === 'CUSTOM_QUOTE') {
         followUpNote = isCorporate 
-            ? '📋 Corporate quotation including rates, fuel, toll, parking, and 2% withholding tax breakdown will be sent to your email.'
-            : '📋 A formal quotation including rates, fuel, toll, parking, and other expenses will be sent to your email or via call from GoCav Transport.';
+            ? `📋 Corporate quotation including rates, fuel, toll, parking, 2% withholding tax breakdown, and payment terms will be sent to your email.`
+            : '📋 A formal quotation including rates, fuel, toll, parking, and other expenses will be sent to your email or via call.';
     } else {
         followUpNote = '✅ Thank you! We will confirm your booking shortly.';
     }
@@ -630,7 +704,8 @@ document.getElementById('bookingForm').addEventListener('submit', async function
 ${isCorporate ? `🏢 Company: ${companyName}
 📄 TIN: ${companyTin}
 📍 Billing: ${billingAddress}
-💵 Tax Note: ${taxNote}` : ''}
+💵 Tax Note: ${taxNote}
+${termsNote}` : ''}
 👥 Passengers: ${passengers}
 🚗 Vehicle: ${vehicleAssigned}
 🚘 Service: ${svcName}
