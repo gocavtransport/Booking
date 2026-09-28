@@ -208,7 +208,8 @@
             <button id="copyCorpRefBtn" class="btn-copy px-3 py-1 rounded text-sm">📋 Copy</button>
         </div>
         <div class="flex flex-wrap justify-center gap-3">
-            <a id="corpEmailLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Send to GoCav</a>
+            <a id="corpEmailClientLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Copy to Client</a>
+            <a id="corpEmailLink" href="#" class="inline-block btn-primary px-5 py-2 rounded-lg">✉️ Send to GoCav</a>
             <a id="corpViberLink" href="#" class="inline-block btn-viber px-5 py-2 rounded-lg">💜 Viber</a>
             <a id="corpWaLink" href="#" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg">💬 WhatsApp</a>
         </div>
@@ -231,8 +232,8 @@
                 <option value="Avanza_Round|Toyota Avanza Round Trip|3500">Toyota Avanza — Round Trip ₱3,500</option>
                 <option value="Montero_OneWay|Montero Sport One-Way|2100">Montero Sport — One-Way ₱2,100</option>
                 <option value="Montero_Round|Montero Sport Round Trip|4000">Montero Sport — Round Trip ₱4,000</option>
-                <option value="Tour_Tagaytay|Tagaytay Day Tour|5000">🌄 Tagaytay Day Tour — ₱5,000 (+Fuel/Toll/Parking)</option>
-                <option value="Tour_Manila|Manila Day Tour|5000">🏙️ Manila Day Tour — ₱5,000 (+Fuel/Toll/Parking)</option>
+                <option value="Tour_Tagaytay|Tagaytay Day Tour — 8–10 Hours|5000">🌄 Tagaytay Day Tour — ₱5,000 (+Fuel/Toll/Parking)</option>
+                <option value="Tour_Manila|Manila Day Tour — 8–10 Hours|5000">🏙️ Manila Day Tour — ₱5,000 (+Fuel/Toll/Parking)</option>
             </select>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
@@ -256,7 +257,7 @@
         <p id="debugNote" class="debug-note text-center"></p>
     </form>
 
-    <!-- ✅ "VIEW ALL" BUTTON REMOVED HERE -->
+    <!-- ✅ Email links RESTORED — "View All" still removed -->
     <div id="successMsg" class="hidden-form mt-6 p-6 border border-green-500 rounded-lg bg-green-950/30 text-center">
         <h3 class="text-2xl font-bold text-green-400 mb-2">🎉 Booking Recorded!</h3>
         <p class="text-sm text-gray-300 mb-4">Reference saved — we'll contact you shortly</p>
@@ -267,7 +268,7 @@
         </div>
         <div class="flex flex-wrap justify-center gap-3">
             <a id="gcalLink" href="#" target="_blank" class="inline-block btn-primary px-5 py-2 rounded-lg">📅 Calendar</a>
-            <a id="emailLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Email</a>
+            <a id="emailLink" href="#" class="inline-block btn-email px-5 py-2 rounded-lg">✉️ Send Email</a>
             <a id="viberLink" href="#" class="inline-block btn-viber px-5 py-2 rounded-lg">💜 Viber</a>
             <a id="waLink" href="#" target="_blank" class="inline-block btn-whatsapp px-5 py-2 rounded-lg">💬 WhatsApp</a>
         </div>
@@ -277,7 +278,7 @@
 </main>
 
 <footer class="border-t border-gray-800 py-6 text-center text-sm text-gray-500">
-    <p>© 2026 GoCav Transport Services</p>
+    <p>© 2019 GoCav Transport Services</p>
 </footer>
 
 <script>
@@ -326,29 +327,84 @@ document.getElementById('corporateForm').addEventListener('submit', async functi
     btn.disabled = true; btn.textContent = '⏳ Sending...';
     debug.textContent = ''; debug.className = 'debug-note text-center';
 
-    const refNo = `GC-CORP${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*900+100)}`;
+    const company = document.getElementById('corp_company').value.trim();
+    const companyAddr = document.getElementById('corp_company_address').value.trim();
+    const contactPerson = document.getElementById('corp_contact_person').value.trim();
+    const contactEmail = document.getElementById('corp_email').value.trim();
+    const phone = document.getElementById('corp_phone').value.trim();
+    const preferredMethod = document.getElementById('corp_preferred_method').value;
+    const date = document.getElementById('corp_date').value;
+    const time = document.getElementById('corp_time').value;
+    const passengers = parseInt(document.getElementById('corp_passengers').value);
+    const vehicleAssigned = getVehicleSuggestion(passengers).vehicle || 'To be confirmed';
+    const pickup1 = document.getElementById('corp_pickup1').value.trim();
+    const pickup2 = document.getElementById('corp_pickup2').value.trim() || 'N/A';
+    const destination = document.getElementById('corp_destination').value.trim();
+    const auditOnsite = document.getElementById('audit_onsite').checked ? 'Yes' : 'No';
+    const auditMeeting = document.getElementById('audit_meeting').checked ? 'Yes' : 'No';
+    const auditEquipment = document.getElementById('audit_equipment').checked ? 'Yes' : 'No';
+    const auditMultiple = document.getElementById('audit_multiple').checked ? 'Yes' : 'No';
+    const notes = document.getElementById('corp_notes').value.trim() || 'None';
     
+    const refNo = `GC-CORP${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*900+100)}`;
+
+    // Email body — FULL DETAILS ✅
+    const mailBodyText = `🏢 CORPORATE QUOTE REQUEST — REF: ${refNo}
+═════════════════════════
+🏢 Company: ${company}
+📍 Address: ${companyAddr}
+👤 Contact Person: ${contactPerson}
+✉️ Email: ${contactEmail}
+📞 Phone: ${phone}
+💜 Preferred Contact: ${preferredMethod}
+👥 Passengers: ${passengers}
+🚗 Vehicle: ${vehicleAssigned}
+📅 Pickup: ${date} @ ${time}
+📍 Pickup 1: ${pickup1}
+📍 Pickup 2: ${pickup2}
+🎯 Destination: ${destination}
+🔍 Site Audit:
+   • On-site Inspection: ${auditOnsite}
+   • Meeting Included: ${auditMeeting}
+   • Equipment Transport: ${auditEquipment}
+   • Multiple Locations: ${auditMultiple}
+📝 Special Instructions:
+${notes}
+⚠️ 2% Withholding Tax applies (deducted from gross)
+📊 Status: PENDING — Send quotation via ${preferredMethod}
+
+——— GoCav Transport Services ———
+Ref: ${refNo}`;
+
+    const mailtoOwnerUrl = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent('CORPORATE REQUEST '+refNo+' — '+company)}&body=${encodeURIComponent(mailBodyText)}`;
+    const mailtoClientUrl = `mailto:${contactEmail}?subject=${encodeURIComponent('Request Received — Ref: '+refNo)}&body=${encodeURIComponent('Dear '+contactPerson+',\n\nThank you for choosing GoCav Transport!\n\nYour request has been received.\nReference No: '+refNo+'\n\nWe will send your quotation via '+preferredMethod+' shortly.\n\nBest regards,\nGoCav Transport Services\n📞 0976-046-5134')}`;
+
+    const msg = `🔔 NEW CORPORATE REQUEST!
+Ref: ${refNo}
+Company: ${company}
+Contact: ${contactPerson}
+Phone: ${phone}
+Pax: ${passengers}
+Date: ${date} @ ${time}
+Status: PENDING — QUOTE VIA ${preferredMethod.toUpperCase()}
+——— GoCav Transport`;
+
+    const viberUrl = `viber://chat?number=${OWNER_VIBER}&text=${encodeURIComponent(msg)}`;
+    const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+
     const fd = new URLSearchParams();
     fd.append('type','CORPORATE'); fd.append('refNo',refNo);
-    fd.append('companyName', document.getElementById('corp_company').value.trim());
-    fd.append('companyAddress', document.getElementById('corp_company_address').value.trim());
-    fd.append('contactPerson', document.getElementById('corp_contact_person').value.trim());
-    fd.append('contactEmail', document.getElementById('corp_email').value.trim());
-    fd.append('phone', document.getElementById('corp_phone').value.trim());
-    fd.append('preferredMethod', document.getElementById('corp_preferred_method').value);
-    fd.append('passengers', document.getElementById('corp_passengers').value);
-    fd.append('vehicleAssigned', getVehicleSuggestion(parseInt(document.getElementById('corp_passengers').value)).vehicle || 'Confirm later');
-    fd.append('pickupDate', document.getElementById('corp_date').value);
-    fd.append('pickupTime', document.getElementById('corp_time').value);
-    fd.append('pickup1', document.getElementById('corp_pickup1').value.trim());
-    fd.append('pickup2', document.getElementById('corp_pickup2').value.trim() || 'N/A');
-    fd.append('destination', document.getElementById('corp_destination').value.trim());
-    fd.append('auditOnsite', document.getElementById('audit_onsite').checked ? 'Yes' : 'No');
-    fd.append('auditMeeting', document.getElementById('audit_meeting').checked ? 'Yes' : 'No');
-    fd.append('auditEquipment', document.getElementById('audit_equipment').checked ? 'Yes' : 'No');
-    fd.append('auditMultiple', document.getElementById('audit_multiple').checked ? 'Yes' : 'No');
-    fd.append('notes', document.getElementById('corp_notes').value.trim() || 'None');
-    fd.append('status', 'PENDING — QUOTE');
+    fd.append('companyName',company); fd.append('companyAddress',companyAddr);
+    fd.append('contactPerson',contactPerson); fd.append('contactEmail',contactEmail);
+    fd.append('phone',phone); fd.append('preferredMethod',preferredMethod);
+    fd.append('passengers',passengers); fd.append('vehicleAssigned',vehicleAssigned);
+    fd.append('pickupDate',date); fd.append('pickupTime',time);
+    fd.append('pickup1',pickup1); fd.append('pickup2',pickup2);
+    fd.append('destination',destination);
+    fd.append('auditOnsite',auditOnsite); fd.append('auditMeeting',auditMeeting);
+    fd.append('auditEquipment',auditEquipment); fd.append('auditMultiple',auditMultiple);
+    fd.append('notes',notes);
+    fd.append('status','PENDING — QUOTE');
 
     try {
         const res = await fetch(GOOGLE_SCRIPT_URL, {
@@ -361,21 +417,28 @@ document.getElementById('corporateForm').addEventListener('submit', async functi
             debug.textContent = '✅ Saved to Sheet!';
             debug.classList.add('debug-success');
         } else {
-            debug.textContent = '⚠️ ' + (data.error || 'Check URL & Deployment');
+            debug.textContent = '⚠️ Sheet Error: ' + (data.error || 'Check URL');
             debug.classList.add('debug-error');
         }
     } catch(err) {
-        debug.textContent = '❌ Error: ' + err.message + ' — Check URL!';
+        debug.textContent = '❌ Error: ' + err.message;
         debug.classList.add('debug-error');
     }
 
-    // Show success
+    // Show success & links
     document.getElementById('corpSuccessMsg').classList.remove('hidden-form');
     document.getElementById('corpRefNo').textContent = refNo;
+    document.getElementById('corpEmailLink').href = mailtoOwnerUrl;
+    document.getElementById('corpEmailClientLink').href = mailtoClientUrl;
+    document.getElementById('corpViberLink').href = viberUrl;
+    document.getElementById('corpWaLink').href = waUrl;
     btn.textContent = '✅ Submitted';
+
+    // Auto-open email to owner ✅
+    setTimeout(() => { window.open(mailtoOwnerUrl, '_blank'); }, 600);
 });
 
-// INDIVIDUAL FORM
+// INDIVIDUAL FORM — EMAIL FULLY RESTORED ✅
 document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
@@ -386,22 +449,75 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     const svcParts = document.getElementById('service_type').value.split('|');
     const svcName = svcParts[1];
     const rateVal = svcParts[2];
+    const fullname = document.getElementById('fullname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const date = document.getElementById('pickup_date').value;
+    const time = document.getElementById('pickup_time').value;
+    const pickup = document.getElementById('pickup_location').value.trim();
+    const dropoff = document.getElementById('dropoff').value.trim() || 'N/A';
+    const payMethod = document.getElementById('payment_method').value;
+    const notes = document.getElementById('notes').value.trim() || 'None';
+    
     const refNo = `GC${new Date().toISOString().slice(2,10).replace(/-/g,'')}${Math.floor(Math.random()*9000+1000)}`;
 
+    // Fuel/Toll note
+    let fuelNote = '✅ Fuel Included • Toll & Parking Paid by Client';
+    if (svcName.includes('Tour')) fuelNote = '⚠️ Fuel, Toll & Parking — Additional Charge to Client';
+
+    // Email body — FULL DETAILS ✅
+    const mailBodyText = `🔔 NEW BOOKING — REF: ${refNo}
+═════════════════════════
+👤 Client Name: ${fullname}
+📞 Contact: ${phone}
+🚗 Service: ${svcName}
+💰 Rate: ₱${rateVal}
+${fuelNote}
+📅 Pickup Date: ${date}
+⏰ Pickup Time: ${time}
+📍 From: ${pickup}
+🎯 To: ${dropoff}
+💳 Payment Method: ${payMethod}
+📝 Notes: ${notes}
+📊 Status: PENDING — Confirm & reply to client
+
+——— GoCav Transport Services ———
+📞 0976-046-5134 / 0995-435-5514
+✉️ gocav.transport@gmail.com
+Ref: ${refNo}`;
+
+    const mailtoUrl = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent('BOOKING '+refNo+' — '+fullname)}&body=${encodeURIComponent(mailBodyText)}`;
+
+    // WhatsApp/Viber message
+    const msg = `🔔 NEW BOOKING ${refNo}
+Client: ${fullname}
+Phone: ${phone}
+Service: ${svcName}
+Rate: ₱${rateVal}
+Pickup: ${date} @ ${time}
+From: ${pickup} → ${dropoff}
+Payment: ${payMethod}
+Status: PENDING
+——— GoCav Transport`;
+
+    const viberUrl = `viber://chat?number=${OWNER_VIBER}&text=${encodeURIComponent(msg)}`;
+    const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+
+    // Calendar link
+    const fDate = date.replace(/-/g,'');
+    const tStart = time.replace(/:/g,'')+'00';
+    const dur = svcName.includes('Round') ? 6 : svcName.includes('Tour') ? 10 : 2;
+    const tEnd = addHours(time, dur).replace(/:/g,'')+'00';
+    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+fullname+' | '+svcName)}&details=${encodeURIComponent(mailBodyText)}&location=${encodeURIComponent(pickup+' → '+dropoff)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
+
+    // Save to Google Sheet
     const fd = new URLSearchParams();
     fd.append('type','INDIVIDUAL'); fd.append('refNo',refNo);
-    fd.append('fullname', document.getElementById('fullname').value.trim());
-    fd.append('phone', document.getElementById('phone').value.trim());
-    fd.append('service', svcName);
-    fd.append('rate', '₱' + rateVal);
-    fd.append('rateValue', rateVal);
-    fd.append('pickupDate', document.getElementById('pickup_date').value);
-    fd.append('pickupTime', document.getElementById('pickup_time').value);
-    fd.append('pickup', document.getElementById('pickup_location').value.trim());
-    fd.append('dropoff', document.getElementById('dropoff').value.trim() || 'N/A');
-    fd.append('payMethod', document.getElementById('payment_method').value);
-    fd.append('notes', document.getElementById('notes').value.trim() || 'None');
-    fd.append('status', 'PENDING');
+    fd.append('fullname',fullname); fd.append('phone',phone);
+    fd.append('service',svcName); fd.append('rate','₱'+rateVal); fd.append('rateValue',rateVal);
+    fd.append('pickupDate',date); fd.append('pickupTime',time);
+    fd.append('pickup',pickup); fd.append('dropoff',dropoff);
+    fd.append('payMethod',payMethod); fd.append('notes',notes);
+    fd.append('status','PENDING');
 
     try {
         const res = await fetch(GOOGLE_SCRIPT_URL, {
@@ -418,26 +534,12 @@ document.getElementById('bookingForm').addEventListener('submit', async function
             debug.classList.add('debug-error');
         }
     } catch(err) {
-        debug.textContent = '❌ Connection Error: ' + err.message + ' — Check URL!';
+        debug.textContent = '❌ Connection Error — Check URL!';
         debug.classList.add('debug-error');
         console.error('Fetch error:', err);
     }
 
-    // Build links
-    const date = document.getElementById('pickup_date').value;
-    const time = document.getElementById('pickup_time').value;
-    const fDate = date.replace(/-/g,'');
-    const tStart = time.replace(/:/g,'')+'00';
-    const dur = svcName.includes('Round') ? 6 : svcName.includes('Tour') ? 10 : 2;
-    const tEnd = addHours(time, dur).replace(/:/g,'')+'00';
-    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(refNo+' | '+document.getElementById('fullname').value+' | '+svcName)}&details=${encodeURIComponent('Ref: '+refNo+'\nService: '+svcName+'\nRate: ₱'+rateVal)}&dates=${fDate}T${tStart}/${fDate}T${tEnd}&ctz=Asia/Manila`;
-    
-    const msg = `🔔 NEW BOOKING ${refNo}\nClient: ${document.getElementById('fullname').value}\nPhone: ${document.getElementById('phone').value}\nService: ${svcName}\nPickup: ${date} @ ${time}\nFrom: ${document.getElementById('pickup_location').value}\nStatus: PENDING`;
-    const mailtoUrl = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent('BOOKING '+refNo)}&body=${encodeURIComponent(msg)}`;
-    const viberUrl = `viber://chat?number=${OWNER_VIBER}&text=${encodeURIComponent(msg)}`;
-    const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(msg)}`;
-
-    // Show success — NO "View All" button ✅
+    // Show success message & links
     document.getElementById('successMsg').classList.remove('hidden-form');
     document.getElementById('refNo').textContent = refNo;
     document.getElementById('gcalLink').href = gcalUrl;
@@ -445,6 +547,9 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     document.getElementById('viberLink').href = viberUrl;
     document.getElementById('waLink').href = waUrl;
     btn.textContent = '✅ Submitted';
+
+    // Auto-open email window ✅
+    setTimeout(() => { window.open(mailtoUrl, '_blank'); }, 600);
 });
 </script>
 </body>
