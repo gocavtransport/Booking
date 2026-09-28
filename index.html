@@ -281,8 +281,8 @@
 </footer>
 
 <script>
-// ✅ YOUR GOOGLE SCRIPT URL — ALREADY INSERTED ✅
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPxH8Ph9cVgOeaYkXJq0A-aLFgv88p1buVBZ53fjkapJz3l5LLghlmzARcT3tuB70/exec";
+// ✅ YOUR GOOGLE SCRIPT URL — USE THE ONE YOU GOT FROM DEPLOYMENT ✅
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOpfzSq9ANkBtlU0P1lVPaimx3gQv8aza1zK_VAkOebwJ2822Cn-DBUozu6Hg51Hgf/exec";
 
 const OWNER_WHATSAPP = "639760465134";
 const OWNER_VIBER = "639760465134";
@@ -318,7 +318,7 @@ document.getElementById('corporateToggle').addEventListener('click', function() 
 });
 
 // ==========================================
-// ✅ CORPORATE SUBMIT — mode: no-cors ADDED
+// ✅ CORPORATE SUBMIT — mode: no-cors
 // ==========================================
 document.getElementById('corporateForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -408,7 +408,6 @@ Status: PENDING — quote via ${preferredMethod}
         fd.append('withholdingTax','2% of gross (corporate)');
         fd.append('status','PENDING — QUOTE VIA '+preferredMethod.toUpperCase());
         
-        // ✅ mode: 'no-cors' ADDED ✅
         await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -435,7 +434,7 @@ Status: PENDING — quote via ${preferredMethod}
 });
 
 // ==========================================
-// ✅ REGULAR BOOKING SUBMIT — mode: no-cors ADDED
+// ✅ REGULAR BOOKING SUBMIT — mode: no-cors
 // ==========================================
 document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -506,7 +505,6 @@ Status: PENDING
         fd.append('payMethod',payMethod); fd.append('notes',notes);
         fd.append('withholdingTax','N/A — Individual');
         
-        // ✅ mode: 'no-cors' ADDED ✅
         await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
