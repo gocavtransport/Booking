@@ -1,7 +1,8 @@
 {
   "name": "GoCav Transport Services",
   "short_name": "GoCav",
-  "start_url": "/",
+  "start_url": "/booking/",
+  "scope": "/booking/",
   "display": "standalone",
   "background_color": "#14141c",
   "theme_color": "#d4af37",
