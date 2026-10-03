@@ -279,28 +279,28 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     <span style="font-size:13px;color:var(--muted)">Full-Day &amp; Multi-Day Site Visits — <strong style="color:var(--text)">8 hrs / 100 km per day</strong> · Flat day rate by zone · 2-way toll · Corporate multi-day loyalty</span>
   </div>
   <div class="svc-slider reveal" id="svcSlider">
-    <div class="svc-slide on" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL"><img src="https://i.imgur.com/FFXAIo9.jpeg" alt="Full-Day Rental / Site Visit"></div>
-    <div class="svc-slide" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI"><img src="https://i.imgur.com/4goIJsc.jpeg" alt="Multi-Day Site Visit"></div>
-    <div class="svc-slide" data-service="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT"><img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Split Transfer"></div>
+    <div class="svc-slide on" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL"><img src="https://i.imgur.com/925sk4j.jpeg" alt="Full-Day Rental / Site Visit"></div>
+    <div class="svc-slide" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI"><img src="https://i.imgur.com/NRYLDMR.jpeg" alt="Multi-Day Site Visit"></div>
+    <div class="svc-slide" data-service="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT"><img src="https://i.imgur.com/IZUEKJe.jpeg" alt="Split Transfer"></div>
     <div class="svc-dots" id="svcDots"></div>
   </div>
   <div class="grid md:grid-cols-3 gap-5">
     <div class="card-el service-card reveal p-6 text-center" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL">
-      <img src="https://i.imgur.com/FFXAIo9.jpeg" alt="Full-Day Rental / Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/925sk4j.jpeg" alt="Full-Day Rental / Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Full-Day Rental / Site Visit</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Pickup → multiple stops → returned to original pickup point. Corporate accounts welcome.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">Sedan ₱4,500 · 6-Seater ₱5,500 · SUV ₱6,000 / day</div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
     <div class="card-el service-card reveal p-6 text-center" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI">
-      <img src="https://i.imgur.com/4goIJsc.jpeg" alt="Multi-Day Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/NRYLDMR.jpeg" alt="Multi-Day Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Multi-Day Site Visit</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Same route over consecutive days (audits, plant visits). Returned to pickup daily. Corporate · 2–7 days.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">From ₱4,500–₱6,000/day · 5%/8% corporate loyalty</div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
     <div class="card-el service-card reveal p-6 text-center" data-service="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT">
-      <img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Airport Round Trip" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/IZUEKJe.jpeg" alt="Airport Round Trip" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Split-Day Airport Run</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Morning drop-off, return evening pickup (same or next day). 10% off the return trip. No waiting fees.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">Two Dedicated Dispatches · NAIA &amp; Clark</div>
@@ -1628,7 +1628,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           doc.text('Vehicle: '+b.vehicle, 40, y); y+=15;
           doc.text('Route: ' + b.route, 40, y); y+=15;
           
-
           if(b.isSplit){
             doc.text('Trip 1 Departure: '+b.depDate+' @ '+b.depTime+' ('+b.from+' → '+b.to+')', 40, y); y+=15;
             doc.text('Trip 2 Return: '+b.returnDate+' @ '+b.returnTime+' ('+b.to+' → '+b.from+')', 40, y); y+=15;
