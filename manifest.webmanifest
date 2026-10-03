@@ -1,25 +1,15 @@
 {
-  "name": "GoCav Transport — Premium Booking",
+  "name": "GoCav Transport Services",
   "short_name": "GoCav",
-  "description": "Book a GoCav chauffeur for NAIA, Clark, full-day and site visits.",
-  "start_url": "/booking/",
-  "scope": "/booking/",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#14141c",
-  "theme_color": "#14141c",
+  "theme_color": "#d4af37",
   "icons": [
     {
       "src": "https://i.imgur.com/DWfEGWv.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://i.imgur.com/DWfEGWv.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     }
   ]
 }
